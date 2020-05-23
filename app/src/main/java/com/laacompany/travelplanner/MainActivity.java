@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.View;
 import android.widget.Toast;
 
 import com.luseen.spacenavigation.SpaceItem;
@@ -12,8 +13,8 @@ import com.luseen.spacenavigation.SpaceOnClickListener;
 
 public class MainActivity extends AppCompatActivity {
 
-    SpaceNavigationView mSpaceNavigationView;
-
+    private SpaceNavigationView mSpaceNavigationView;
+    private boolean mayClick=true;
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -25,6 +26,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+
+        //NAVIGATION BAR
+
         mSpaceNavigationView = findViewById(R.id.id_main_nav_bar);
         mSpaceNavigationView.initWithSaveInstanceState(savedInstanceState);
         mSpaceNavigationView.addSpaceItem(new SpaceItem("", R.drawable.ic_home_black_24dp));
@@ -32,11 +37,14 @@ public class MainActivity extends AppCompatActivity {
         mSpaceNavigationView.addSpaceItem(new SpaceItem("", R.drawable.ic_perm_contact_calendar_black_24dp));
         mSpaceNavigationView.addSpaceItem(new SpaceItem("", R.drawable.ic_settings_black_24dp));
 
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new HomeFragment()).commit();
+
         mSpaceNavigationView.setSpaceOnClickListener(new SpaceOnClickListener() {
             @Override
             public void onCentreButtonClick() {
-                Toast.makeText(MainActivity.this,"onCentreButtonClick", Toast.LENGTH_SHORT).show();
-                mSpaceNavigationView.setCentreButtonSelectable(true);
+                if(!mayClick) return;
+                mayClick=false;
+                startActivity(PlanActivity.newIntent(MainActivity.this));
             }
 
             @Override
@@ -60,9 +68,17 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onItemReselected(int itemIndex, String itemName) {
-//                Toast.makeText(MainActivity.this, itemIndex + " " + itemName, Toast.LENGTH_SHORT).show();
+
             }
         });
 
+        //NAVIGATION BAR
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mayClick=true;
     }
 }
