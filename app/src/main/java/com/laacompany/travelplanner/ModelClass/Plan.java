@@ -1,4 +1,4 @@
-package com.laacompany.travelplanner;
+package com.laacompany.travelplanner.ModelClass;
 
 public class Plan {
 
