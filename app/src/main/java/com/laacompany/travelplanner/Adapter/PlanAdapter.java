@@ -87,10 +87,10 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
             int departTime = Handle.sPLans.get(i-1).getArrivedTime()+Handle.sPLans.get(i-1).getDuration();
             int travelTime = 0;
             Handle.sPLans.get(i).setArrivedTime(departTime+travelTime);
-//            notifyItemChanged(i);
         }
 
-//        notifyDataSetChanged();
+        setPlans(Handle.sPLans);
+        notifyDataSetChanged();
     }
 
     public class PlanViewHolder extends RecyclerView.ViewHolder implements ItemTouchHelperViewHolder {
