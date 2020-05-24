@@ -1,5 +1,6 @@
-package com.laacompany.travelplanner;
+package com.laacompany.travelplanner.Handle;
 
+import com.laacompany.travelplanner.ModelClass.Destination;
 import com.laacompany.travelplanner.ModelClass.Plan;
 
 import java.util.ArrayList;
@@ -7,6 +8,7 @@ import java.util.ArrayList;
 public class Handle {
 
     public static ArrayList<Plan> sPLans;
+    public static ArrayList<Destination> sDestinations;
 
     public static String getHourFormat(int minutes){
         int hour = minutes/60;

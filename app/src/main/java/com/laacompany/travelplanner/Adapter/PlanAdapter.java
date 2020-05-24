@@ -9,15 +9,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.laacompany.travelplanner.Interface.ItemTouchHelperAdapter;
 import com.laacompany.travelplanner.ModelClass.Plan;
 import com.laacompany.travelplanner.R;
 
 import java.util.ArrayList;
 
-public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder> {
+public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder> implements ItemTouchHelperAdapter {
 
     private Context mContext;
     private ArrayList<Plan> mPlans;
@@ -42,13 +44,22 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
         mPlans = plans;
     }
 
-
-
     @Override
     public int getItemCount() {
         Toast.makeText(mContext,""+mPlans.size(),Toast.LENGTH_SHORT).show();
         return mPlans.size();
     }
+
+    @Override
+    public void onItemMove(int fromPosition, int toPosition) {
+
+    }
+
+    @Override
+    public void onItemDismiss(int position) {
+
+    }
+
 
     public class PlanViewHolder extends RecyclerView.ViewHolder{
 

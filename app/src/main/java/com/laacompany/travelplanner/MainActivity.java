@@ -4,9 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.View;
-import android.widget.Toast;
 
+import com.laacompany.travelplanner.Fragment.CalendarFragment;
+import com.laacompany.travelplanner.Fragment.ExploreFragment;
+import com.laacompany.travelplanner.Fragment.HomeFragment;
+import com.laacompany.travelplanner.Fragment.SettingFragment;
+import com.laacompany.travelplanner.Handle.Handle;
+import com.laacompany.travelplanner.ModelClass.Destination;
 import com.luseen.spacenavigation.SpaceItem;
 import com.luseen.spacenavigation.SpaceNavigationView;
 import com.luseen.spacenavigation.SpaceOnClickListener;
@@ -21,16 +25,28 @@ public class MainActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
+    private void initView(){
+        mSpaceNavigationView = findViewById(R.id.id_main_nav_bar);
+
+
+        //TEMPORARY
+        Handle.sDestinations.add(new Destination("Majapahit", "A", "Indonesia", "https://www.kostjakarta.net/wp-content/uploads/2020/02/Venus-1-scaled.jpg", "https://www.kostjakarta.net/wp-content/uploads/2020/02/Venus-1-scaled.jpg", 3.7F, 1000, 20, 100, 300, 120, 240));
+        Handle.sDestinations.add(new Destination("Majapahit", "B", "Indonesia", "https://www.kostjakarta.net/wp-content/uploads/2020/02/Venus-1-scaled.jpg", "https://www.kostjakarta.net/wp-content/uploads/2020/02/Venus-1-scaled.jpg", 3.7F, 1000, 20, 100, 300, 120, 240));
+        Handle.sDestinations.add(new Destination("Majapahit", "V", "Indonesia", "https://www.kostjakarta.net/wp-content/uploads/2020/02/Venus-1-scaled.jpg", "https://www.kostjakarta.net/wp-content/uploads/2020/02/Venus-1-scaled.jpg", 3.7F, 1000, 20, 100, 300, 120, 240));
+        Handle.sDestinations.add(new Destination("Kuningan", "D", "Indonesia", "https://www.kostjakarta.net/wp-content/uploads/2020/02/Venus-1-scaled.jpg", "https://www.kostjakarta.net/wp-content/uploads/2020/02/Venus-1-scaled.jpg", 3.7F, 1000, 20, 100, 300, 120, 240));
+        Handle.sDestinations.add(new Destination("Kuningan2", "C", "Indonesia", "https://www.kostjakarta.net/wp-content/uploads/2020/02/Venus-1-scaled.jpg", "https://www.kostjakarta.net/wp-content/uploads/2020/02/Venus-1-scaled.jpg", 3.7F, 1000, 20, 100, 300, 120, 240));
+
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
+        initView();
 
         //NAVIGATION BAR
-
-        mSpaceNavigationView = findViewById(R.id.id_main_nav_bar);
         mSpaceNavigationView.initWithSaveInstanceState(savedInstanceState);
         mSpaceNavigationView.addSpaceItem(new SpaceItem("", R.drawable.ic_home_black_24dp));
         mSpaceNavigationView.addSpaceItem(new SpaceItem("", R.drawable.ic_map_black_24dp));
@@ -70,7 +86,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
         //NAVIGATION BAR
 
     }
