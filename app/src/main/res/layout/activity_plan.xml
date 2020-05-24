@@ -1,14 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".PlanActivity">
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Plan"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
 
-</LinearLayout>
+       <GridLayout
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:columnCount="2"
+           android:rowCount="3"
+           android:layout_gravity="center_horizontal">
+
+           <TextView
+               android:text="Event Date"
+               android:layout_marginEnd="30dp" />
+           <Button
+               android:layout_width="150dp"
+               android:text="Select Date"
+               android:onClick="clickDate"/>
+
+           <TextView
+               android:text="Start Time"
+               android:layout_marginEnd="30dp"/>
+           <Button
+               android:layout_width="150dp"
+               android:text="Select Time"
+               android:onClick="clickTime"/>
+
+           <TextView
+               android:text="End Time"
+               android:layout_marginEnd="30dp"/>
+           <TextView
+               android:layout_width="150dp"
+               android:text="End time" />
+
+        </GridLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/id_main_rv_plan_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <ImageButton
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:src="@drawable/ic_add_black_24dp"
+            android:onClick="clickAdd" />
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>
