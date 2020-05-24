@@ -11,6 +11,7 @@ import com.laacompany.travelplanner.Fragment.HomeFragment;
 import com.laacompany.travelplanner.Fragment.SettingFragment;
 import com.laacompany.travelplanner.Handle.Handle;
 import com.laacompany.travelplanner.ModelClass.Destination;
+import com.laacompany.travelplanner.ModelClass.Plan;
 import com.luseen.spacenavigation.SpaceItem;
 import com.luseen.spacenavigation.SpaceNavigationView;
 import com.luseen.spacenavigation.SpaceOnClickListener;
@@ -36,6 +37,10 @@ public class MainActivity extends AppCompatActivity {
         Handle.sDestinations.add(new Destination("Kuningan", "D", "Indonesia", "https://www.kostjakarta.net/wp-content/uploads/2020/02/Venus-1-scaled.jpg", "https://www.kostjakarta.net/wp-content/uploads/2020/02/Venus-1-scaled.jpg", 3.7F, 1000, 20, 100, 300, 120, 240));
         Handle.sDestinations.add(new Destination("Kuningan2", "C", "Indonesia", "https://www.kostjakarta.net/wp-content/uploads/2020/02/Venus-1-scaled.jpg", "https://www.kostjakarta.net/wp-content/uploads/2020/02/Venus-1-scaled.jpg", 3.7F, 1000, 20, 100, 300, 120, 240));
 
+        Handle.sPLans.add(new Plan("Majapahit", "Jalan Menteng", "https://www.kostjakarta.net/wp-content/uploads/2020/02/Venus-1-scaled.jpg", 1020, 90));
+        Handle.sPLans.add(new Plan("Majapahit2", "Jalan Menteng", "https://www.kostjakarta.net/wp-content/uploads/2020/02/Venus-1-scaled.jpg", 1020, 90));
+        Handle.sPLans.add(new Plan("Majapahit3", "Jalan Menteng", "https://www.kostjakarta.net/wp-content/uploads/2020/02/Venus-1-scaled.jpg", 1020, 90));
+
     }
 
 
@@ -44,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Handle.init();
         initView();
 
         //NAVIGATION BAR

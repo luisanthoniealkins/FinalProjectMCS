@@ -10,6 +10,11 @@ public class Handle {
     public static ArrayList<Plan> sPLans;
     public static ArrayList<Destination> sDestinations;
 
+    public static void init(){
+        sPLans = new ArrayList<>();
+        sDestinations = new ArrayList<>();
+    }
+
     public static String getHourFormat(int minutes){
         int hour = minutes/60;
         int minute = minutes%60;

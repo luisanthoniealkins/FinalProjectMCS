@@ -1,4 +1,4 @@
-package com.laacompany.travelplanner.Interface;
+package com.laacompany.travelplanner.InterfaceAndCallback;
 
 /*
  * Copyright (C) 2015 Paul Burke
@@ -28,7 +28,6 @@ import androidx.recyclerview.widget.RecyclerView;
 public interface ItemTouchHelperAdapter {
 
 
-
     /**
      * Called when an item has been dragged far enough to trigger a move. This is called every time
      * an item is shifted, and <strong>not</strong> at the end of a "drop" event.<br/>
@@ -42,7 +41,7 @@ public interface ItemTouchHelperAdapter {
      * @see RecyclerView#getAdapterPositionFor(RecyclerView.ViewHolder)
      * @see RecyclerView.ViewHolder#getAdapterPosition()
      */
-    void onItemMove(int fromPosition, int toPosition);
+    boolean onItemMove(int fromPosition, int toPosition);
 
 
     /**
