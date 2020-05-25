@@ -2,23 +2,34 @@ package com.laacompany.travelplanner.ModelClass;
 
 public class Destination {
 
-    private String name, address, country, previewURL, flagURL;
-    private float rating;
+    private String destination_id, name, address, country, previewURL, flagURL;
+    private float rating, latitude, longitude;
     private int visitor, visitorPerDay, bestTimeStart, bestTimeEnd, openTime, closeTime;
 
-    public Destination(String name, String address, String country, String previewURL, String flagURL, float rating, int visitor, int visitorPerDay, int bestTimeStart, int bestTimeEnd, int openTime, int closeTime) {
+    public Destination(String destination_id, String name, String address, String country, String previewURL, String flagURL, float rating, float latitude, float longitude, int visitor, int visitorPerDay, int bestTimeStart, int bestTimeEnd, int openTime, int closeTime) {
+        this.destination_id = destination_id;
         this.name = name;
         this.address = address;
         this.country = country;
         this.previewURL = previewURL;
         this.flagURL = flagURL;
         this.rating = rating;
+        this.latitude = latitude;
+        this.longitude = longitude;
         this.visitor = visitor;
         this.visitorPerDay = visitorPerDay;
         this.bestTimeStart = bestTimeStart;
         this.bestTimeEnd = bestTimeEnd;
         this.openTime = openTime;
         this.closeTime = closeTime;
+    }
+
+    public String getDestination_id() {
+        return destination_id;
+    }
+
+    public void setDestination_id(String destination_id) {
+        this.destination_id = destination_id;
     }
 
     public String getName() {
@@ -51,6 +62,22 @@ public class Destination {
 
     public void setRating(float rating) {
         this.rating = rating;
+    }
+
+    public float getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(float latitude) {
+        this.latitude = latitude;
+    }
+
+    public float getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(float longitude) {
+        this.longitude = longitude;
     }
 
     public int getVisitor() {

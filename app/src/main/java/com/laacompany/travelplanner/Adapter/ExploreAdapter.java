@@ -1,21 +1,17 @@
 package com.laacompany.travelplanner.Adapter;
 
 import android.content.Context;
-import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.laacompany.travelplanner.Handle;
+import com.laacompany.travelplanner.Handle.Handle;
 import com.laacompany.travelplanner.ModelClass.Destination;
-import com.laacompany.travelplanner.ModelClass.Plan;
 import com.laacompany.travelplanner.R;
 
 import java.util.ArrayList;
