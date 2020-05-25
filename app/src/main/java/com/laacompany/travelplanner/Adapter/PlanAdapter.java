@@ -1,5 +1,6 @@
 package com.laacompany.travelplanner.Adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -30,13 +31,17 @@ import java.util.Collections;
 public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder> implements ItemTouchHelperAdapter {
 
     private Context mContext;
-    private ArrayList<Plan> mPlans;
+    private static ArrayList<Plan> mPlans;
     private final OnStartDragListener mDragStartListener;
+    private Button mBTNStartTime;
+    private TextView mTVEndTime;
 
-    public PlanAdapter(Context context, ArrayList<Plan> plans, OnStartDragListener dragStartListener){
+    public PlanAdapter(Context context, ArrayList<Plan> plans, OnStartDragListener dragStartListener, Button startTime, TextView endTime){
         mContext = context;
         mPlans = plans;
         mDragStartListener = dragStartListener;
+        mBTNStartTime = startTime;
+        mTVEndTime = endTime;
     }
 
     @NonNull
@@ -83,20 +88,31 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
 
     public void refreshData(){
 
-        for(int i = 1; i < Handle.sPLans.size(); i++){
-            int departTime = Handle.sPLans.get(i-1).getArrivedTime()+Handle.sPLans.get(i-1).getDuration();
+        if(mPlans.size() > 0){
+            String startStrings[] = mBTNStartTime.getText().toString().split(":");
+            int minutes = Integer.parseInt(startStrings[0])*60 + Integer.parseInt(startStrings[1]);
+            mPlans.get(0).setArrivedTime(minutes);
+        }
+        for(int i = 1; i < mPlans.size(); i++){
+            int departTime = mPlans.get(i-1).getArrivedTime()+mPlans.get(i-1).getDuration();
             int travelTime = 0;
-            Handle.sPLans.get(i).setArrivedTime(departTime+travelTime);
+            mPlans.get(i).setArrivedTime(departTime+travelTime);
+        }
+        if(mPlans.size() > 0){
+            int minutes = mPlans.get(mPlans.size()-1).getArrivedTime() + mPlans.get(mPlans.size()-1).getDuration();
+            mTVEndTime.setText(Handle.getHourFormat(minutes));
         }
 
-        setPlans(Handle.sPLans);
+        setPlans(mPlans);
         notifyDataSetChanged();
     }
+
+
 
     public class PlanViewHolder extends RecyclerView.ViewHolder implements ItemTouchHelperViewHolder {
 
         private TextView mTVTitle, mTVName, mTVAddress, mTVSummary;
-        private Button mBTNArrivedTime, mBTNDuration;
+        private Button mBTNArrivedTime, mBTNDuration, mBTNDelete;
         private ImageView mIVPreview, mIVHandle;
         private PlanViewHolder holder;
 
@@ -109,13 +125,14 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
             mTVSummary = itemView.findViewById(R.id.id_item_plan_tv_summary);
             mBTNArrivedTime = itemView.findViewById(R.id.id_item_plan_btn_arrived_time);
             mBTNDuration = itemView.findViewById(R.id.id_item_plan_btn_duration);
+            mBTNDelete = itemView.findViewById(R.id.id_item_plan_btn_delete);
             mIVPreview = itemView.findViewById(R.id.id_item_plan_iv_preview);
             mIVHandle = itemView.findViewById(R.id.id_item_plan_iv_handle);
 
             holder = this;
         }
 
-        public void bind(Plan plan, int position){
+        public void bind(Plan plan, final int position){
 
             String title = "Plan " + (position+1);
             String duration = plan.getDuration()+" minutes";
@@ -131,6 +148,14 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
             mTVSummary.setText(summary);
             mBTNArrivedTime.setText(Handle.getHourFormat(plan.getArrivedTime()));
             mBTNDuration.setText(duration);
+
+            mBTNDelete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    PlanAdapter.mPlans.remove(position);
+                    refreshData();
+                }
+            });
 
             mIVHandle.setOnTouchListener(new View.OnTouchListener() {
                 @Override
@@ -148,11 +173,11 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
             itemView.setBackgroundColor(Color.LTGRAY);
         }
 
+        @SuppressLint("ResourceAsColor")
         @Override
         public void onItemClear() {
             refreshData();
-//            Toast.makeText(mContext, Handle.sPLans.size()+"", Toast.LENGTH_SHORT).show();
-            itemView.setBackgroundColor(0);
+            itemView.setBackgroundColor(R.color.colorDefault);
         }
     }
 }
