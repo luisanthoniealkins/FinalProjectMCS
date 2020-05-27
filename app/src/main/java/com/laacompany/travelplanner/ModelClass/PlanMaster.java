@@ -8,14 +8,14 @@ public class PlanMaster {
     private String plan_id,eventTitle;
     private Date eventDate;
     private int timeStart;
-    private float latitude, longitude;
+    private double latitude, longitude;
     private ArrayList<Plan> plans;
 
     public PlanMaster(String plan_id){
         this.plan_id = plan_id;
     }
 
-    public PlanMaster(String plan_id, String eventTitle, Date eventDate, int timeStart, float latitude, float longitude) {
+    public PlanMaster(String plan_id, String eventTitle, Date eventDate, int timeStart, double latitude, double longitude) {
         this.plan_id = plan_id;
         this.eventTitle = eventTitle;
         this.eventDate = eventDate;
@@ -71,19 +71,19 @@ public class PlanMaster {
         this.timeStart = timeStart;
     }
 
-    public float getLatitude() {
+    public double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(float latitude) {
+    public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 
-    public float getLongitude() {
+    public double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(float longitude) {
+    public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
 

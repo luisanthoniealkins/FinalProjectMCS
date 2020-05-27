@@ -6,11 +6,10 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.BitmapFactory;
 
-import android.location.Location;
-import android.location.LocationListener;
 import android.os.Bundle;
-import android.os.PersistableBundle;
+import android.os.Handler;
 import android.util.Log;
+import android.util.Pair;
 import android.view.View;
 import android.widget.Toast;
 
@@ -19,8 +18,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
-import com.mapbox.android.core.location.LocationEngine;
-import com.mapbox.android.core.location.LocationEngineProvider;
+import com.laacompany.travelplanner.Handle.Handle;
 import com.mapbox.android.core.permissions.PermissionsListener;
 import com.mapbox.android.core.permissions.PermissionsManager;
 import com.mapbox.api.directions.v5.models.DirectionsResponse;
@@ -35,7 +33,6 @@ import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 import com.mapbox.mapboxsdk.maps.Style;
-import com.mapbox.mapboxsdk.plugins.locationlayer.LocationLayerPlugin;
 import com.mapbox.mapboxsdk.style.layers.SymbolLayer;
 import com.mapbox.mapboxsdk.style.sources.GeoJsonSource;
 import com.mapbox.services.android.navigation.ui.v5.NavigationLauncher;
@@ -45,7 +42,11 @@ import com.mapbox.services.android.navigation.v5.navigation.NavigationRoute;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -58,13 +59,17 @@ import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.iconImage;
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback, MapboxMap.OnMapClickListener, PermissionsListener {
 
     private MapView mMapView;
-    MapboxMap mMapboxMap;
-    PermissionsManager mPermissionsManager;
-    LocationEngine mLocationEngine;
-    LocationComponent mLocationComponent;
-    Location originLocation;
-    DirectionsRoute currentRoute;
-    NavigationMapRoute mNavigationMapRoute;
+    private MapboxMap mMapboxMap;
+    private PermissionsManager mPermissionsManager;
+    private LocationComponent mLocationComponent;
+    private DirectionsRoute currentRoute;
+    private ArrayList<DirectionsRoute> routelist = new ArrayList<>();
+    private NavigationMapRoute mNavigationMapRoute;
+
+
+    private int currentIndex = -1;
+    private boolean isExit = false;
+    private Point originPoint, destinationPoint;
 
     public static Intent newIntent(Context packageContext){
         return new Intent(packageContext, MapActivity.class);
@@ -79,6 +84,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         mMapView = findViewById(R.id.id_activity_map_map_view);
         mMapView.onCreate(savedInstanceState);
 
+
         mMapView.getMapAsync(this);
     }
 
@@ -86,41 +92,39 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(@NonNull MapboxMap mapboxMap) {
         mMapboxMap = mapboxMap;
-//        new OnMapReadyCallback() {
-//            @Override
-//            public void onMapReady(@NonNull MapboxMap mapboxMap) {
-//
-//                mapboxMap.setStyle(Style.MAPBOX_STREETS, new Style.OnStyleLoaded() {
-//                    @Override
-//                    public void onStyleLoaded(@NonNull Style style) {
-//
-//                        // Map is set up and the style has loaded. Now you can add data or make other map adjustments
-//
-//                    }
-//                });
-//
-//            }
-//        }
-//        mapboxMap.setMinZoomPreference(15);
+
         mMapboxMap.setStyle(Style.MAPBOX_STREETS, new Style.OnStyleLoaded() {
             @Override
             public void onStyleLoaded(@NonNull Style style) {
                 enableLocationComponent(style);
-                addDestinationIconLayout(style);
+                addDestinationIconLayoutStart(style);
+                addDestinationIconLayoutEnd(style);
                 mMapboxMap.addOnMapClickListener(MapActivity.this);
             }
         });
 
     }
 
-    private void addDestinationIconLayout(Style style) {
-        style.addImage("destination-icon-id", BitmapFactory.decodeResource(this.getResources(), R.drawable.mapbox_marker_icon_default));
+    private void addDestinationIconLayoutStart(Style style) {
+        style.addImage("destination-icon-id-start", BitmapFactory.decodeResource(this.getResources(), R.drawable.mapbox_marker_icon_default));
 
-        GeoJsonSource geoJsonSource = new GeoJsonSource("destination-source-id");
+        GeoJsonSource geoJsonSource = new GeoJsonSource("destination-source-id-start");
         style.addSource(geoJsonSource);
 
-        SymbolLayer destinationSymbolLayer = new SymbolLayer("destination-symbol-layer-id", "destination-source-id");
-        destinationSymbolLayer.withProperties(iconImage("destination-icon-id"), iconAllowOverlap(true), iconIgnorePlacement(true));
+        SymbolLayer destinationSymbolLayer = new SymbolLayer("destination-symbol-layer-id-start", "destination-source-id-start");
+        destinationSymbolLayer.withProperties(iconImage("destination-icon-id-start"), iconAllowOverlap(true), iconIgnorePlacement(true));
+
+        style.addLayer(destinationSymbolLayer);
+    }
+
+    private void addDestinationIconLayoutEnd(Style style) {
+        style.addImage("destination-icon-id-end", BitmapFactory.decodeResource(this.getResources(), R.drawable.mapbox_marker_icon_default));
+
+        GeoJsonSource geoJsonSource = new GeoJsonSource("destination-source-id-end");
+        style.addSource(geoJsonSource);
+
+        SymbolLayer destinationSymbolLayer = new SymbolLayer("destination-symbol-layer-id-end", "destination-source-id-end");
+        destinationSymbolLayer.withProperties(iconImage("destination-icon-id-end"), iconAllowOverlap(true), iconIgnorePlacement(true));
 
         style.addLayer(destinationSymbolLayer);
     }
@@ -150,21 +154,70 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     @Override
     public boolean onMapClick(@NonNull LatLng point) {
-
-        Point destinationPoint = Point.fromLngLat(point.getLongitude(), point.getLatitude());
-
         Point originPoint = Point.fromLngLat(mLocationComponent.getLastKnownLocation().getLongitude(), mLocationComponent.getLastKnownLocation().getLatitude());
+        Point destinationPoint = Point.fromLngLat(point.getLongitude(),point.getLatitude());
 
-        GeoJsonSource source = mMapboxMap.getStyle().getSourceAs("destination-source-id");
+        GeoJsonSource sourceStart = mMapboxMap.getStyle().getSourceAs("destination-source-id-start");
+        GeoJsonSource sourceDestination = mMapboxMap.getStyle().getSourceAs("destination-source-id-end");
 
-        if(source != null){
-            source.setGeoJson(Feature.fromGeometry(destinationPoint));
+        if (sourceStart != null && sourceDestination != null){
+            sourceStart.setGeoJson(Feature.fromGeometry(originPoint));
+            sourceDestination.setGeoJson(Feature.fromGeometry(destinationPoint));
         }
 
         getRoute(originPoint, destinationPoint);
 
         return true;
     }
+
+//    private Runnable simulateRoute = new Runnable() {
+//        @Override
+//        public void run() {
+//            Log.d("123", currentIndex + " " + Handle.sCurrentRoutes.size());
+//            if(isExit) return;
+//            if(currentIndex == Handle.sCurrentRoutes.size()){
+//                hideMarker();
+//                mNavigationMapRoute.removeRoute();
+//                currentIndex = -1;
+//            } else {
+//
+//                int idto = (currentIndex+1) % Handle.sCurrentRoutes.size();
+//                Pair<Double,Double> originPair = Handle.sCurrentRoutes.get(currentIndex), destinationPair = Handle.sCurrentRoutes.get(idto);
+//                originPoint = Point.fromLngLat(originPair.second, originPair.first);
+//                destinationPoint = Point.fromLngLat(destinationPair.second, destinationPair.first);
+//
+//                if (routelist.size() == Handle.sCurrentRoutes.size()){
+//                    mNavigationMapRoute.addRoute(routelist.get(currentIndex));
+//                    showMarker();
+//                    new Handler().postDelayed(simulateRoute, 3000);
+//                } else {
+//                    getRoute(originPoint, destinationPoint);
+//                }
+//                currentIndex++;
+//            }
+//        }
+//    };
+
+//    private void showMarker(){
+//        GeoJsonSource sourceStart = mMapboxMap.getStyle().getSourceAs("destination-source-id-start");
+//        GeoJsonSource sourceDestination = mMapboxMap.getStyle().getSourceAs("destination-source-id-end");
+//
+//        if (sourceStart != null && sourceDestination != null){
+//            sourceStart.setGeoJson(Feature.fromGeometry(originPoint));
+//            sourceDestination.setGeoJson(Feature.fromGeometry(destinationPoint));
+//        }
+//    }
+//
+//    private void hideMarker(){
+//        GeoJsonSource sourceStart = mMapboxMap.getStyle().getSourceAs("destination-source-id-start");
+//        GeoJsonSource sourceDestination = mMapboxMap.getStyle().getSourceAs("destination-source-id-end");
+//
+//        if (sourceStart != null && sourceDestination != null){
+//            sourceStart.setGeoJson(Feature.fromGeometry(Point.fromLngLat(0,0)));
+//            sourceDestination.setGeoJson(Feature.fromGeometry(Point.fromLngLat(0,0)));
+//        }
+//    }
+
 
     private void getRoute(Point originPoint, Point destinationPoint) {
         NavigationRoute.builder(this)
@@ -175,8 +228,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 .getRoute(new Callback<DirectionsResponse>() {
                     @Override
                     public void onResponse(Call<DirectionsResponse> call, Response<DirectionsResponse> response) {
+                        if(isExit) return;
                         if(response.body() != null && response.body().routes().size() > 0){
                             currentRoute = response.body().routes().get(0);
+                            Log.d("123", response.body().routes().get(0).toString());
 
                             if(mNavigationMapRoute != null){
                                 mNavigationMapRoute.removeRoute();
@@ -185,8 +240,9 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                             }
 
                             mNavigationMapRoute.addRoute(currentRoute);
-
-
+//                            routelist.add(currentRoute);
+//                            showMarker();
+//                            new Handler().postDelayed(simulateRoute, 1000);
                         }
 
                     }
@@ -212,6 +268,33 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             finish();
         }
 
+    }
+
+    public void clickStartNavigation(View view) {
+        boolean simulateRoute = true;
+        NavigationLauncherOptions options = NavigationLauncherOptions.builder()
+                .directionsRoute(currentRoute)
+                .shouldSimulateRoute(simulateRoute)
+                .build();
+
+        NavigationLauncher.startNavigation(this, options);
+
+    }
+
+    public void clickStartSimulate(View view) {
+//        if(currentIndex == -1){
+//            currentIndex = 0;
+//            new Handler().postDelayed(simulateRoute, 0);
+//        }
+    }
+
+    @Override
+    public void onBackPressed() {
+//        ExecutorService executorService = Executors.newSingleThreadExecutor();
+//        Future longRunningTaskFuture = executorService.submit(simulateRoute);
+//        longRunningTaskFuture.cancel(true);
+        isExit = true;
+        super.onBackPressed();
     }
 
 
@@ -258,15 +341,4 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         mMapView.onDestroy();
     }
 
-
-    public void clickStartNavigation(View view) {
-        boolean simulateRoute = true;
-        NavigationLauncherOptions options = NavigationLauncherOptions.builder()
-                .directionsRoute(currentRoute)
-                .shouldSimulateRoute(simulateRoute)
-                .build();
-
-        NavigationLauncher.startNavigation(this, options);
-
-    }
 }

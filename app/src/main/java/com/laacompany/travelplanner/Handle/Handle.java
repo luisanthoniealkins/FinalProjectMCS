@@ -1,6 +1,7 @@
 package com.laacompany.travelplanner.Handle;
 
 import android.util.Log;
+import android.util.Pair;
 import android.widget.Toast;
 
 import com.laacompany.travelplanner.ModelClass.Destination;
@@ -15,11 +16,13 @@ public class Handle {
 
     public static ArrayList<PlanMaster> sPlanMasters;
     public static ArrayList<Destination> sDestinations;
-    private static int count = 6;
+    public static ArrayList<Pair<Double,Double>> sCurrentRoutes;
+    private static int count = 0;
 
     public static void init(){
         sPlanMasters = new ArrayList<>();
         sDestinations = new ArrayList<>();
+        sCurrentRoutes = new ArrayList<>();
     }
 
     public static String getHourFormat(int minutes){
@@ -47,7 +50,7 @@ public class Handle {
 
 
     public static String generatePlanID(){
-        return "PID_" + (count++);
+        return "PID_" + (++count);
     }
 
     public static Destination getDestination(String destinationID){

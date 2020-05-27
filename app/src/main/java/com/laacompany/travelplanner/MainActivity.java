@@ -2,6 +2,7 @@ package com.laacompany.travelplanner;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 
@@ -35,25 +36,11 @@ public class MainActivity extends AppCompatActivity {
 
 
         //TEMPORARY
-        Handle.sDestinations.add(new Destination("DES_1","Majapahit", "A", "Indonesia", "https://www.kostjakarta.net/wp-content/uploads/2020/02/Venus-1-scaled.jpg", "https://www.kostjakarta.net/wp-content/uploads/2020/02/Venus-1-scaled.jpg", 3.7F, 3.7F, 3.7F,1000, 20, 100, 300, 120, 240));
-        Handle.sDestinations.add(new Destination("DES_2","Majapahit2","B", "Indonesia", "https://www.kostjakarta.net/wp-content/uploads/2020/02/Venus-1-scaled.jpg", "https://www.kostjakarta.net/wp-content/uploads/2020/02/Venus-1-scaled.jpg", 3.7F, 3.7F,3.7F,1000, 20, 100, 300, 120, 240));
-        Handle.sDestinations.add(new Destination("DES_3","Majapahit3", "V", "Indonesia", "https://www.kostjakarta.net/wp-content/uploads/2020/02/Venus-1-scaled.jpg", "https://www.kostjakarta.net/wp-content/uploads/2020/02/Venus-1-scaled.jpg", 3.7F,3.7F,3.7F, 1000, 20, 100, 300, 120, 240));
+        Handle.sDestinations.add(new Destination("DES_1","Majapahit", "A", "Indonesia", "https://www.kostjakarta.net/wp-content/uploads/2020/02/Venus-1-scaled.jpg", "https://www.kostjakarta.net/wp-content/uploads/2020/02/Venus-1-scaled.jpg", 3.7F, 3.5978847638232168, 98.70225800990107,1000, 20, 100, 300, 120, 240));
+        Handle.sDestinations.add(new Destination("DES_2","Majapahit2","B", "Indonesia", "https://www.kostjakarta.net/wp-content/uploads/2020/02/Venus-1-scaled.jpg", "https://www.kostjakarta.net/wp-content/uploads/2020/02/Venus-1-scaled.jpg", 3.7F, 3.5534068821326485,98.70766312658293,1000, 20, 100, 300, 120, 240));
+        Handle.sDestinations.add(new Destination("DES_3","Majapahit3", "V", "Indonesia", "https://www.kostjakarta.net/wp-content/uploads/2020/02/Venus-1-scaled.jpg", "https://www.kostjakarta.net/wp-content/uploads/2020/02/Venus-1-scaled.jpg", 3.7F,3.572893744308871,98.66784175669636, 1000, 20, 100, 300, 120, 240));
         Handle.sDestinations.add(new Destination("DES_4","Kuningan", "D", "Indonesia", "https://www.kostjakarta.net/wp-content/uploads/2020/02/Venus-1-scaled.jpg", "https://www.kostjakarta.net/wp-content/uploads/2020/02/Venus-1-scaled.jpg", 3.7F, 3.7F,3.7F,1000, 20, 100, 300, 120, 240));
         Handle.sDestinations.add(new Destination("DES_5","Kuningan2", "C", "Indonesia", "https://www.kostjakarta.net/wp-content/uploads/2020/02/Venus-1-scaled.jpg", "https://www.kostjakarta.net/wp-content/uploads/2020/02/Venus-1-scaled.jpg", 3.7F, 3.7F,3.7F,1000, 20, 100, 300, 120, 240));
-
-        Handle.sPlanMasters.add(new PlanMaster("PID_0","Holiday#1",new Date(), 200, -1.5555F, -120F));
-        Handle.sPlanMasters.get(0).getPlans().add(new Plan("Majapahit", "Jalan Menteng", "https://www.kostjakarta.net/wp-content/uploads/2020/02/Venus-1-scaled.jpg", 1020, 90));
-
-        Calendar c = Calendar.getInstance(), c1 = Calendar.getInstance(), c2 = Calendar.getInstance();
-        c.set(2020,4,2);
-        c1.set(2020,4,3);
-        c2.set(2020,4,5);
-        Handle.sPlanMasters.add(new PlanMaster("PID_1","Holiday#2",c.getTime(), 200, -1.5555F, -120F));
-        Handle.sPlanMasters.add(new PlanMaster("PID_2","Holiday#3",c1.getTime(), 200, -1.5555F, -120F));
-        Handle.sPlanMasters.add(new PlanMaster("PID_3","Holiday#4",c2.getTime(), 200, -1.5555F, -120F));
-        Handle.sPlanMasters.add(new PlanMaster("PID_4","Holiday#5",c2.getTime(), 200, -1.5555F, -120F));
-        Handle.sPlanMasters.add(new PlanMaster("PID_5","Holiday#6",c2.getTime(), 200, -1.5555F, -120F));
-
     }
 
 
@@ -107,7 +94,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //NAVIGATION BAR
-
     }
 
     @Override

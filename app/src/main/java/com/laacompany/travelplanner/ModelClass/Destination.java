@@ -3,10 +3,10 @@ package com.laacompany.travelplanner.ModelClass;
 public class Destination {
 
     private String destination_id, name, address, country, previewURL, flagURL;
-    private float rating, latitude, longitude;
+    private double rating, latitude, longitude;
     private int visitor, visitorPerDay, bestTimeStart, bestTimeEnd, openTime, closeTime;
 
-    public Destination(String destination_id, String name, String address, String country, String previewURL, String flagURL, float rating, float latitude, float longitude, int visitor, int visitorPerDay, int bestTimeStart, int bestTimeEnd, int openTime, int closeTime) {
+    public Destination(String destination_id, String name, String address, String country, String previewURL, String flagURL, double rating, double latitude, double longitude, int visitor, int visitorPerDay, int bestTimeStart, int bestTimeEnd, int openTime, int closeTime) {
         this.destination_id = destination_id;
         this.name = name;
         this.address = address;
@@ -56,27 +56,27 @@ public class Destination {
         this.country = country;
     }
 
-    public float getRating() {
+    public double getRating() {
         return rating;
     }
 
-    public void setRating(float rating) {
+    public void setRating(double rating) {
         this.rating = rating;
     }
 
-    public float getLatitude() {
+    public double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(float latitude) {
+    public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 
-    public float getLongitude() {
+    public double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(float longitude) {
+    public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
 
