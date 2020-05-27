@@ -13,6 +13,7 @@ import android.nfc.cardemulation.HostNfcFService;
 import android.os.Bundle;
 import android.os.Debug;
 import android.util.Log;
+import android.util.Pair;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -125,7 +126,7 @@ public class PlanActivity extends AppCompatActivity  implements OnStartDragListe
             if(getIntent().hasExtra(EXTRA_DESTINATION_ID)){
                 destinationID = getIntent().getStringExtra(EXTRA_DESTINATION_ID);
                 Destination dest = Handle.getDestination(destinationID);
-                mPlanMaster.getPlans().add(new Plan(dest.getName(), dest.getAddress(), dest.getPreviewURL(), 0, 30));
+                mPlanMaster.getPlans().add(new Plan(dest.getName(), dest.getAddress(), dest.getPreviewURL(), dest.getDestination_id(),0, 30));
             }
 
         } else if (mode == 1){
@@ -173,7 +174,9 @@ public class PlanActivity extends AppCompatActivity  implements OnStartDragListe
 
 
     public void clickAdd(View view) {
-        mPlanMaster.getPlans().add(new Plan("Majapahit", "Jalan Menteng", "https://www.kostjakarta.net/wp-content/uploads/2020/02/Venus-1-scaled.jpg", 1020, 90));
+        mPlanMaster.getPlans().add(new Plan("Majapahit", "Jalan Menteng", "https://www.kostjakarta.net/wp-content/uploads/2020/02/Venus-1-scaled.jpg", "DES_1" ,1020, 90));
+        mPlanMaster.getPlans().add(new Plan("Majapahit2", "Jalan Menteng", "https://www.kostjakarta.net/wp-content/uploads/2020/02/Venus-1-scaled.jpg", "DES_2" ,1020, 90));
+        mPlanMaster.getPlans().add(new Plan("Majapahit3", "Jalan Menteng", "https://www.kostjakarta.net/wp-content/uploads/2020/02/Venus-1-scaled.jpg", "DES_3" ,1020, 90));
 
         planAdapter.setPlans(mPlanMaster.getPlans());
         planAdapter.refreshData();
@@ -279,6 +282,19 @@ public class PlanActivity extends AppCompatActivity  implements OnStartDragListe
     }
 
     public void clickSimulate(View view) {
-        startActivity(MapActivity.newIntent(this));
+        if(mPlanMaster.getPlans().size() > 0){
+            Handle.sCurrentRoutes.clear();
+            for(Plan plan : mPlanMaster.getPlans()){
+                for(Destination destination : Handle.sDestinations){
+                    if(plan.getDestinationId().equals(destination.getDestination_id())){
+                        Handle.sCurrentRoutes.add(Pair.create(destination.getLongitude(),destination.getLatitude()));
+                        break;
+                    }
+                }
+            }
+            startActivity(MapsActivity.newIntent(this));
+        } else {
+            Toast.makeText(this, "Require at least one destinations", Toast.LENGTH_SHORT).show();
+        }
     }
 }

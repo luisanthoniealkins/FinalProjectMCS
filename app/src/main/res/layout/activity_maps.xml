@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:mapbox="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    tools:context=".MapsActivity">
+
+    <LinearLayout
+        android:id="@+id/id_activity_maps_ll_controller"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <Button
+            android:id="@+id/id_activity_maps_btn_start_sim"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Start Simulate"
+            android:onClick="clickStartSimulate"/>
+
+        <Button
+            android:id="@+id/id_activity_maps_btn_start_nav"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Start Navigation"
+            android:onClick="clickStartNavigation"
+            android:layout_marginEnd="10dp"/>
+
+    </LinearLayout>
+
+    <com.mapbox.mapboxsdk.maps.MapView
+        android:id="@+id/id_activity_maps_map_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        mapbox:mapbox_cameraTargetLat="3.572893744308871"
+        mapbox:mapbox_cameraTargetLng="98.66784175669636"
+        mapbox:mapbox_cameraZoom="12.580466"
+        android:layout_above="@id/id_activity_maps_ll_controller"/>
+
+</RelativeLayout>

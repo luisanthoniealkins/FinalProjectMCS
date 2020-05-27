@@ -22,7 +22,7 @@
         <activity android:name=".PlanActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".LoginActivity" />
-        <activity android:name=".MapActivity"/>
+        <activity android:name=".MapsActivity"/>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -32,7 +32,5 @@
         </activity>
 
     </application>
-
-
 
 </manifest>
