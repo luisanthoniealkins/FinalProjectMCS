@@ -65,17 +65,35 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
-        <ImageButton
-            android:layout_height="60dp"
-            android:layout_width="60dp"
-            android:src="@drawable/ic_add_black_24dp"
-            android:onClick="clickAdd" />
-
-        <Button
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Save"
-            android:onClick="clickSave"/>
+            android:padding="8dp">
+
+            <ImageButton
+                android:layout_height="60dp"
+                android:layout_width="60dp"
+                android:src="@drawable/ic_add_black_24dp"
+                android:onClick="clickAdd"
+                android:layout_centerInParent="true"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:text="Save"
+                android:onClick="clickSave"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:text="Simulate"
+                android:onClick="clickSimulate"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"/>
+
+        </RelativeLayout>
 
     </LinearLayout>
 

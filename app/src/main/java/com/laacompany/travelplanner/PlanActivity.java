@@ -28,6 +28,7 @@ import com.laacompany.travelplanner.InterfaceAndCallback.SimpleItemTouchHelperCa
 import com.laacompany.travelplanner.ModelClass.Destination;
 import com.laacompany.travelplanner.ModelClass.Plan;
 import com.laacompany.travelplanner.ModelClass.PlanMaster;
+import com.laacompany.travelplanner.PickerDialog.DialogDuration;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -35,7 +36,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-public class PlanActivity extends AppCompatActivity  implements OnStartDragListener{
+public class PlanActivity extends AppCompatActivity  implements OnStartDragListener, DialogDuration.DurationDialogListener {
 
     private static final String EXTRA_MODE = "mode_extra";
     private static final String EXTRA_PLAN_ID = "plan_id_extra";
@@ -53,7 +54,7 @@ public class PlanActivity extends AppCompatActivity  implements OnStartDragListe
 
     private int mode;
 
-    int debug = 0;
+//    int debug = 0;
 
     public static Intent newIntentDestination(Context packageContext, String destinationId){
         Intent intent = new Intent(packageContext,PlanActivity.class);
@@ -139,13 +140,13 @@ public class PlanActivity extends AppCompatActivity  implements OnStartDragListe
                 }
             }
 
-            for(int i = 0; i < Handle.sPlanMasters.size(); i++){
-                if(Handle.sPlanMasters.get(i).getPlan_id().equals(plan_id)){
-                    debug = i;
-                    Log.d("123",debug+"");
-                    break;
-                }
-            }
+//            for(int i = 0; i < Handle.sPlanMasters.size(); i++){
+//                if(Handle.sPlanMasters.get(i).getPlan_id().equals(plan_id)){
+//                    debug = i;
+//                    Log.d("123",debug+"");
+//                    break;
+//                }
+//            }
 
 
             String date = new SimpleDateFormat("EEEE, dd MMM YYYY").format(mPlanMaster.getEventDate());
@@ -167,15 +168,12 @@ public class PlanActivity extends AppCompatActivity  implements OnStartDragListe
         mItemTouchHelper = new ItemTouchHelper(callback);
         mItemTouchHelper.attachToRecyclerView(mRecyclerView);
 
-
         planAdapter.refreshData();
     }
 
 
     public void clickAdd(View view) {
         mPlanMaster.getPlans().add(new Plan("Majapahit", "Jalan Menteng", "https://www.kostjakarta.net/wp-content/uploads/2020/02/Venus-1-scaled.jpg", 1020, 90));
-
-        Log.d("123", mPlanMaster.getPlans().size() + " " + Handle.sPlanMasters.get(debug).getPlans().size());
 
         planAdapter.setPlans(mPlanMaster.getPlans());
         planAdapter.refreshData();
@@ -236,7 +234,6 @@ public class PlanActivity extends AppCompatActivity  implements OnStartDragListe
         boolean valid = validation();
 
         if(valid) {
-            Log.d("123","masuk");
             if (mode == 0){
                 Handle.sPlanMasters.add(mPlanMaster);
             } else {
@@ -274,4 +271,14 @@ public class PlanActivity extends AppCompatActivity  implements OnStartDragListe
         return valid;
     }
 
+    @Override
+    public void applyTime(int minutes) {
+        mPlanMaster.getPlans().get(PlanAdapter.selectedPos).setDuration(minutes);
+        planAdapter.refreshData();
+//        Toast.makeText(this, Handle.getHourFormat(minutes), Toast.LENGTH_SHORT).show();
+    }
+
+    public void clickSimulate(View view) {
+        startActivity(MapActivity.newIntent(this));
+    }
 }

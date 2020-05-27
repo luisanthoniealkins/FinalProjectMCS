@@ -2,6 +2,7 @@ package com.laacompany.travelplanner.Adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -10,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.laacompany.travelplanner.DestinationDetailActivity;
 import com.laacompany.travelplanner.Handle.Handle;
 import com.laacompany.travelplanner.ModelClass.Destination;
 import com.laacompany.travelplanner.R;
@@ -34,7 +36,7 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.Destinat
 
     @Override
     public void onBindViewHolder(@NonNull DestinationViewHolder holder, int position) {
-        holder.bind(mDestinations.get(position));
+        holder.bind(mDestinations.get(position), position);
     }
 
     public void setDestinations(ArrayList<Destination> destinations){
@@ -48,10 +50,11 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.Destinat
         return mDestinations.size();
     }
 
-    public class DestinationViewHolder extends RecyclerView.ViewHolder{
+    public class DestinationViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         private TextView mTVName, mTVAddress, mTVCountry, mTVRating, mTVVisitor, mTVBestTime, mTVOpenTime;
         private ImageView mIVPreview, mIVFlag;
+        private int position;
 
         public DestinationViewHolder(LayoutInflater inflater, @NonNull ViewGroup parent) {
             super(inflater.inflate(R.layout.item_explore, parent, false));
@@ -66,10 +69,11 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.Destinat
             mIVPreview = itemView.findViewById(R.id.id_item_explore_iv_preview);
             mIVFlag = itemView.findViewById(R.id.id_item_explore_iv_flag);
 
+            itemView.setOnClickListener(this);
         }
 
-        public void bind(Destination destination){
-
+        public void bind(Destination destination, int position){
+            this.position = position;
             String rating = destination.getRating()+" / 10";
             String openTime = Handle.getHourFormat(destination.getOpenTime()) + " - " + Handle.getHourFormat(destination.getCloseTime());
             String bestTime = Handle.getHourFormat(destination.getBestTimeStart()) + " - " + Handle.getHourFormat(destination.getBestTimeEnd());
@@ -92,5 +96,9 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.Destinat
 
         }
 
+        @Override
+        public void onClick(View v) {
+            mContext.startActivity(DestinationDetailActivity.newIntent(mContext, position));
+        }
     }
 }

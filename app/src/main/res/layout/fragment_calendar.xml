@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="80dp"
         android:gravity="center_horizontal">
 
         <com.applandeo.materialcalendarview.CalendarView
@@ -25,8 +25,8 @@
 
         <ImageButton
             android:id="@+id/id_fragment_calendar_btn_add"
-            android:layout_height="60dp"
-            android:layout_width="60dp"
+            android:layout_height="50dp"
+            android:layout_width="50dp"
             android:src="@drawable/ic_add_black_24dp"/>
 
     </LinearLayout>
