@@ -92,13 +92,31 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Arrived Time"/>
+                        android:text="Travel Time"/>
 
-                    <Button
-                        android:id="@+id/id_item_plan_btn_arrived_time"
+                    <TextView
+                        android:id="@+id/id_item_plan_tv_travel_time"
                         android:layout_width="120dp"
                         android:layout_height="wrap_content"/>
                 </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Arrived Time"/>
+
+                    <TextView
+                        android:id="@+id/id_item_plan_tv_arrived_time"
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

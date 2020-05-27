@@ -54,7 +54,7 @@ public class CalendarPlanAdapter extends RecyclerView.Adapter<CalendarPlanAdapte
 
     public class CalendarPlanViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-        private TextView mTVTitle, mTVStartTime;
+        private TextView mTVTitle, mTVStartTime, mTVTotalDes;
         private PlanMaster mPlanMaster;
 
         public CalendarPlanViewHolder(LayoutInflater inflater, @NonNull ViewGroup parent) {
@@ -62,6 +62,7 @@ public class CalendarPlanAdapter extends RecyclerView.Adapter<CalendarPlanAdapte
 
             mTVTitle = itemView.findViewById(R.id.id_item_calendar_plan_master_tv_title);
             mTVStartTime = itemView.findViewById(R.id.id_item_calendar_plan_master_tv_start_time);
+            mTVTotalDes = itemView.findViewById(R.id.id_item_calendar_plan_master_tv_total_destination);
 
             itemView.setOnClickListener(this);
 
@@ -73,7 +74,7 @@ public class CalendarPlanAdapter extends RecyclerView.Adapter<CalendarPlanAdapte
 
             mTVTitle.setText(planMaster.getEventTitle());
             mTVStartTime.setText(startTime);
-
+            mTVTotalDes.setText(String.valueOf(mPlanMaster.getPlans().size()));
         }
 
         @Override
