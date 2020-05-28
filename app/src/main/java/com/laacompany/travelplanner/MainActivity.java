@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuInflater;
 
 import com.laacompany.travelplanner.Fragment.CalendarFragment;
 import com.laacompany.travelplanner.Fragment.ExploreFragment;
@@ -27,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
     private boolean mayClick=true;
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+//        MenuInflater inflater = getMenuInflater();
+//        inflater.inflate(R.menu.menu_search, menu);
 
         return super.onCreateOptionsMenu(menu);
     }

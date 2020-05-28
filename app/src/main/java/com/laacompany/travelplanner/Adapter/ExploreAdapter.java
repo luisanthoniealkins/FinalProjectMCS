@@ -4,6 +4,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,15 +19,19 @@ import com.laacompany.travelplanner.ModelClass.Destination;
 import com.laacompany.travelplanner.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.DestinationViewHolder> {
+public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.DestinationViewHolder> implements Filterable {
 
     private Context mContext;
     private ArrayList<Destination> mDestinations;
+    private ArrayList<Destination> mDestinationsFull;
 
     public ExploreAdapter(Context context, ArrayList<Destination> destinations){
         mContext = context;
         mDestinations = destinations;
+        mDestinationsFull = new ArrayList<>(destinations);
+
     }
 
     @NonNull
@@ -49,6 +55,39 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.Destinat
     public int getItemCount() {
         return mDestinations.size();
     }
+
+    @Override
+    public Filter getFilter() {
+        return exampleFilter;
+    }
+
+    private Filter exampleFilter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            List<Destination> filteredList = new ArrayList<>();
+
+            if (constraint == null || constraint.length() == 0) {
+                filteredList.addAll(mDestinationsFull);
+            } else {
+                String filterPattern = constraint.toString().toLowerCase().trim();
+                for (Destination destination : mDestinations) {
+                    if (destination.getName().toLowerCase().contains(filterPattern)) {
+                        filteredList.add(destination);
+                    }
+                }
+            }
+            FilterResults results = new FilterResults();
+            results.values = filteredList;
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            mDestinations.clear();
+            mDestinations.addAll((List) results.values );
+            notifyDataSetChanged();
+        }
+    };
 
     public class DestinationViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
