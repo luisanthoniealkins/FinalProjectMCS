@@ -1,6 +1,5 @@
 package com.laacompany.travelplanner;
 
-package com.laacompany.pert10;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -30,7 +29,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MainActivity extends AppCompatActivity {
+public class VollyTest extends AppCompatActivity {
 
     private TextView mTVName, mTVContent, mTVCurhatList;
 
@@ -42,9 +41,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mTVName = findViewById(R.id.id_name);
-        mTVContent = findViewById(R.id.id_content);
-        mTVCurhatList = findViewById(R.id.id_curhatlist);
     }
 
     public void clickSend(View view) {
