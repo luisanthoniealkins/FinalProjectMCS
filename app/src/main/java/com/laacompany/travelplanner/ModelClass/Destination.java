@@ -2,34 +2,41 @@ package com.laacompany.travelplanner.ModelClass;
 
 public class Destination {
 
-    private String destination_id, name, address, country, previewURL, flagURL;
+    private String destinationId, name, address, country, previewUrl, flagUrl;
     private double rating, latitude, longitude;
-    private int visitor, visitorPerDay, bestTimeStart, bestTimeEnd, openTime, closeTime;
+    private int totalVisitor, visitorEachDay, bestTimeStart, bestTimeEnd, openTime, closeTime;
 
-    public Destination(String destination_id, String name, String address, String country, String previewURL, String flagURL, double rating, double latitude, double longitude, int visitor, int visitorPerDay, int bestTimeStart, int bestTimeEnd, int openTime, int closeTime) {
-        this.destination_id = destination_id;
+    public Destination(String destinationId){
+        this.destinationId = destinationId;
+        name = address = country = previewUrl = flagUrl = "";
+        rating = latitude = longitude = 0;
+        totalVisitor = visitorEachDay = bestTimeStart = bestTimeEnd = openTime = closeTime = 0;
+    }
+
+    public Destination(String destinationId, String name, String address, String country, String previewUrl, String flagUrl, double rating, double latitude, double longitude, int totalVisitor, int visitorEachDay, int bestTimeStart, int bestTimeEnd, int openTime, int closeTime) {
+        this.destinationId = destinationId;
         this.name = name;
         this.address = address;
         this.country = country;
-        this.previewURL = previewURL;
-        this.flagURL = flagURL;
+        this.previewUrl = previewUrl;
+        this.flagUrl = flagUrl;
         this.rating = rating;
         this.latitude = latitude;
         this.longitude = longitude;
-        this.visitor = visitor;
-        this.visitorPerDay = visitorPerDay;
+        this.totalVisitor = totalVisitor;
+        this.visitorEachDay = visitorEachDay;
         this.bestTimeStart = bestTimeStart;
         this.bestTimeEnd = bestTimeEnd;
         this.openTime = openTime;
         this.closeTime = closeTime;
     }
 
-    public String getDestination_id() {
-        return destination_id;
+    public String getDestinationId() {
+        return destinationId;
     }
 
-    public void setDestination_id(String destination_id) {
-        this.destination_id = destination_id;
+    public void setDestinationId(String destinationId) {
+        this.destinationId = destinationId;
     }
 
     public String getName() {
@@ -80,12 +87,12 @@ public class Destination {
         this.longitude = longitude;
     }
 
-    public int getVisitor() {
-        return visitor;
+    public int getTotalVisitor() {
+        return totalVisitor;
     }
 
-    public void setVisitor(int visitor) {
-        this.visitor = visitor;
+    public void setTotalVisitor(int totalVisitor) {
+        this.totalVisitor = totalVisitor;
     }
 
     public int getBestTimeStart() {
@@ -104,12 +111,12 @@ public class Destination {
         this.bestTimeEnd = bestTimeEnd;
     }
 
-    public int getVisitorPerDay() {
-        return visitorPerDay;
+    public int getVisitorEachDay() {
+        return visitorEachDay;
     }
 
-    public void setVisitorPerDay(int visitorPerDay) {
-        this.visitorPerDay = visitorPerDay;
+    public void setVisitorEachDay(int visitorEachDay) {
+        this.visitorEachDay = visitorEachDay;
     }
 
     public int getOpenTime() {
@@ -128,19 +135,19 @@ public class Destination {
         this.closeTime = closeTime;
     }
 
-    public String getPreviewURL() {
-        return previewURL;
+    public String getPreviewUrl() {
+        return previewUrl;
     }
 
-    public void setPreviewURL(String previewURL) {
-        this.previewURL = previewURL;
+    public void setPreviewUrl(String previewUrl) {
+        this.previewUrl = previewUrl;
     }
 
-    public String getFlagURL() {
-        return flagURL;
+    public String getFlagUrl() {
+        return flagUrl;
     }
 
-    public void setFlagURL(String flagURL) {
-        this.flagURL = flagURL;
+    public void setFlagUrl(String flagUrl) {
+        this.flagUrl = flagUrl;
     }
 }

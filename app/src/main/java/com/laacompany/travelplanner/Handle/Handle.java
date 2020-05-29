@@ -1,15 +1,14 @@
 package com.laacompany.travelplanner.Handle;
 
-import android.util.Log;
 import android.util.Pair;
-import android.widget.Toast;
 
 import com.laacompany.travelplanner.ModelClass.Destination;
-import com.laacompany.travelplanner.ModelClass.Plan;
 import com.laacompany.travelplanner.ModelClass.PlanMaster;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 
 public class Handle {
@@ -18,6 +17,12 @@ public class Handle {
     public static ArrayList<Destination> sDestinations;
     public static ArrayList<Pair<Double,Double>> sCurrentRoutes;
     private static int count = 0;
+    private static Comparator<Destination> sDestinationComparator = new Comparator<Destination>() {
+        @Override
+        public int compare(Destination o1, Destination o2) {
+            return o1.getDestinationId().compareTo(o2.getDestinationId());
+        }
+    };
 
     public static void init(){
         sPlanMasters = new ArrayList<>();
@@ -54,10 +59,8 @@ public class Handle {
     }
 
     public static Destination getDestination(String destinationID){
-        for(Destination destination : sDestinations){
-            if(destination.getDestination_id().equals(destinationID)) return destination;
-        }
-        return null;
+        int index = Collections.binarySearch(sDestinations, new Destination(destinationID), sDestinationComparator);
+        return sDestinations.get(index);
     }
 
     public static Destination getDestination(int index){

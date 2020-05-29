@@ -25,9 +25,13 @@ import com.laacompany.travelplanner.R;
 
 public class DialogDuration extends AppCompatDialogFragment {
 
-    private EditText mEditText;
     private TimePicker mTimePicker;
     private DurationDialogListener listener;
+    private int minutes;
+
+    public DialogDuration(int minutes){
+        this.minutes = minutes;
+    }
 
     @NonNull
     @Override
@@ -55,6 +59,9 @@ public class DialogDuration extends AppCompatDialogFragment {
 
         mTimePicker = view.findViewById(R.id.id_dialog_duration_time_picker);
         mTimePicker.setIs24HourView(true);
+        mTimePicker.setHour(minutes/60);
+        mTimePicker.setMinute(minutes%60);
+
         return builder.create();
     }
 

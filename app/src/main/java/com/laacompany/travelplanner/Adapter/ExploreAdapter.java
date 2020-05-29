@@ -1,9 +1,13 @@
 package com.laacompany.travelplanner.Adapter;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,18 +18,23 @@ import com.bumptech.glide.Glide;
 import com.laacompany.travelplanner.DestinationDetailActivity;
 import com.laacompany.travelplanner.Handle.Handle;
 import com.laacompany.travelplanner.ModelClass.Destination;
+import com.laacompany.travelplanner.PlanActivity;
 import com.laacompany.travelplanner.R;
+import com.laacompany.travelplanner.SearchActivity;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.DestinationViewHolder> {
+public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.DestinationViewHolder> implements Filterable {
 
     private Context mContext;
-    private ArrayList<Destination> mDestinations;
+    private ArrayList<Destination> mDestinations, mDestinationsFull;
+    private boolean searching;
 
-    public ExploreAdapter(Context context, ArrayList<Destination> destinations){
+    public ExploreAdapter(Context context, ArrayList<Destination> destinations, boolean searching){
         mContext = context;
-        mDestinations = destinations;
+        mDestinations = mDestinationsFull = destinations;
+        this.searching = searching;
     }
 
     @NonNull
@@ -50,11 +59,45 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.Destinat
         return mDestinations.size();
     }
 
+    @Override
+    public Filter getFilter() {
+        return exampleFilter;
+    }
+
+    private Filter exampleFilter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            List<Destination> filteredList = new ArrayList<>();
+
+            if (constraint == null || constraint.length() == 0) {
+                filteredList.addAll(mDestinationsFull);
+            } else {
+                String filterPattern = constraint.toString().toLowerCase().trim();
+                for (Destination destination : mDestinations) {
+                    if (destination.getName().toLowerCase().contains(filterPattern)) {
+                        filteredList.add(destination);
+                    }
+                }
+            }
+            FilterResults results = new FilterResults();
+            results.values = filteredList;
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            mDestinations.clear();
+            mDestinations.addAll((List) results.values );
+
+            notifyDataSetChanged();
+        }
+    };
+
     public class DestinationViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         private TextView mTVName, mTVAddress, mTVCountry, mTVRating, mTVVisitor, mTVBestTime, mTVOpenTime;
         private ImageView mIVPreview, mIVFlag;
-        private int position;
+        private String mDestinationID;
 
         public DestinationViewHolder(LayoutInflater inflater, @NonNull ViewGroup parent) {
             super(inflater.inflate(R.layout.item_explore, parent, false));
@@ -73,7 +116,7 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.Destinat
         }
 
         public void bind(Destination destination, int position){
-            this.position = position;
+            mDestinationID = destination.getDestinationId();
             String rating = destination.getRating()+" / 10";
             String openTime = Handle.getHourFormat(destination.getOpenTime()) + " - " + Handle.getHourFormat(destination.getCloseTime());
             String bestTime = Handle.getHourFormat(destination.getBestTimeStart()) + " - " + Handle.getHourFormat(destination.getBestTimeEnd());
@@ -82,23 +125,30 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.Destinat
             mTVAddress.setText(destination.getAddress());
             mTVCountry.setText(destination.getCountry());
             mTVRating.setText(rating);
-            mTVVisitor.setText(String.valueOf(destination.getVisitor()));
+            mTVVisitor.setText(String.valueOf(destination.getTotalVisitor()));
             mTVOpenTime.setText(openTime);
             mTVBestTime.setText(bestTime);
 
             Glide.with(mContext)
-                    .load(destination.getPreviewURL())
+                    .load(destination.getPreviewUrl())
                     .into(mIVPreview);
 
             Glide.with(mContext)
-                    .load(destination.getFlagURL())
+                    .load(destination.getFlagUrl())
                     .into(mIVFlag);
 
         }
 
         @Override
         public void onClick(View v) {
-            mContext.startActivity(DestinationDetailActivity.newIntent(mContext, position));
+            if (searching){
+                Intent returnIntent = new Intent();
+                returnIntent.putExtra(PlanActivity.EXTRA_RESULT_DESTINATION_ID,mDestinationID);
+                ((SearchActivity)mContext).setResult(Activity.RESULT_OK,returnIntent);
+                ((SearchActivity)mContext).finish();
+            } else {
+                mContext.startActivity(DestinationDetailActivity.newIntent(mContext, mDestinationID));
+            }
         }
     }
 }

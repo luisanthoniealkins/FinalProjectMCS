@@ -48,8 +48,8 @@
                 android:text="Majapahit"
                 android:textSize="25sp"/>
 
-            <ImageView
-                android:id="@+id/id_item_plan_iv_edit"
+            <ImageButton
+                android:id="@+id/id_item_plan_ibtn_search"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:src="@drawable/ic_map_black_24dp" />

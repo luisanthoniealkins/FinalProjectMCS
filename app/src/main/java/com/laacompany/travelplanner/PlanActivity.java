@@ -1,18 +1,17 @@
 package com.laacompany.travelplanner;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.nfc.cardemulation.HostNfcFService;
 import android.os.Bundle;
-import android.os.Debug;
-import android.util.Log;
 import android.util.Pair;
 import android.view.View;
 import android.widget.Button;
@@ -43,6 +42,8 @@ public class PlanActivity extends AppCompatActivity  implements OnStartDragListe
     private static final String EXTRA_PLAN_ID = "plan_id_extra";
     private static final String EXTRA_DATE = "date_extra";
     private static final String EXTRA_DESTINATION_ID = "destination_id_extra";
+    public static final int REQUEST_CODE_SEARCH = 1;
+    public static final String EXTRA_RESULT_DESTINATION_ID = "result_destination_id_extra";
 
     private EditText mEDTTitle;
     private Button mBTNDate, mBTNStartTime;
@@ -126,13 +127,13 @@ public class PlanActivity extends AppCompatActivity  implements OnStartDragListe
             if(getIntent().hasExtra(EXTRA_DESTINATION_ID)){
                 destinationID = getIntent().getStringExtra(EXTRA_DESTINATION_ID);
                 Destination dest = Handle.getDestination(destinationID);
-                mPlanMaster.getPlans().add(new Plan(dest.getName(), dest.getAddress(), dest.getPreviewURL(), dest.getDestination_id(),0, 30));
+                mPlanMaster.getPlans().add(new Plan( dest.getDestinationId(),dest.getName(), dest.getAddress(), dest.getPreviewUrl(),0, 30));
             }
 
         } else if (mode == 1){
             String plan_id = getIntent().getStringExtra(EXTRA_PLAN_ID);
             for(PlanMaster planMaster : Handle.sPlanMasters){
-                if(planMaster.getPlan_id().equals(plan_id)){
+                if(planMaster.getMasterPlanId().equals(plan_id)){
                     mPlanMaster = new PlanMaster();
                     mPlanMaster.setPlanMaster(planMaster);
                     ArrayList<Plan> plans = new ArrayList<>(mPlanMaster.getPlans());
@@ -160,9 +161,10 @@ public class PlanActivity extends AppCompatActivity  implements OnStartDragListe
         }
 
 
+
         mRecyclerView.setNestedScrollingEnabled(false);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        planAdapter = new PlanAdapter(this, mPlanMaster.getPlans(), this, mBTNStartTime, mTVEndTime);
+        planAdapter = new PlanAdapter(this, mPlanMaster.getPlans(), this, mBTNStartTime, mTVEndTime, mPlanMaster.getLatitude(), mPlanMaster.getLongitude());
         mRecyclerView.setAdapter(planAdapter);
 
         ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(planAdapter);
@@ -174,9 +176,9 @@ public class PlanActivity extends AppCompatActivity  implements OnStartDragListe
 
 
     public void clickAdd(View view) {
-        mPlanMaster.getPlans().add(new Plan("Majapahit", "Jalan Menteng", "https://www.kostjakarta.net/wp-content/uploads/2020/02/Venus-1-scaled.jpg", "DES_1" ,1020, 90));
-        mPlanMaster.getPlans().add(new Plan("Majapahit2", "Jalan Menteng", "https://www.kostjakarta.net/wp-content/uploads/2020/02/Venus-1-scaled.jpg", "DES_2" ,1020, 90));
-        mPlanMaster.getPlans().add(new Plan("Majapahit3", "Jalan Menteng", "https://www.kostjakarta.net/wp-content/uploads/2020/02/Venus-1-scaled.jpg", "DES_3" ,1020, 90));
+        mPlanMaster.getPlans().add(new Plan("DES_1" ,"Majapahit", "Jalan Menteng", "https://www.kostjakarta.net/wp-content/uploads/2020/02/Venus-1-scaled.jpg", 1020, 90));
+        mPlanMaster.getPlans().add(new Plan("DES_2" ,"Majapahit2", "Jalan Menteng", "https://www.kostjakarta.net/wp-content/uploads/2020/02/Venus-1-scaled.jpg", 1020, 90));
+        mPlanMaster.getPlans().add(new Plan("DES_3" ,"Majapahit3", "Jalan Menteng", "https://www.kostjakarta.net/wp-content/uploads/2020/02/Venus-1-scaled.jpg", 1020, 90));
 
         planAdapter.setPlans(mPlanMaster.getPlans());
         planAdapter.refreshData();
@@ -241,7 +243,7 @@ public class PlanActivity extends AppCompatActivity  implements OnStartDragListe
                 Handle.sPlanMasters.add(mPlanMaster);
             } else {
                 for(int i = 0; i < Handle.sPlanMasters.size(); i++){
-                    if(Handle.sPlanMasters.get(i).getPlan_id().equals(mPlanMaster.getPlan_id())){
+                    if(Handle.sPlanMasters.get(i).getMasterPlanId().equals(mPlanMaster.getMasterPlanId())){
                         Handle.sPlanMasters.get(i).setPlanMaster(mPlanMaster);
                         break;
                     }
@@ -286,7 +288,7 @@ public class PlanActivity extends AppCompatActivity  implements OnStartDragListe
             Handle.sCurrentRoutes.clear();
             for(Plan plan : mPlanMaster.getPlans()){
                 for(Destination destination : Handle.sDestinations){
-                    if(plan.getDestinationId().equals(destination.getDestination_id())){
+                    if(plan.getDestinationId().equals(destination.getDestinationId())){
                         Handle.sCurrentRoutes.add(Pair.create(destination.getLongitude(),destination.getLatitude()));
                         break;
                     }
@@ -295,6 +297,27 @@ public class PlanActivity extends AppCompatActivity  implements OnStartDragListe
             startActivity(MapsActivity.newIntent(this));
         } else {
             Toast.makeText(this, "Require at least one destinations", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == REQUEST_CODE_SEARCH){
+            if(resultCode == Activity.RESULT_OK){
+                String destinationId = data.getStringExtra(EXTRA_RESULT_DESTINATION_ID);
+                Destination destination = Handle.getDestination(destinationId);
+
+                mPlanMaster.getPlans().get(PlanAdapter.selectedPos).setDestinationId(destinationId);
+                mPlanMaster.getPlans().get(PlanAdapter.selectedPos).setName(destination.getName());
+                mPlanMaster.getPlans().get(PlanAdapter.selectedPos).setAddress(destination.getAddress());
+                mPlanMaster.getPlans().get(PlanAdapter.selectedPos).setPreviewUrl(destination.getPreviewUrl());
+                planAdapter.notifyDataSetChanged();
+
+            } else if (resultCode == Activity.RESULT_CANCELED){
+
+            }
         }
     }
 }
