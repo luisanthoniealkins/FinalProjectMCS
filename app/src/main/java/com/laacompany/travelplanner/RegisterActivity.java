@@ -15,7 +15,6 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import com.laacompany.travelplanner.Storage.DataStorage;
 import com.laacompany.travelplanner.Storage.RegisterData;
 
 import java.util.Calendar;
@@ -24,11 +23,11 @@ import static com.laacompany.travelplanner.Storage.DataStorage.registerData;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    public static EditText etUname,etPass,etConfPass,etPnum,birthDate;
-    public static Button btnBack,btnRegister;
-    public static RadioGroup rdGroup;
-    public static RadioButton rdButton;
-    public static CheckBox checkBox;
+    public static EditText mEDTUsername, mEDTPassword, mEDTConfirmPassword, mEDTPhone, mEDTbirthDate;
+    public static Button mBTNBack, mBTNRegister;
+    public static RadioGroup mRGGroup;
+    public static RadioButton mRBButton;
+    public static CheckBox mCBCheckBox;
     public static DatePickerDialog dpdialog;
 
     public static Intent newIntent(Context packageContext){
@@ -42,7 +41,7 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
         init();
 
-        birthDate.setOnClickListener(new View.OnClickListener() {
+        mEDTbirthDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final Calendar c = Calendar.getInstance();
@@ -53,14 +52,14 @@ public class RegisterActivity extends AppCompatActivity {
                 dpdialog = new DatePickerDialog(RegisterActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        birthDate.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+                        mEDTbirthDate.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
                     }
                 }, mYear, mMonth, mDay);
                 dpdialog.show();
             }
         });
 
-        btnRegister.setOnClickListener(new View.OnClickListener() {
+        mBTNRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String uname,pass,cfpass,pnum,birthdate,gender;
@@ -68,17 +67,17 @@ public class RegisterActivity extends AppCompatActivity {
                 String regUname = "(?=.*[0-9])(?=.*[a-zA-Z]).{3,25}";
                 //Contain 1 lowercase , 1 upper case , 1 digit
                 String regPass = "(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{6,}";
-                uname = etUname.getText().toString();
-                pass = etPass.getText().toString();
-                cfpass = etConfPass.getText().toString();
-                pnum = etPnum.getText().toString();
-                birthdate = birthDate.getText().toString();
-                int getRadioValue = rdGroup.getCheckedRadioButtonId();
-                rdButton = findViewById(getRadioValue);
+                uname = mEDTUsername.getText().toString();
+                pass = mEDTPassword.getText().toString();
+                cfpass = mEDTConfirmPassword.getText().toString();
+                pnum = mEDTPhone.getText().toString();
+                birthdate = mEDTbirthDate.getText().toString();
+                int getRadioValue = mRGGroup.getCheckedRadioButtonId();
+                mRBButton = findViewById(getRadioValue);
 
                 if(uname.trim().equals("") || pass.trim().equals("") || cfpass.trim().equals("") || pnum.trim().equals("")
                         || birthdate.trim().equals("")){
-                    Toast.makeText(RegisterActivity.this,"Please fill all coloumn",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this,"Please fill all column",Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if(uname.length() < 3){
@@ -117,16 +116,16 @@ public class RegisterActivity extends AppCompatActivity {
                 }
 
                 //radiobutton
-                if(rdGroup.getCheckedRadioButtonId() == -1){
+                if(mRGGroup.getCheckedRadioButtonId() == -1){
                     Toast.makeText(RegisterActivity.this,"Please choose your gender",Toast.LENGTH_SHORT).show();
                     return;
                 }
                 //checkbox
-                if(!checkBox.isChecked()){
+                if(!mCBCheckBox.isChecked()){
                     Toast.makeText(RegisterActivity.this,"Please fill the checkbox",Toast.LENGTH_SHORT).show();
                     return;
                 }
-                gender = rdButton.getText().toString();
+                gender = mRBButton.getText().toString();
 
 
                 //Toast Go here and insert data
@@ -137,14 +136,14 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     void init(){
-        etUname = findViewById(R.id.etUname);
-        etPass = findViewById(R.id.etPass);
-        etConfPass = findViewById(R.id.etConfPass);
-        etPnum = findViewById(R.id.etPnum);
-        birthDate = findViewById(R.id.birthDate);
-        btnBack = findViewById(R.id.btnBack);
-        btnRegister = findViewById(R.id.btnRegister);
-        rdGroup = findViewById(R.id.rdGroup);
-        checkBox = findViewById(R.id.checkBox);
+        mEDTUsername = findViewById(R.id.id_activity_register_edt_username);
+        mEDTPassword = findViewById(R.id.id_activity_register_edt_password);
+        mEDTConfirmPassword = findViewById(R.id.id_activity_register_edt_confirmation_password);
+        mEDTPhone = findViewById(R.id.id_activity_register_edt_phone);
+        mEDTbirthDate = findViewById(R.id.id_activity_register_edt_birthDate);
+        mBTNBack = findViewById(R.id.id_activity_register_btn_back);
+        mBTNRegister = findViewById(R.id.id_activity_register_btn_register);
+        mRGGroup = findViewById(R.id.id_activity_register_rd_rdGroup);
+        mCBCheckBox = findViewById(R.id.id_activity_register_cb_cbox);
     }
 }

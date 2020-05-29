@@ -1,42 +1,39 @@
 package com.laacompany.travelplanner.Storage;
 
 public class RegisterData {
-    public String uname,pass,pnumb,gender,bdate;
+    public String username,password,phone,gender,bdate;
 
-    public RegisterData() {
 
-    }
-
-    public RegisterData(String uname, String pass, String pnumb, String gender, String bdate) {
-        this.uname = uname;
-        this.pass = pass;
-        this.pnumb = pnumb;
+    public RegisterData(String username, String password, String phone, String gender, String bdate) {
+        this.username = username;
+        this.password = password;
+        this.phone = phone;
         this.gender = gender;
         this.bdate = bdate;
     }
 
-    public String getUname() {
-        return uname;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUname(String uname) {
-        this.uname = uname;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getPass() {
-        return pass;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPass(String pass) {
-        this.pass = pass;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public String getPnumb() {
-        return pnumb;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setPnumb(String pnumb) {
-        this.pnumb = pnumb;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getGender() {

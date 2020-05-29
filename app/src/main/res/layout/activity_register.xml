@@ -7,7 +7,7 @@
     tools:context=".RegisterActivity">
 
     <EditText
-        android:id="@+id/etUname"
+        android:id="@+id/id_activity_register_edt_username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -21,7 +21,7 @@
         app:layout_constraintVertical_bias="0.077" />
 
     <EditText
-        android:id="@+id/etPass"
+        android:id="@+id/id_activity_register_edt_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -31,11 +31,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.141"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etUname"
+        app:layout_constraintTop_toBottomOf="@+id/id_activity_register_edt_username"
         app:layout_constraintVertical_bias="0.045" />
 
     <EditText
-        android:id="@+id/etConfPass"
+        android:id="@+id/id_activity_register_edt_confirmation_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -45,11 +45,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.141"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etPass"
+        app:layout_constraintTop_toBottomOf="@+id/id_activity_register_edt_password"
         app:layout_constraintVertical_bias="0.048" />
 
     <EditText
-        android:id="@+id/etPnum"
+        android:id="@+id/id_activity_register_edt_phone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -59,34 +59,34 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.141"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etConfPass"
+        app:layout_constraintTop_toBottomOf="@+id/id_activity_register_edt_confirmation_password"
         app:layout_constraintVertical_bias="0.053" />
 
     <RadioGroup
-        android:id="@+id/rdGroup"
+        android:id="@+id/id_activity_register_rd_rdGroup"
         android:layout_width="205dp"
         android:layout_height="56dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etPnum"
+        app:layout_constraintTop_toBottomOf="@+id/id_activity_register_edt_phone"
         app:layout_constraintVertical_bias="0.079"
         tools:layout_editor_absoluteX="27dp">
 
         <RadioButton
-            android:id="@+id/radMale"
+            android:id="@+id/id_activity_register_rd_rdMale"
             android:layout_width="78dp"
             android:layout_height="wrap_content"
             android:text="Male" />
 
         <RadioButton
-            android:id="@+id/radFemale"
+            android:id="@+id/id_activity_register_rd_rdFemale"
             android:layout_width="91dp"
             android:layout_height="wrap_content"
             android:text="Female" />
     </RadioGroup>
 
     <EditText
-        android:id="@+id/birthDate"
+        android:id="@+id/id_activity_register_edt_birthDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -96,11 +96,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.136"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rdGroup"
+        app:layout_constraintTop_toBottomOf="@+id/id_activity_register_rd_rdGroup"
         app:layout_constraintVertical_bias="0.095" />
 
     <CheckBox
-        android:id="@+id/checkBox"
+        android:id="@+id/id_activity_register_cb_cbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="I agree to all term and condition."
@@ -108,11 +108,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.161"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/birthDate"
+        app:layout_constraintTop_toBottomOf="@+id/id_activity_register_edt_birthDate"
         app:layout_constraintVertical_bias="0.115" />
 
     <Button
-        android:id="@+id/btnBack"
+        android:id="@+id/id_activity_register_btn_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Back"
@@ -120,11 +120,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.201"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkBox"
+        app:layout_constraintTop_toBottomOf="@+id/id_activity_register_cb_cbox"
         app:layout_constraintVertical_bias="0.386" />
 
     <Button
-        android:id="@+id/btnRegister"
+        android:id="@+id/id_activity_register_btn_register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Register"
@@ -132,7 +132,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.628"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkBox"
+        app:layout_constraintTop_toBottomOf="@+id/id_activity_register_cb_cbox"
         app:layout_constraintVertical_bias="0.386" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
