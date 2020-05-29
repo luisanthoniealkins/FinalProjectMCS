@@ -211,7 +211,7 @@ public class MapsActivity extends AppCompatActivity implements PermissionsListen
     public void clickStartSimulate(View view) {
 
         destinationPoints.clear();
-//        destinationPoints.add(Point.fromLngLat(mLocationComponent.getLastKnownLocation().getLongitude(), mLocationComponent.getLastKnownLocation().getLatitude()));
+        destinationPoints.add(Point.fromLngLat(mLocationComponent.getLastKnownLocation().getLongitude(), mLocationComponent.getLastKnownLocation().getLatitude()));
         for(int i = 0; i < Handle.sCurrentRoutes.size(); i++){
             destinationPoints.add(Point.fromLngLat(Handle.sCurrentRoutes.get(i).first, Handle.sCurrentRoutes.get(i).second));
         }
@@ -233,7 +233,7 @@ public class MapsActivity extends AppCompatActivity implements PermissionsListen
         }
 
         getRoute(destinationPoints.get(0),destinationPoints.get(1));
-        addDestinationIconLayoutStart(mMapboxMap.getStyle(),0);
+//        addDestinationIconLayoutStart(mMapboxMap.getStyle(),0);
     }
 
     public void clickStartNavigation(View view) {
