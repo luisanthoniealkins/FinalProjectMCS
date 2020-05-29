@@ -54,6 +54,7 @@ public class ExploreFragment extends Fragment {
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         exploreAdapter = new ExploreAdapter(getActivity(), Handle.sDestinations, false);
+
         mRecyclerView.setAdapter(exploreAdapter);
 
         return v;
