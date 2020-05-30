@@ -1,14 +1,10 @@
 package com.laacompany.travelplanner.Fragment;
 
-import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,10 +22,8 @@ import com.laacompany.travelplanner.ModelClass.PlanMaster;
 import com.laacompany.travelplanner.PlanActivity;
 import com.laacompany.travelplanner.R;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 public class CalendarFragment extends Fragment {
@@ -67,7 +61,7 @@ public class CalendarFragment extends Fragment {
             @Override
             public void onDayClick(EventDay eventDay) {
                 mDatePick = eventDay.getCalendar().getTimeInMillis();
-                CalendarPlanAdapter calendarPlanAdapter = new CalendarPlanAdapter(getActivity(), Handle.getCurrentPlanMasters(eventDay.getCalendar().getTime()));
+                CalendarPlanAdapter calendarPlanAdapter = new CalendarPlanAdapter(getActivity(), Handle.getCurrentDatePlanMasters(eventDay.getCalendar().getTime()));
                 mRecyclerView.setAdapter(calendarPlanAdapter);
                 mIBTNAdd.setVisibility(View.VISIBLE);
             }
