@@ -15,11 +15,11 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import com.laacompany.travelplanner.Storage.RegisterData;
+//import com.laacompany.travelplanner.Storage.RegisterData;
 
 import java.util.Calendar;
 
-import static com.laacompany.travelplanner.Storage.DataStorage.registerData;
+//import static com.laacompany.travelplanner.Storage.DataStorage.registerData;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -129,7 +129,7 @@ public class RegisterActivity extends AppCompatActivity {
 
 
                 //Toast Go here and insert data
-                registerData.add(new RegisterData(uname,pass,pnum,gender,birthdate));
+//                registerData.add(new RegisterData(uname,pass,pnum,gender,birthdate));
             }
         });
 
