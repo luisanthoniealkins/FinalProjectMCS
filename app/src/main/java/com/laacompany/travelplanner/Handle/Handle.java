@@ -17,12 +17,7 @@ public class Handle {
     public static ArrayList<Destination> sDestinations;
     public static ArrayList<Pair<Double,Double>> sCurrentRoutes;
     private static int count = 0;
-    private static Comparator<Destination> sDestinationComparator = new Comparator<Destination>() {
-        @Override
-        public int compare(Destination o1, Destination o2) {
-            return o1.getDestinationId().compareTo(o2.getDestinationId());
-        }
-    };
+    private static Comparator<Destination> sDestinationComparator = (o1, o2) -> o1.getDestinationId().compareTo(o2.getDestinationId());
 
     public static void init(){
         sPlanMasters = new ArrayList<>();
@@ -36,7 +31,7 @@ public class Handle {
         return ((hour>9)? hour : "0"+hour) + ":" + ((minute>9)? minute : "0"+minute);
     }
 
-    public static ArrayList<PlanMaster> getCurrentPlanMasters(Date date){
+    public static ArrayList<PlanMaster> getCurrentDatePlanMasters(Date date){
 
         ArrayList<PlanMaster> currentPlanMasters = new ArrayList<>();
         Calendar cPM = Calendar.getInstance();

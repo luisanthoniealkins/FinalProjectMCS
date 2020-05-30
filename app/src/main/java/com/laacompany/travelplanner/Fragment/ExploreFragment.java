@@ -70,26 +70,26 @@ public class ExploreFragment extends Fragment {
         SearchView searchView = new SearchView(getActivity());
         searchItem.setActionView(searchView);
 
-            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-                @Override
-                public boolean onQueryTextSubmit(String query) {
-                    return false;
-                }
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
 
-                @Override
-                public boolean onQueryTextChange(String newText) {
-                    exploreAdapter.getFilter().filter(newText);
-                    return true;
-                }
-            });
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                exploreAdapter.getFilter().filter(newText);
+                return true;
+            }
+        });
 
 
-            searchView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(mContext, "Hello", Toast.LENGTH_SHORT).show();
-                }
-            });
+        searchView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(mContext, "Hello", Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 }
