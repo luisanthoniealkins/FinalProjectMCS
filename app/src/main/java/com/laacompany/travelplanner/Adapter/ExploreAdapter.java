@@ -35,6 +35,7 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.Destinat
         mContext = context;
         mDestinations = mDestinationsFull = destinations;
         this.searching = searching;
+
     }
 
     @NonNull
@@ -88,7 +89,6 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.Destinat
         protected void publishResults(CharSequence constraint, FilterResults results) {
             mDestinations.clear();
             mDestinations.addAll((List) results.values );
-
             notifyDataSetChanged();
         }
     };
