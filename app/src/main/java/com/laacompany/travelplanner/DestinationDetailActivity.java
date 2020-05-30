@@ -4,31 +4,44 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.MediaDescrambler;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.laacompany.travelplanner.Handle.Handle;
 import com.laacompany.travelplanner.ModelClass.Destination;
 import com.laacompany.travelplanner.PickerDialog.DialogDuration;
 
 public class DestinationDetailActivity extends AppCompatActivity implements DialogDuration.DurationDialogListener {
 
-    private static final String EXTRA_POS = "position_extra";
+    private static final String EXTRA_DESTINATION_ID = "destination_id_extra";
 
-    private TextView mTVName;
+    private TextView mTVName, mTVRating, mTVAddress, mTVCountry, mTVVisitorDaily, mTVVisitorTotal, mTVOpenTime, mTVBestTime;
+    private ImageView mIVPreview, mIVFlag;
 
     private Destination mDestination;
 
-    public static Intent newIntent(Context packageContext, int position){
+    public static Intent newIntent(Context packageContext, String destinationId){
         Intent intent = new Intent(packageContext, DestinationDetailActivity.class);
-        intent.putExtra(EXTRA_POS, position);
+        intent.putExtra(EXTRA_DESTINATION_ID, destinationId);
         return intent;
     }
 
     private void initView(){
         mTVName = findViewById(R.id.id_activity_detaildes_tv_name);
+        mTVRating = findViewById(R.id.id_activity_detaildes_tv_rating);
+        mTVAddress = findViewById(R.id.id_activity_detaildes_tv_address);
+        mTVCountry = findViewById(R.id.id_activity_detaildes_tv_country);
+        mTVVisitorDaily = findViewById(R.id.id_activity_detaildes_tv_visitor_daily);
+        mTVVisitorTotal = findViewById(R.id.id_activity_detaildes_visitor_total);
+        mTVOpenTime = findViewById(R.id.id_activity_detaildes_tv_open_time);
+        mTVBestTime = findViewById(R.id.id_activity_detaildes_tv_best_time);
+        mIVPreview = findViewById(R.id.id_activity_detaildes_iv_preview_url);
+        mIVFlag = findViewById(R.id.id_activity_detaildes_iv_flag_url);
     }
 
     @Override
@@ -38,18 +51,34 @@ public class DestinationDetailActivity extends AppCompatActivity implements Dial
 
         initView();
 
-        int index = getIntent().getIntExtra(EXTRA_POS,0);
+        String destId = getIntent().getStringExtra(EXTRA_DESTINATION_ID);
+        mDestination = Handle.getDestination(destId);
 
-        mDestination = Handle.getDestination(index);
+        String rating = String.format("%.1f / 10.0 ", mDestination.getRating());
+        String openTime = Handle.getHourFormat(mDestination.getOpenTime()) + " - " + Handle.getHourFormat(mDestination.getCloseTime());
+        String bestTime = Handle.getHourFormat(mDestination.getBestTimeStart()) + " - " + Handle.getHourFormat(mDestination.getBestTimeEnd());
 
         mTVName.setText(mDestination.getName());
+        mTVRating.setText(rating);
+        mTVAddress.setText(mDestination.getAddress());
+        mTVCountry.setText(mDestination.getCountry());
+        mTVVisitorDaily.setText(String.valueOf(mDestination.getVisitorEachDay()));
+        mTVVisitorTotal.setText(String.valueOf(mDestination.getTotalVisitor()));
+        mTVOpenTime.setText(openTime);
+        mTVBestTime.setText(bestTime);
+
+        Glide.with(this)
+                .load(mDestination.getPreviewUrl())
+                .into(mIVPreview);
+
+        Glide.with(this)
+                .load(mDestination.getFlagUrl())
+                .into(mIVFlag);
     }
 
 
     public void clickPlan(View view) {
-//        DialogDuration dialogDuration = new DialogDuration();
-//        dialogDuration.show(getSupportFragmentManager(), "duration dialog");
-        startActivity(PlanActivity.newIntentDestination(this, mDestination.getDestination_id()));
+        startActivity(PlanActivity.newIntentDestination(this, mDestination.getDestinationId()));
     }
 
     @Override

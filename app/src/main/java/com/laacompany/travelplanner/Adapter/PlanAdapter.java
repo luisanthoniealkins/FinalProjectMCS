@@ -1,7 +1,6 @@
 package com.laacompany.travelplanner.Adapter;
 
 import android.annotation.SuppressLint;
-import android.app.TimePickerDialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -9,47 +8,52 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.TimePicker;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.MotionEventCompat;
-import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.laacompany.travelplanner.DestinationDetailActivity;
 import com.laacompany.travelplanner.Handle.Handle;
 import com.laacompany.travelplanner.InterfaceAndCallback.ItemTouchHelperAdapter;
 import com.laacompany.travelplanner.InterfaceAndCallback.ItemTouchHelperViewHolder;
 import com.laacompany.travelplanner.InterfaceAndCallback.OnStartDragListener;
-import com.laacompany.travelplanner.MainActivity;
 import com.laacompany.travelplanner.ModelClass.Plan;
 import com.laacompany.travelplanner.PickerDialog.DialogDuration;
 import com.laacompany.travelplanner.PlanActivity;
 import com.laacompany.travelplanner.R;
+import com.laacompany.travelplanner.SearchActivity;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
 public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder> implements ItemTouchHelperAdapter {
 
+    //HARAM
+    public static int selectedPos;
+
+
     private Context mContext;
     private static ArrayList<Plan> mPlans;
-    public static int selectedPos;
     private final OnStartDragListener mDragStartListener;
     private Button mBTNStartTime;
     private TextView mTVEndTime;
+    private double startLatitude, startLongitude;
 
 
-    public PlanAdapter(Context context, ArrayList<Plan> plans, OnStartDragListener dragStartListener, Button startTime, TextView endTime){
+    public PlanAdapter(Context context, ArrayList<Plan> plans, OnStartDragListener dragStartListener, Button startTime, TextView endTime, double startLatitude, double startLongitude){
         mContext = context;
         mPlans = plans;
         mDragStartListener = dragStartListener;
         mBTNStartTime = startTime;
         mTVEndTime = endTime;
+        this.startLatitude = startLatitude;
+        this.startLongitude = startLongitude;
     }
 
     @NonNull
@@ -129,12 +133,14 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
         notifyDataSetChanged();
     }
 
-    public class PlanViewHolder extends RecyclerView.ViewHolder implements ItemTouchHelperViewHolder {
+    public class PlanViewHolder extends RecyclerView.ViewHolder implements ItemTouchHelperViewHolder, View.OnClickListener {
 
         private TextView mTVTitle, mTVName, mTVAddress, mTVTravelTime,mTVArrivedTime, mTVSummary;
         private Button mBTNDuration, mBTNDelete;
         private ImageView mIVPreview, mIVHandle;
+        private ImageButton mIBTNSearch;
         private PlanViewHolder holder;
+        private String destinationId;
 
         public PlanViewHolder(LayoutInflater inflater, @NonNull ViewGroup parent) {
             super(inflater.inflate(R.layout.item_plan, parent, false));
@@ -149,32 +155,35 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
             mBTNDelete = itemView.findViewById(R.id.id_item_plan_btn_delete);
             mIVPreview = itemView.findViewById(R.id.id_item_plan_iv_preview);
             mIVHandle = itemView.findViewById(R.id.id_item_plan_iv_handle);
+            mIBTNSearch = itemView.findViewById(R.id.id_item_plan_ibtn_search);
 
             holder = this;
+            itemView.setOnClickListener(this);
         }
 
         public void bind(Plan plan){
-
+            destinationId = plan.getDestinationId();
             String title = "Plan " + (getAdapterPosition()+1);
             String duration = plan.getDuration()+" minutes";
             String summary = Handle.getHourFormat(plan.getArrivedTime()) + " - " + Handle.getHourFormat(plan.getArrivedTime()+plan.getDuration());
 
             Glide.with(mContext)
-                    .load(plan.getImage_URL())
+                    .load(plan.getPreviewUrl())
                     .into(mIVPreview);
 
             mTVTitle.setText(title);
             mTVName.setText(plan.getName());
             mTVAddress.setText(plan.getAddress());
             mTVSummary.setText(summary);
-            mBTNStartTime.setText(Handle.getHourFormat(plan.getArrivedTime()));
+            mTVTravelTime.setText(String.valueOf(0));
+            mTVArrivedTime.setText(Handle.getHourFormat(plan.getArrivedTime()));
             mBTNDuration.setText(duration);
 
 
             mBTNDuration.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    DialogDuration dialogDuration = new DialogDuration();
+                    DialogDuration dialogDuration = new DialogDuration(plan.getDuration());
                     dialogDuration.show(((AppCompatActivity)mContext).getSupportFragmentManager(), "duration dialog");
                     selectedPos = getAdapterPosition();
                 }
@@ -198,7 +207,13 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
                 }
             });
 
-
+            mIBTNSearch.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ((PlanActivity)mContext).startActivityForResult(SearchActivity.newIntent(mContext, startLatitude, startLongitude), PlanActivity.REQUEST_CODE_SEARCH);
+                    selectedPos = getAdapterPosition();
+                }
+            });
         }
 
         @Override
@@ -211,6 +226,11 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
         public void onItemClear() {
             refreshData();
             itemView.setBackgroundColor(R.color.colorDefault);
+        }
+
+        @Override
+        public void onClick(View v) {
+            mContext.startActivity(DestinationDetailActivity.newIntent(mContext, destinationId));
         }
     }
 }

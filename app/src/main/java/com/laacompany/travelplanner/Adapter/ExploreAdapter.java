@@ -1,6 +1,8 @@
 package com.laacompany.travelplanner.Adapter;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +18,9 @@ import com.bumptech.glide.Glide;
 import com.laacompany.travelplanner.DestinationDetailActivity;
 import com.laacompany.travelplanner.Handle.Handle;
 import com.laacompany.travelplanner.ModelClass.Destination;
+import com.laacompany.travelplanner.PlanActivity;
 import com.laacompany.travelplanner.R;
+import com.laacompany.travelplanner.SearchActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,13 +28,13 @@ import java.util.List;
 public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.DestinationViewHolder> implements Filterable {
 
     private Context mContext;
-    private ArrayList<Destination> mDestinations;
-    private ArrayList<Destination> mDestinationsFull;
+    private ArrayList<Destination> mDestinations, mDestinationsFull;
+    private boolean searching;
 
-    public ExploreAdapter(Context context, ArrayList<Destination> destinations){
+    public ExploreAdapter(Context context, ArrayList<Destination> destinations, boolean searching){
         mContext = context;
-        mDestinations = destinations;
-        mDestinationsFull = new ArrayList<>(destinations);
+        mDestinations = mDestinationsFull = destinations;
+        this.searching = searching;
 
     }
 
@@ -93,7 +97,7 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.Destinat
 
         private TextView mTVName, mTVAddress, mTVCountry, mTVRating, mTVVisitor, mTVBestTime, mTVOpenTime;
         private ImageView mIVPreview, mIVFlag;
-        private int position;
+        private String mDestinationID;
 
         public DestinationViewHolder(LayoutInflater inflater, @NonNull ViewGroup parent) {
             super(inflater.inflate(R.layout.item_explore, parent, false));
@@ -112,7 +116,7 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.Destinat
         }
 
         public void bind(Destination destination, int position){
-            this.position = position;
+            mDestinationID = destination.getDestinationId();
             String rating = destination.getRating()+" / 10";
             String openTime = Handle.getHourFormat(destination.getOpenTime()) + " - " + Handle.getHourFormat(destination.getCloseTime());
             String bestTime = Handle.getHourFormat(destination.getBestTimeStart()) + " - " + Handle.getHourFormat(destination.getBestTimeEnd());
@@ -121,23 +125,30 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.Destinat
             mTVAddress.setText(destination.getAddress());
             mTVCountry.setText(destination.getCountry());
             mTVRating.setText(rating);
-            mTVVisitor.setText(String.valueOf(destination.getVisitor()));
+            mTVVisitor.setText(String.valueOf(destination.getTotalVisitor()));
             mTVOpenTime.setText(openTime);
             mTVBestTime.setText(bestTime);
 
             Glide.with(mContext)
-                    .load(destination.getPreviewURL())
+                    .load(destination.getPreviewUrl())
                     .into(mIVPreview);
 
             Glide.with(mContext)
-                    .load(destination.getFlagURL())
+                    .load(destination.getFlagUrl())
                     .into(mIVFlag);
 
         }
 
         @Override
         public void onClick(View v) {
-            mContext.startActivity(DestinationDetailActivity.newIntent(mContext, position));
+            if (searching){
+                Intent returnIntent = new Intent();
+                returnIntent.putExtra(PlanActivity.EXTRA_RESULT_DESTINATION_ID,mDestinationID);
+                ((SearchActivity)mContext).setResult(Activity.RESULT_OK,returnIntent);
+                ((SearchActivity)mContext).finish();
+            } else {
+                mContext.startActivity(DestinationDetailActivity.newIntent(mContext, mDestinationID));
+            }
         }
     }
 }

@@ -53,7 +53,8 @@ public class ExploreFragment extends Fragment {
         setHasOptionsMenu(true);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        exploreAdapter = new ExploreAdapter(getActivity(), Handle.sDestinations);
+        exploreAdapter = new ExploreAdapter(getActivity(), Handle.sDestinations, false);
+
         mRecyclerView.setAdapter(exploreAdapter);
 
         return v;

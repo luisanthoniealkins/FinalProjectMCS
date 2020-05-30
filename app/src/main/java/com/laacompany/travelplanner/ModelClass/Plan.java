@@ -2,14 +2,14 @@ package com.laacompany.travelplanner.ModelClass;
 
 public class Plan {
 
-    private String name, address, image_URL, destinationId;
+    private String destinationId, name, address, previewUrl;
     private int arrivedTime, duration;
 
-    public Plan(String name, String address, String image_URL, String destinationId, int arrivedTime, int duration) {
+    public Plan(String destinationId, String name, String address, String previewUrl, int arrivedTime, int duration) {
+        this.destinationId = destinationId;
         this.name = name;
         this.address = address;
-        this.image_URL = image_URL;
-        this.destinationId = destinationId;
+        this.previewUrl = previewUrl;
         this.arrivedTime = arrivedTime;
         this.duration = duration;
     }
@@ -30,12 +30,12 @@ public class Plan {
         this.address = address;
     }
 
-    public String getImage_URL() {
-        return image_URL;
+    public String getPreviewUrl() {
+        return previewUrl;
     }
 
-    public void setImage_URL(String image_URL) {
-        this.image_URL = image_URL;
+    public void setPreviewUrl(String previewUrl) {
+        this.previewUrl = previewUrl;
     }
 
     public String getDestinationId() {
