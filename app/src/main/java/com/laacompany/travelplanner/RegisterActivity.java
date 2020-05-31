@@ -22,12 +22,13 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.laacompany.travelplanner.Storage.RegisterData;
 
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 import java.util.Objects;
 
-import static com.laacompany.travelplanner.Storage.DataStorage.registerData;
+//import static com.laacompany.travelplanner.Storage.DataStorage.registerData;
 
 public class RegisterActivity extends AppCompatActivity {
 
