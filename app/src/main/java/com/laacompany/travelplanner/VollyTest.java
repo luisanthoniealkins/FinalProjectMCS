@@ -52,16 +52,16 @@ public class VollyTest extends AppCompatActivity {
             return;
         }
 
-
-
-        RequestQueue queue = Volley.newRequestQueue(this);
-
 //            final JSONObject jsonBody = new JSONObject();
 //
 //            jsonBody.put("name", name);
 //            jsonBody.put("curhat", curhatan);
 //
 //            final String mRequestBody = jsonBody.toString();
+
+
+        RequestQueue queue = Volley.newRequestQueue(this);
+
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_POST, new Response.Listener<String>() {
             @Override

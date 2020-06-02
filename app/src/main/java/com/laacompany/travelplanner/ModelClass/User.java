@@ -7,6 +7,10 @@ public class User {
     private String userId, username, password, phone, email, gender;
     private Date dateOfBirth;
 
+    public User(){
+
+    }
+
     public User(String userId, String username, String password, String phone, String email, String gender, Date dateOfBirth) {
         this.userId = userId;
         this.username = username;
