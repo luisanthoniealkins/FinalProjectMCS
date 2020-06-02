@@ -2,16 +2,27 @@ package com.laacompany.travelplanner;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.laacompany.travelplanner.Fragment.CalendarFragment;
 import com.laacompany.travelplanner.Fragment.ExploreFragment;
 import com.laacompany.travelplanner.Fragment.HomeFragment;
 import com.laacompany.travelplanner.Fragment.SettingFragment;
 import com.laacompany.travelplanner.Handle.Handle;
+import com.laacompany.travelplanner.Handle.VolleyHandle;
 import com.laacompany.travelplanner.ModelClass.Destination;
 import com.laacompany.travelplanner.ModelClass.Plan;
 import com.laacompany.travelplanner.ModelClass.PlanMaster;
@@ -21,11 +32,18 @@ import com.luseen.spacenavigation.SpaceOnClickListener;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
     private SpaceNavigationView mSpaceNavigationView;
     private boolean mayClick=true;
+
+    public static Intent newIntent(Context packageContext){
+        return new Intent(packageContext, MainActivity.class);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 //        MenuInflater inflater = getMenuInflater();
@@ -37,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
     private void initView(){
         mSpaceNavigationView = findViewById(R.id.id_main_nav_bar);
 
-
+        Handle.sPlanMasters.add(new PlanMaster("MP001", "Trip to Singapore", new Date(), 20, 15,23));
         //TEMPORARY
         Handle.sDestinations.add(new Destination("DES_1","Majapahit", "A", "Indonesia", "https://www.kostjakarta.net/wp-content/uploads/2020/02/Venus-1-scaled.jpg", "https://www.kostjakarta.net/wp-content/uploads/2020/02/Venus-1-scaled.jpg", 3.7F, 3.5978847638232168, 98.70225800990107,1000, 20, 100, 300, 120, 240));
         Handle.sDestinations.add(new Destination("DES_2","Majapahit2","B", "Indonesia", "https://www.kostjakarta.net/wp-content/uploads/2020/02/Venus-1-scaled.jpg", "https://www.kostjakarta.net/wp-content/uploads/2020/02/Venus-1-scaled.jpg", 3.7F, 3.5534068821326485,98.70766312658293,1000, 20, 100, 300, 120, 240));
@@ -52,8 +70,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Handle.init();
+        Handle.init(this);
         initView();
+
+//        VolleyHandle.addNewUser("123123123");
+        VolleyHandle.customUpdate();
 
         //NAVIGATION BAR
         mSpaceNavigationView.initWithSaveInstanceState(savedInstanceState);

@@ -320,4 +320,7 @@ public class PlanActivity extends AppCompatActivity  implements OnStartDragListe
             }
         }
     }
+
+    public void clickDeleteMasterPlan(View view) {
+    }
 }

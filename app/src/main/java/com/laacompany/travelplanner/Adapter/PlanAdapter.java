@@ -136,9 +136,9 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
     public class PlanViewHolder extends RecyclerView.ViewHolder implements ItemTouchHelperViewHolder, View.OnClickListener {
 
         private TextView mTVTitle, mTVName, mTVAddress, mTVTravelTime,mTVArrivedTime, mTVSummary;
-        private Button mBTNDuration, mBTNDelete;
+        private Button mBTNDuration;
         private ImageView mIVPreview, mIVHandle;
-        private ImageButton mIBTNSearch;
+        private ImageButton mIBTNSearch, mIBTNDelete;
         private PlanViewHolder holder;
         private String destinationId;
 
@@ -152,7 +152,7 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
             mTVTravelTime = itemView.findViewById(R.id.id_item_plan_tv_travel_time);
             mTVArrivedTime = itemView.findViewById(R.id.id_item_plan_tv_arrived_time);
             mBTNDuration = itemView.findViewById(R.id.id_item_plan_btn_duration);
-            mBTNDelete = itemView.findViewById(R.id.id_item_plan_btn_delete);
+            mIBTNDelete = itemView.findViewById(R.id.id_item_plan_ibtn_delete);
             mIVPreview = itemView.findViewById(R.id.id_item_plan_iv_preview);
             mIVHandle = itemView.findViewById(R.id.id_item_plan_iv_handle);
             mIBTNSearch = itemView.findViewById(R.id.id_item_plan_ibtn_search);
@@ -163,7 +163,7 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
 
         public void bind(Plan plan){
             destinationId = plan.getDestinationId();
-            String title = "Plan " + (getAdapterPosition()+1);
+            String title = "Plan " + (getAdapterPosition()+1) + " summary : ";
             String duration = plan.getDuration()+" minutes";
             String summary = Handle.getHourFormat(plan.getArrivedTime()) + " - " + Handle.getHourFormat(plan.getArrivedTime()+plan.getDuration());
 
@@ -189,7 +189,7 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
                 }
             });
 
-            mBTNDelete.setOnClickListener(new View.OnClickListener() {
+            mIBTNDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     PlanAdapter.mPlans.remove(getAdapterPosition());
@@ -218,14 +218,14 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
 
         @Override
         public void onItemSelected() {
-            itemView.setBackgroundColor(Color.LTGRAY);
+//            itemView.setBackgroundColor(Color.LTGRAY);
         }
 
         @SuppressLint("ResourceAsColor")
         @Override
         public void onItemClear() {
             refreshData();
-            itemView.setBackgroundColor(R.color.colorDefault);
+//            itemView.setBackgroundColor(R.color.colorDefault);
         }
 
         @Override

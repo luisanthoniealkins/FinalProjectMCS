@@ -1,5 +1,6 @@
 package com.laacompany.travelplanner.Handle;
 
+import android.content.Context;
 import android.util.Pair;
 
 import com.laacompany.travelplanner.ModelClass.Destination;
@@ -19,10 +20,11 @@ public class Handle {
     private static int count = 0;
     private static Comparator<Destination> sDestinationComparator = (o1, o2) -> o1.getDestinationId().compareTo(o2.getDestinationId());
 
-    public static void init(){
+    public static void init(Context context){
         sPlanMasters = new ArrayList<>();
         sDestinations = new ArrayList<>();
         sCurrentRoutes = new ArrayList<>();
+        VolleyHandle.init(context);
     }
 
     public static String getHourFormat(int minutes){
