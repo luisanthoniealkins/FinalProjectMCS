@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">AturinAja</string>
     <string name="access_token">sk.eyJ1IjoibHVpc2FudGhvbmllYWxraW5zIiwiYSI6ImNrYW94cjB1NTAwY28yenBhNXozc2g0NG4ifQ.7jXpQvUDL7JI7sgKWCDNWw</string>
+
+    <string name="internet_error">Make sure you have internet connection, Please retry again</string>
+    <string name="share_subject">Share Planning</string>
+    <string name="share_using">Send with</string>
 </resources>

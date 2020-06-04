@@ -1,11 +1,17 @@
 package com.laacompany.travelplanner.Handle;
 
 import android.content.Context;
+import android.util.Log;
 import android.util.Pair;
 
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
 import com.laacompany.travelplanner.ModelClass.Destination;
 import com.laacompany.travelplanner.ModelClass.PlanMaster;
+import com.laacompany.travelplanner.ModelClass.User;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -14,16 +20,22 @@ import java.util.Date;
 
 public class Handle {
 
+    public static boolean isExit;
+    public static User sCurrentUser;
     public static ArrayList<PlanMaster> sPlanMasters;
     public static ArrayList<Destination> sDestinations;
     public static ArrayList<Pair<Double,Double>> sCurrentRoutes;
+    public static FirebaseAuth mAuth;
     private static int count = 0;
     private static Comparator<Destination> sDestinationComparator = (o1, o2) -> o1.getDestinationId().compareTo(o2.getDestinationId());
 
     public static void init(Context context){
+        isExit = false;
+        sCurrentUser = new User();
         sPlanMasters = new ArrayList<>();
         sDestinations = new ArrayList<>();
         sCurrentRoutes = new ArrayList<>();
+        mAuth = FirebaseAuth.getInstance();
         VolleyHandle.init(context);
     }
 
@@ -31,6 +43,20 @@ public class Handle {
         int hour = minutes/60;
         int minute = minutes%60;
         return ((hour>9)? hour : "0"+hour) + ":" + ((minute>9)? minute : "0"+minute);
+    }
+
+    public static String getDateToString(Date date){
+        return  new SimpleDateFormat("EEEE, dd MMM YYYY").format(date);
+    }
+
+    public static Date convLongToDate(long time){
+        Date date = new Date();
+        date.setTime(time);
+        return date;
+    }
+
+    public static long convDateToLong(Date date){
+        return date.getTime();
     }
 
     public static ArrayList<PlanMaster> getCurrentDatePlanMasters(Date date){

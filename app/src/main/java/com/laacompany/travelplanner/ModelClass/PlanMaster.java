@@ -5,18 +5,18 @@ import java.util.Date;
 
 public class PlanMaster {
 
-    private String masterPlanId,eventTitle;
+    private String planMasterId,eventTitle;
     private Date eventDate;
     private int timeStart;
     private double latitude, longitude;
     private ArrayList<Plan> plans;
 
-    public PlanMaster(String masterPlanId){
-        this.masterPlanId = masterPlanId;
+    public PlanMaster(String planMasterId){
+        this.planMasterId = planMasterId;
     }
 
-    public PlanMaster(String masterPlanId, String eventTitle, Date eventDate, int timeStart, double latitude, double longitude) {
-        this.masterPlanId = masterPlanId;
+    public PlanMaster(String planMasterId, String eventTitle, Date eventDate, int timeStart, double latitude, double longitude) {
+        this.planMasterId = planMasterId;
         this.eventTitle = eventTitle;
         this.eventDate = eventDate;
         this.timeStart = timeStart;
@@ -30,7 +30,7 @@ public class PlanMaster {
     }
 
     public void setPlanMaster(PlanMaster planMaster) {
-        this.masterPlanId = planMaster.getMasterPlanId();
+        this.planMasterId = planMaster.getPlanMasterId();
         this.eventTitle = planMaster.getEventTitle();
         this.eventDate = planMaster.getEventDate();
         this.timeStart = planMaster.getTimeStart();
@@ -39,12 +39,12 @@ public class PlanMaster {
         this.plans = planMaster.getPlans();
     }
 
-    public String getMasterPlanId() {
-        return masterPlanId;
+    public String getPlanMasterId() {
+        return planMasterId;
     }
 
-    public void setMasterPlanId(String masterPlanId) {
-        this.masterPlanId = masterPlanId;
+    public void setPlanMasterId(String planMasterId) {
+        this.planMasterId = planMasterId;
     }
 
     public String getEventTitle() {

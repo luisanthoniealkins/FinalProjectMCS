@@ -10,19 +10,6 @@
     android:paddingLeft="60dp"
     android:paddingRight="60dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:gravity="center"
-        android:layout_marginBottom="20dp">
-        <ImageView
-            android:contentDescription="logo"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:src="@drawable/gradient_background" />
-    </LinearLayout>
-
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/id_activity_register_iptlayout_username"
         android:layout_width="match_parent"
@@ -144,5 +131,13 @@
             android:textAlignment="center"
             android:textColor="@color/black"/>
     </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/id_activity_register_pb_loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone" />
 
 </LinearLayout>
