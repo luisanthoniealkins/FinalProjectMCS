@@ -57,12 +57,14 @@
                         android:layout_marginTop="20dp"
                         android:layout_marginLeft="20dp"/>
                     <TextView
+                        android:id="@+id/id_fragment_setting_tv_email"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="admin.aturinaja@example.com"
                         android:layout_marginLeft="20dp"
                         android:textSize="10dp"/>
                     <TextView
+                        android:id="@+id/id_fragment_setting_tv_phone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="0878 - 1212 - 0001"
@@ -325,6 +327,7 @@
                 android:textSize="12dp"/>
 
             <Button
+                android:id="@+id/id_fragment_setting_btn_logout"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:text="Logout"

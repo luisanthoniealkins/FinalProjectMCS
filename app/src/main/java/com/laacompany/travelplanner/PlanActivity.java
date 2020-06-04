@@ -17,12 +17,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.laacompany.travelplanner.Adapter.PlanAdapter;
 import com.laacompany.travelplanner.Handle.Handle;
+import com.laacompany.travelplanner.Handle.VolleyHandle;
 import com.laacompany.travelplanner.InterfaceAndCallback.OnStartDragListener;
 import com.laacompany.travelplanner.InterfaceAndCallback.SimpleItemTouchHelperCallback;
 import com.laacompany.travelplanner.ModelClass.Destination;
@@ -36,7 +38,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-public class PlanActivity extends AppCompatActivity  implements OnStartDragListener, DialogDuration.DurationDialogListener {
+public class PlanActivity extends AppCompatActivity  implements OnStartDragListener, DialogDuration.DurationDialogListener, VolleyHandle.VolleyResponseListener {
 
     private static final String EXTRA_MODE = "mode_extra";
     private static final String EXTRA_PLAN_ID = "plan_id_extra";
@@ -48,6 +50,7 @@ public class PlanActivity extends AppCompatActivity  implements OnStartDragListe
     private EditText mEDTTitle;
     private Button mBTNDate, mBTNStartTime;
     private TextView mTVEndTime;
+    private ImageButton mIBTNDelete, mIBTNShare;
 
     private RecyclerView mRecyclerView;
     private PlanAdapter planAdapter;
@@ -55,6 +58,7 @@ public class PlanActivity extends AppCompatActivity  implements OnStartDragListe
     private PlanMaster mPlanMaster;
 
     private int mode;
+    private boolean hasShown;
 
 //    int debug = 0;
 
@@ -90,7 +94,10 @@ public class PlanActivity extends AppCompatActivity  implements OnStartDragListe
         mBTNDate = findViewById(R.id.id_activity_plan_btn_date);
         mBTNStartTime = findViewById(R.id.id_activity_plan_btn_start_time);
         mTVEndTime = findViewById(R.id.id_activity_plan_tv_end_time);
+        mIBTNDelete = findViewById(R.id.id_activity_plan_ibtn_delete);
+        mIBTNShare = findViewById(R.id.id_activity_plan_ibtn_share);
         mRecyclerView = findViewById(R.id.id_activity_plan_rv_plan_list);
+
     }
 
 
@@ -100,7 +107,7 @@ public class PlanActivity extends AppCompatActivity  implements OnStartDragListe
         setContentView(R.layout.activity_plan);
 
         initView();
-
+        VolleyHandle.listener = this;
 
         // MODE
         // 0 = NEW
@@ -130,10 +137,12 @@ public class PlanActivity extends AppCompatActivity  implements OnStartDragListe
                 mPlanMaster.getPlans().add(new Plan( dest.getDestinationId(),dest.getName(), dest.getAddress(), dest.getPreviewUrl(),0, 30));
             }
 
+            mIBTNDelete.setVisibility(View.GONE);
+            mIBTNShare.setVisibility(View.GONE);
         } else if (mode == 1){
             String plan_id = getIntent().getStringExtra(EXTRA_PLAN_ID);
             for(PlanMaster planMaster : Handle.sPlanMasters){
-                if(planMaster.getMasterPlanId().equals(plan_id)){
+                if(planMaster.getPlanMasterId().equals(plan_id)){
                     mPlanMaster = new PlanMaster();
                     mPlanMaster.setPlanMaster(planMaster);
                     ArrayList<Plan> plans = new ArrayList<>(mPlanMaster.getPlans());
@@ -141,15 +150,6 @@ public class PlanActivity extends AppCompatActivity  implements OnStartDragListe
                     break;
                 }
             }
-
-//            for(int i = 0; i < Handle.sPlanMasters.size(); i++){
-//                if(Handle.sPlanMasters.get(i).getPlan_id().equals(plan_id)){
-//                    debug = i;
-//                    Log.d("123",debug+"");
-//                    break;
-//                }
-//            }
-
 
             String date = new SimpleDateFormat("EEEE, dd MMM YYYY").format(mPlanMaster.getEventDate());
             String startTime = Handle.getHourFormat(mPlanMaster.getTimeStart());
@@ -201,8 +201,7 @@ public class PlanActivity extends AppCompatActivity  implements OnStartDragListe
                         GregorianCalendar gc = new GregorianCalendar(YYYY,MM,DD);
                         Date date = new Date(gc.getTimeInMillis());
                         mPlanMaster.setEventDate(date);
-                        String dateString = new SimpleDateFormat("EEEE, dd MMM YYYY").format(mPlanMaster.getEventDate());
-                        mBTNDate.setText(dateString);
+                        mBTNDate.setText(Handle.getDateToString(mPlanMaster.getEventDate()));
                     }
                 }, YYYY, MM, DD);
         datePickerDialog.show();
@@ -228,31 +227,33 @@ public class PlanActivity extends AppCompatActivity  implements OnStartDragListe
 
     }
 
+    public void clickSave(View view) {
+
+        boolean valid = validation();
+        hasShown = false;
+        if(valid) {
+            if (mode == 0){
+                Handle.sPlanMasters.add(mPlanMaster);
+//                Log.d("12345", "datesend " + mPlanMaster.getEventDate().getTime());
+                VolleyHandle.addPlanMaster(Handle.sPlanMasters.size()-1);
+            } else {
+                for(int i = 0; i < Handle.sPlanMasters.size(); i++){
+                    if(Handle.sPlanMasters.get(i).getPlanMasterId().equals(mPlanMaster.getPlanMasterId())){
+                        Handle.sPlanMasters.get(i).setPlanMaster(mPlanMaster);
+                        VolleyHandle.updatePlanMaster(i);
+                        break;
+                    }
+                }
+            }
+        }
+
+    }
+
     @Override
     public void onStartDrag(RecyclerView.ViewHolder viewHolder) {
         mItemTouchHelper.startDrag(viewHolder);
     }
 
-
-    public void clickSave(View view) {
-
-        boolean valid = validation();
-
-        if(valid) {
-            if (mode == 0){
-                Handle.sPlanMasters.add(mPlanMaster);
-            } else {
-                for(int i = 0; i < Handle.sPlanMasters.size(); i++){
-                    if(Handle.sPlanMasters.get(i).getMasterPlanId().equals(mPlanMaster.getMasterPlanId())){
-                        Handle.sPlanMasters.get(i).setPlanMaster(mPlanMaster);
-                        break;
-                    }
-                }
-            }
-            finish();
-        }
-
-    }
 
     private boolean validation(){
 
@@ -322,5 +323,47 @@ public class PlanActivity extends AppCompatActivity  implements OnStartDragListe
     }
 
     public void clickDeleteMasterPlan(View view) {
+        for(int i = 0; i < Handle.sPlanMasters.size(); i++){
+            if(Handle.sPlanMasters.get(i).getPlanMasterId().equals(mPlanMaster.getPlanMasterId())){
+                Handle.sPlanMasters.remove(i);
+                break;
+            }
+        }
+        VolleyHandle.updateUser();
+    }
+
+    public void clickShareMasterPlan(View view) {
+        /*Create an ACTION_SEND Intent*/
+        Intent intent = new Intent(android.content.Intent.ACTION_SEND);
+        /*This will be the actual content you wish you share.*/
+        String shareBody = "https://www.aturinaja.com/addplan/"+mPlanMaster.getPlanMasterId();
+        /*The type of the content is text, obviously.*/
+        intent.setType("text/plain");
+        /*Applying information Subject and Body.*/
+        intent.putExtra(android.content.Intent.EXTRA_SUBJECT, getString(R.string.share_subject));
+        intent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+        /*Fire!*/
+        startActivity(Intent.createChooser(intent, getString(R.string.share_using)));
+    }
+
+    @Override
+    public void onResponse(String functionResp) {
+        if (mode == 0){
+            if (functionResp.equals("updateUser")){
+                finish();
+            }
+        } else {
+            if (functionResp.equals("updatePlanMaster") || functionResp.equals("updateUser")){
+                finish();
+            }
+        }
+    }
+
+    @Override
+    public void onError(String functionResp) {
+        if (!hasShown){
+            Toast.makeText(this, R.string.internet_error, Toast.LENGTH_SHORT).show();
+            hasShown = true;
+        }
     }
 }

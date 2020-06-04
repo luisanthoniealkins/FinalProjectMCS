@@ -1,0 +1,77 @@
+{
+  "project_info": {
+    "project_number": "350375311780",
+    "firebase_url": "https://fir-crud-restapi-a8904.firebaseio.com",
+    "project_id": "fir-crud-restapi-a8904",
+    "storage_bucket": "fir-crud-restapi-a8904.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:350375311780:android:87f7e5e1ee3a5915d1a931",
+        "android_client_info": {
+          "package_name": "com.example.firebaseauth"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "350375311780-fehj0rnj76v0n2ni70askq3ck8lsvpif.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD3dVJ1dewFQJz0yFUdExD6g1OV4HTMHMc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "350375311780-fehj0rnj76v0n2ni70askq3ck8lsvpif.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:350375311780:android:330e324127ecc946d1a931",
+        "android_client_info": {
+          "package_name": "com.laacompany.travelplanner"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "350375311780-k95ihnek6q4k1omr80vs52qu8hvcsd0p.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.laacompany.travelplanner",
+            "certificate_hash": "2f10ad161703566db164bccce38de96e34b3280a"
+          }
+        },
+        {
+          "client_id": "350375311780-fehj0rnj76v0n2ni70askq3ck8lsvpif.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD3dVJ1dewFQJz0yFUdExD6g1OV4HTMHMc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "350375311780-fehj0rnj76v0n2ni70askq3ck8lsvpif.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
