@@ -17,7 +17,7 @@
         <ImageView
             android:id="@+id/id_item_explore_iv_preview"
             android:layout_width="120dp"
-            android:layout_height="120dp"/>
+            android:layout_height="match_parent"/>
 
         <LinearLayout
             android:layout_width="match_parent"

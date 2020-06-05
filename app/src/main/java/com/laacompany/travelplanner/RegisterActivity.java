@@ -20,7 +20,7 @@ import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
-import com.laacompany.travelplanner.Storage.RegisterData;
+
 
 
 import java.text.SimpleDateFormat;
@@ -181,7 +181,6 @@ public class RegisterActivity extends AppCompatActivity {
             gender = mRBButton.getText().toString();
 
             //Toast Goes here and insert data
-            registerData.add(new RegisterData(uname,pass,pnum,gender,birthdate));
             Toast.makeText(getApplicationContext(),"Register Successful",Toast.LENGTH_SHORT).show();
             RegisterActivity.this.finish();
         }

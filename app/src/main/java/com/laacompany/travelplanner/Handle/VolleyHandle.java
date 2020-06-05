@@ -68,7 +68,7 @@ public class VolleyHandle {
             public void onResponse(String response) {
                 try {
                     JSONObject obj = new JSONObject(response);
-                    String date_of_birth = obj.getString("")
+                    String date_of_birth = obj.getString("");
                             User user = new User();
 
                 } catch (JSONException e) {

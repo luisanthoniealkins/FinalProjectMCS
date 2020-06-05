@@ -19,7 +19,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
-            android:textSize="18dp"/>
+            android:textSize="25dp"/>
 
     </LinearLayout>
 
@@ -39,10 +39,10 @@
                 android:background="@drawable/container">
 
                 <ImageButton
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
+                    android:layout_width="125dp"
+                    android:layout_height="125dp"
                     android:layout_marginLeft="15dp"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="10dp"
                     android:background="@drawable/profilepictemplate"/>
 
                 <LinearLayout
@@ -55,26 +55,27 @@
                         android:layout_height="wrap_content"
                         android:text="Admin"
                         android:layout_marginTop="20dp"
-                        android:layout_marginLeft="20dp"/>
+                        android:layout_marginLeft="20dp"
+                        android:textSize="16dp"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="admin.aturinaja@example.com"
                         android:layout_marginLeft="20dp"
-                        android:textSize="10dp"/>
+                        android:textSize="12dp"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="0878 - 1212 - 0001"
                         android:layout_marginLeft="20dp"
-                        android:textSize="10dp"/>
+                        android:textSize="12dp"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
                         android:text="Verified Account"
-                        android:textSize="9dp"
-                        android:textColor="@color/toscagreen"
+                        android:textSize="11dp"
+                        android:textColor="@color/eletricBlue"
                         android:textStyle="italic"/>
 
                 </LinearLayout>
@@ -83,7 +84,7 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:background="@drawable/editbtn"
-                    android:layout_marginTop="18dp"/>
+                    android:layout_marginTop="18dp" />
 
 
             </LinearLayout>
@@ -97,18 +98,19 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="189dp"
+                android:layout_height="204dp"
                 android:background="@drawable/container"
+                android:paddingTop="5dp"
                 android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="45dp"
+                    android:layout_height="50dp"
                     android:layout_marginTop="10dp">
 
                     <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
                         android:layout_gravity="center"
                         android:layout_marginLeft="23dp"
                         android:background="@drawable/ic_history" />
@@ -129,12 +131,12 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="45dp"
+                    android:layout_height="50dp"
                     android:layout_marginTop="5dp">
 
                     <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
                         android:layout_gravity="center"
                         android:layout_marginLeft="23dp"
                         android:background="@drawable/ic_frnds" />
@@ -153,12 +155,12 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="45dp"
+                    android:layout_height="50dp"
                     android:layout_marginTop="5dp">
 
                     <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
                         android:layout_gravity="center"
                         android:layout_marginLeft="23dp"
                         android:background="@drawable/ic_help" />
@@ -186,18 +188,19 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
+                android:layout_height="332dp"
                 android:background="@drawable/container"
+                android:paddingTop="5dp"
                 android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="45dp"
+                    android:layout_height="50dp"
                     android:layout_marginTop="10dp">
 
                     <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
                         android:layout_gravity="center"
                         android:layout_marginLeft="23dp"
                         android:background="@drawable/ic_chglng" />
@@ -216,7 +219,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="45dp"
+                    android:layout_height="50dp"
                     android:layout_marginTop="5dp">
 
                     <ImageView
@@ -240,7 +243,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="45dp"
+                    android:layout_height="50dp"
                     android:layout_marginTop="10dp">
 
                     <ImageView
@@ -265,7 +268,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="45dp"
+                    android:layout_height="50dp"
                     android:layout_marginTop="10dp">
 
                     <ImageView
@@ -292,7 +295,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="45dp"
+                    android:layout_height="50dp"
                     android:layout_marginTop="5dp">
 
                     <ImageView
@@ -326,7 +329,7 @@
 
             <Button
                 android:layout_width="match_parent"
-                android:layout_height="55dp"
+                android:layout_height="60dp"
                 android:text="Logout"
                 android:textColor="@color/white"
                 android:background="@drawable/logoutbtn" />

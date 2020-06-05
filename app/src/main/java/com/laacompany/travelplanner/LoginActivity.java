@@ -19,7 +19,7 @@ public class LoginActivity extends AppCompatActivity {
     public static TextInputEditText mEDTUsername, mEDTPassword;
     public static TextInputLayout mLAYUsername, mLAYPassword;
     public static Button mBTNLogin;
-    public static TextView mTXTSignUp;
+    public static Button mTXTSignUp;
 
     public static Intent newIntent(Context packageContext){
         return new Intent(packageContext,LoginActivity.class);

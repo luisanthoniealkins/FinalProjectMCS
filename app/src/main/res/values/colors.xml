@@ -11,6 +11,9 @@
     <color name="mapboxBlue">#4264FB</color>
     <color name="mapboxGrayLight">#C6D2E1</color>
     <color name="gray">#818181</color>
+    <color name="lightGray">#F3F3F3</color>
     <color name="toscagreen">#44C7B3</color>
-
+    <color name="eletricBlue">#51BFFF</color>
+    <color name="lightBlue">#94D8FF</color>
+    <color name="red">#FF3C00</color>
 </resources>
