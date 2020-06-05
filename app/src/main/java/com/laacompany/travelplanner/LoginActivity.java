@@ -24,6 +24,7 @@ import com.laacompany.travelplanner.Handle.VolleyHandle;
 
 public class LoginActivity extends AppCompatActivity implements VolleyHandle.VolleyResponseListener {
 
+
     private TextInputEditText mEDTUsername, mEDTPassword;
     private TextInputLayout mLAYUsername, mLAYPassword;
     private Button mBTNLogin;

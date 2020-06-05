@@ -7,84 +7,111 @@
     tools:context=".RegisterActivity"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    android:paddingLeft="60dp"
-    android:paddingRight="60dp">
+    android:paddingLeft="50dp"
+    android:paddingRight="50dp"
+    android:background="@drawable/regist_screen_bg">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Registration"
+        android:textColor="@color/white"
+        android:textSize="30dp"
+        android:layout_marginTop="35dp"
+        android:textStyle="bold"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/id_activity_register_iptlayout_username"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="70dp"
+        android:background="@drawable/input_bg">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/id_activity_register_edt_username"
             android:layout_width="match_parent"
             android:inputType="textPersonName"
             android:layout_height="wrap_content"
-            android:hint="Username"/>
+            android:hint="Username"
+            android:layout_marginStart="22dp"
+            android:layout_marginEnd="22dp"
+            android:backgroundTint="@color/lightGray"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/id_activity_register_iptlayout_password"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@drawable/input_bg">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/id_activity_register_edt_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Password"
-            android:inputType="textPassword"/>
+            android:inputType="textPassword"
+            android:layout_marginStart="22dp"
+            android:layout_marginEnd="22dp"
+            android:backgroundTint="@color/lightGray"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/id_activity_register_iptlayout_confirm_password"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@drawable/input_bg">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/id_activity_register_edt_confirmation_password"
             android:hint="Confirm Password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:layout_marginStart="22dp"
+            android:layout_marginEnd="22dp"
+            android:backgroundTint="@color/lightGray"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/id_activity_register_iptlayout_phone"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@drawable/input_bg">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/id_activity_register_edt_phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Phone Number"
-            android:inputType="number" />
+            android:inputType="number"
+            android:layout_marginStart="22dp"
+            android:layout_marginEnd="22dp"
+            android:backgroundTint="@color/lightGray"/>
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/id_activity_register_iptlayout_dof"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/id_activity_register_edt_birthDate"
-            android:layout_width="match_parent"
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:paddingLeft="10dp">
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Date of Birth"
-            android:inputType="none"
-            android:clickable="true"
-            android:focusable="false"/>
-    </com.google.android.material.textfield.TextInputLayout>
+            android:text="Date of Birth"
+            android:textSize="19dp"/>
+
+       <Button
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:background="@drawable/btn"
+           android:text="Select Date"
+           android:textColor="@color/white"
+           android:layout_marginLeft="10dp"/>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Gender : "
-            android:layout_marginStart="3dp"
-            android:textSize="15sp"
-            android:layout_gravity="center_vertical"/>
+        android:orientation="horizontal"
+        android:paddingStart="5dp"
+        android:layout_marginTop="10dp">
+
         <RadioGroup
             android:id="@+id/id_activity_register_rd_rdGroup"
             android:layout_width="match_parent"
@@ -95,13 +122,17 @@
                 android:id="@+id/id_activity_register_rd_rdMale"
                 android:layout_width="78dp"
                 android:layout_height="wrap_content"
-                android:text="Male" />
+                android:text="Male"
+                android:backgroundTint="@color/eletricBlue"
+                android:buttonTint="@color/eletricBlue"/>
 
             <RadioButton
                 android:id="@+id/id_activity_register_rd_rdFemale"
                 android:layout_width="91dp"
                 android:layout_height="wrap_content"
-                android:text="Female" />
+                android:text="Female"
+                android:backgroundTint="@color/eletricBlue"
+                android:buttonTint="@color/eletricBlue"/>
         </RadioGroup>
     </LinearLayout>
 
@@ -110,26 +141,27 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Agree with Terms and Conditions."
-        android:layout_gravity="start"/>
+        android:layout_marginTop="10dp"
+        android:layout_gravity="start"
+        android:backgroundTint="@color/eletricBlue"
+        android:layout_marginLeft="5dp"
+        android:buttonTint="@color/eletricBlue"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="70dp">
         <Button
             android:id="@+id/id_activity_register_btn_register"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Register"/>
+            android:text="Sign up"
+            android:background="@drawable/btn"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textSize="17dp"/>
 
-        <TextView
-            android:id="@+id/id_activity_register_btn_back"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Already have account? Sign In"
-            android:textAlignment="center"
-            android:textColor="@color/black"/>
     </LinearLayout>
 
     <ProgressBar

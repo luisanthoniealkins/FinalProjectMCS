@@ -24,6 +24,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.laacompany.travelplanner.Handle.Handle;
@@ -61,7 +62,7 @@ public class RegisterActivity extends AppCompatActivity implements VolleyHandle.
         mLAYUsername = findViewById(R.id.id_activity_register_iptlayout_username);
         mLAYPassword = findViewById(R.id.id_activity_register_iptlayout_password);
         mLAYConfirmPassword = findViewById(R.id.id_activity_register_iptlayout_confirm_password);
-        mLAYDof = findViewById(R.id.id_activity_register_iptlayout_dof);
+//        mLAYDof = findViewById(R.id.id_activity_register_iptlayout_dof);
         mLAYPhone = findViewById(R.id.id_activity_register_iptlayout_phone);
 
 
@@ -69,8 +70,8 @@ public class RegisterActivity extends AppCompatActivity implements VolleyHandle.
         mEDTPassword = findViewById(R.id.id_activity_register_edt_password);
         mEDTConfirmPassword = findViewById(R.id.id_activity_register_edt_confirmation_password);
         mEDTPhone = findViewById(R.id.id_activity_register_edt_phone);
-        mEDTDof = findViewById(R.id.id_activity_register_edt_birthDate);
-        mTXTBack = findViewById(R.id.id_activity_register_btn_back);
+//        mEDTDof = findViewById(R.id.id_activity_register_edt_birthDate);
+//        mTXTBack = findViewById(R.id.id_activity_register_btn_back);
         mBTNRegister = findViewById(R.id.id_activity_register_btn_register);
         mRGGroup = findViewById(R.id.id_activity_register_rd_rdGroup);
         mCBCheckBox = findViewById(R.id.id_activity_register_cb_cbox);
@@ -234,12 +235,14 @@ public class RegisterActivity extends AppCompatActivity implements VolleyHandle.
         return TextUtils.isEmpty(checktext);
     }
 
+
     @Override
     public void onResponse(String functionResp) {
         Log.d("12345","woii" + functionResp);
         if (functionResp.equals("addNewUser")){
             Toast.makeText(this, "User Register Success", Toast.LENGTH_SHORT).show();
             finish();
+
         }
     }
 

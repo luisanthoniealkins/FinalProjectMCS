@@ -5,22 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
-    android:paddingLeft="60dp"
-    android:paddingRight="60dp"
+    android:paddingLeft="50dp"
+    android:paddingRight="50dp"
     android:orientation="vertical"
-    tools:context=".LoginActivity">
+    tools:context=".LoginActivity"
+    android:background="@drawable/login_screen_bg"
+    android:paddingTop="190dp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="50dp">
-            <ImageView
-                android:contentDescription="logo"
-                android:layout_width="match_parent"
-                android:layout_height="250dp"
-                android:src="@drawable/gradient_background" />
-        </LinearLayout>
-
+    <ImageView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@drawable/ic_logo"/>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/id_activity_login_iptlayout_username"
@@ -28,12 +23,16 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:padding="1dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:background="@drawable/input_bg">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/id_activity_login_edt_username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Username"/>
+                android:hint="Username"
+                android:layout_marginStart="22dp"
+                android:layout_marginEnd="22dp"
+                android:backgroundTint="@color/lightGray"/>
         </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -43,31 +42,44 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:padding="1dp"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="0dp"
+            android:background="@drawable/input_bg">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/id_activity_login_edt_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Password"/>
+                android:hint="Password"
+                android:layout_marginStart="22dp"
+                android:layout_marginEnd="22dp"
+                android:backgroundTint="@color/lightGray"/>
         </com.google.android.material.textfield.TextInputLayout>
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:orientation="vertical">
+        android:layout_marginTop="5dp"
+        android:gravity="center">
         <Button
             android:id="@+id/id_activity_login_btn_login"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Login"/>
-        <TextView
+            android:text="Sign in"
+            android:background="@drawable/login_btn_bg"
+            android:textColor="@color/white"
+            android:textSize="17dp"
+            android:textStyle="bold"
+            android:layout_marginRight="20dp"/>
+        <Button
             android:id="@+id/id_activity_login_txtView_signUpTxt"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Create Account? Sign Up"
-            android:textAlignment="center" />
+            android:text="Sign up"
+            android:background="@drawable/login_btn_bg"
+            android:textColor="@color/white"
+            android:textSize="17dp"
+            android:textStyle="bold"/>
+
     </LinearLayout>
 
 
@@ -78,6 +90,7 @@
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:visibility="gone" />
+
 
 
 </LinearLayout>
