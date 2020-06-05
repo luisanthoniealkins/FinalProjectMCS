@@ -27,132 +27,125 @@
             android:textStyle="bold"
             android:textColor="@color/white"/>
 
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/ic_delete_black_24dp"
+<!--        <ImageView-->
+<!--            android:layout_width="40dp"-->
+<!--            android:layout_height="40dp"-->
+<!--            android:src="@drawable/ic_delete_black_24dp"-->
+<!--            android:onClick="clickDeleteMasterPlan"-->
+<!--            android:tint="@color/white"/>-->
+        <ImageButton
+            android:id="@+id/id_activity_plan_ibtn_share"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:backgroundTint="@color/eletricBlue"
+            android:onClick="clickShareMasterPlan"
+            android:src="@drawable/ic_share_black_24dp"
+            android:tint="@color/white"
+            android:layout_marginTop="-10dp"/>
+
+        <ImageButton
+            android:id="@+id/id_activity_plan_ibtn_delete"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:backgroundTint="@color/eletricBlue"
             android:onClick="clickDeleteMasterPlan"
-            android:tint="@color/white"/>
+            android:src="@drawable/ic_delete_black_24dp"
+            android:tint="@color/white"
+            android:layout_marginTop="-10dp"/>
 
     </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
 
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textSize="25dp"
-                android:text="Planning"
-                android:padding="8dp"
-                android:textStyle="bold"/>
 
-            <ImageButton
-                android:id="@+id/id_activity_plan_ibtn_share"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:src="@drawable/ic_share_black_24dp"
-                android:padding="8dp"
-                android:onClick="clickShareMasterPlan"
-                android:tint="@color/colorPrimaryDark"
-                android:backgroundTint="#e3f2fd"/>
-
-            <ImageButton
-                android:id="@+id/id_activity_plan_ibtn_delete"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:src="@drawable/ic_delete_black_24dp"
-                android:padding="8dp"
-                android:onClick="clickDeleteMasterPlan"
-                android:tint="@color/colorPrimaryDark"
-                android:backgroundTint="#e3f2fd"/>
 
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardElevation="8dp"
-                android:layout_marginTop="8dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp">
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                app:cardElevation="8dp">
 
                 <GridLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:columnCount="2"
-                    android:rowCount="3"
                     android:layout_gravity="center_horizontal"
-                    android:paddingBottom="20dp"
+                    android:clipToPadding="false"
+                    android:columnCount="2"
                     android:paddingTop="10dp"
-                    android:clipToPadding="false">
+                    android:paddingBottom="20dp"
+                    android:rowCount="3">
 
                     <TextView
-                        android:text="Event Name  "
                         android:layout_marginEnd="30dp"
-                        android:textSize="17sp"/>
+                        android:text="Event Name  "
+                        android:textSize="17sp" />
 
                     <EditText
                         android:id="@+id/id_activity_plan_edt_title"
                         android:layout_width="195dp"
                         android:background="@drawable/input_bg"
-                        android:paddingStart="20dp"
-                        android:hint="Event Name"/>
+                        android:hint="Event Name"
+                        android:paddingStart="20dp" />
 
                     <TextView
-                        android:text="Event Date  "
+                        android:layout_marginTop="10dp"
                         android:layout_marginEnd="30dp"
-                        android:textSize="17sp"
-                        android:layout_marginTop="10dp"/>
+                        android:text="Event Date  "
+                        android:textSize="17sp" />
 
                     <Button
                         android:id="@+id/id_activity_plan_btn_date"
                         android:layout_width="200dp"
-                        android:text="Select Date"
-                        android:onClick="clickDate"
-                        android:textColor="@color/white"
-                        android:background="@drawable/regist_btn_bg"
                         android:layout_marginTop="10dp"
-                        android:textStyle="bold"/>
+                        android:background="@drawable/regist_btn_bg"
+                        android:onClick="clickDate"
+                        android:text="Select Date"
+                        android:textColor="@color/white"
+                        android:textStyle="bold" />
 
                     <TextView
-                        android:text="Start Time "
+                        android:layout_marginTop="10dp"
                         android:layout_marginEnd="30dp"
-                        android:textSize="17sp"
-                        android:layout_marginTop="10dp"/>
+                        android:text="Start Time "
+                        android:textSize="17sp" />
 
                     <Button
                         android:id="@+id/id_activity_plan_btn_start_time"
                         android:layout_width="200dp"
-                        android:text="Select Time"
-                        android:onClick="clickTime"
-                        android:textColor="@color/white"
-                        android:background="@drawable/regist_btn_bg"
                         android:layout_marginTop="10dp"
-                        android:textStyle="bold"/>
+                        android:background="@drawable/regist_btn_bg"
+                        android:onClick="clickTime"
+                        android:text="Select Time"
+                        android:textColor="@color/white"
+                        android:textStyle="bold" />
 
                     <TextView
-                        android:text="End Time  "
+                        android:layout_marginTop="10dp"
                         android:layout_marginEnd="30dp"
-                        android:textSize="17sp"
-                        android:layout_marginTop="10dp"/>
+                        android:text="End Time  "
+                        android:textSize="17sp" />
 
                     <TextView
                         android:id="@+id/id_activity_plan_tv_end_time"
                         android:layout_width="200dp"
+                        android:layout_marginTop="10dp"
+                        android:padding="4dp"
                         android:text="00:00"
                         android:textAlignment="center"
-                        android:textSize="15sp"
-                        android:padding="4dp"
                         android:textColor="@color/black"
-                        android:layout_marginTop="10dp"/>
+                        android:textSize="15sp" />
 
                 </GridLayout>
 
@@ -168,42 +161,42 @@
                 <Button
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Simulate"
-                    android:onClick="clickSimulate"
                     android:layout_marginEnd="10dp"
+                    android:layout_weight="1"
                     android:background="@drawable/btn"
-                    android:textColor="@color/white"
                     android:elevation="8dp"
-                    android:textStyle="bold"/>
+                    android:onClick="clickSimulate"
+                    android:text="Simulate"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
 
                 <Button
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Save"
-                    android:onClick="clickSave"
                     android:background="@drawable/btn"
-                    android:textColor="@color/white"
                     android:elevation="200dp"
-                    android:textStyle="bold"/>
+                    android:onClick="clickSave"
+                    android:text="Save"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/id_activity_plan_rv_plan_list"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content" />
 
             <ImageButton
-                android:layout_height="60dp"
                 android:layout_width="60dp"
-                android:src="@drawable/ic_add_black_24dp"
-                android:onClick="clickAdd"
-                android:background="@drawable/btn_rounded"
-                android:tint="@color/white"
+                android:layout_height="60dp"
                 android:layout_margin="20dp"
-                />
+                android:background="@drawable/btn_rounded"
+                android:onClick="clickAdd"
+                android:src="@drawable/ic_add_black_24dp"
+                android:tint="@color/white"
+                android:layout_gravity="center"/>
 
         </LinearLayout>
 

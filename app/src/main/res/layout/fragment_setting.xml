@@ -55,28 +55,28 @@
                         android:layout_height="wrap_content"
                         android:text="Admin"
                         android:layout_marginTop="20dp"
-                        android:layout_marginLeft="20dp"
-                        android:textSize="16dp"/>
+                        android:layout_marginLeft="10dp"
+                        android:textSize="18sp"/>
                     <TextView
                         android:id="@+id/id_fragment_setting_tv_email"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="admin.aturinaja@example.com"
-                        android:layout_marginLeft="20dp"
-                        android:textSize="12dp"/>
+                        android:layout_marginLeft="10dp"
+                        android:textSize="15sp"/>
                     <TextView
                         android:id="@+id/id_fragment_setting_tv_phone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="0878 - 1212 - 0001"
-                        android:layout_marginLeft="20dp"
-                        android:textSize="12dp"/>
+                        android:layout_marginLeft="10dp"
+                        android:textSize="15sp"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
+                        android:layout_marginLeft="10dp"
                         android:text="Verified Account"
-                        android:textSize="11dp"
+                        android:textSize="14sp"
                         android:textColor="@color/eletricBlue"
                         android:textStyle="italic"/>
 
@@ -96,7 +96,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
-                android:text="Account" />
+                android:text="Account"
+                android:textSize="15dp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -111,18 +112,18 @@
                     android:layout_marginTop="10dp">
 
                     <ImageView
-                        android:layout_width="22dp"
-                        android:layout_height="22dp"
+                        android:layout_width="26dp"
+                        android:layout_height="26dp"
                         android:layout_gravity="center"
                         android:layout_marginLeft="23dp"
                         android:background="@drawable/ic_history" />
 
                     <Button
-                        android:layout_width="335dp"
+                        android:layout_width="325dp"
                         android:layout_height="wrap_content"
                         android:background="@drawable/acc_bg_btn"
                         android:text="Travel History"
-                        android:textSize="9dp"
+                        android:textSize="13sp"
                         android:layout_marginLeft="10dp"
                         android:textColor="@color/gray"
                         android:textAlignment="textStart"/>
@@ -137,18 +138,18 @@
                     android:layout_marginTop="5dp">
 
                     <ImageView
-                        android:layout_width="22dp"
-                        android:layout_height="22dp"
+                        android:layout_width="26dp"
+                        android:layout_height="26dp"
                         android:layout_gravity="center"
                         android:layout_marginLeft="23dp"
                         android:background="@drawable/ic_frnds" />
 
                     <Button
-                        android:layout_width="335dp"
+                        android:layout_width="325dp"
                         android:layout_height="wrap_content"
                         android:background="@drawable/acc_bg_btn"
                         android:text="Invite Friends"
-                        android:textSize="9dp"
+                        android:textSize="13sp"
                         android:layout_marginLeft="10dp"
                         android:textColor="@color/gray"
                         android:textAlignment="textStart"/>
@@ -161,18 +162,18 @@
                     android:layout_marginTop="5dp">
 
                     <ImageView
-                        android:layout_width="22dp"
-                        android:layout_height="22dp"
+                        android:layout_width="26dp"
+                        android:layout_height="26dp"
                         android:layout_gravity="center"
                         android:layout_marginLeft="23dp"
                         android:background="@drawable/ic_help" />
 
                     <Button
-                        android:layout_width="335dp"
+                        android:layout_width="325dp"
                         android:layout_height="wrap_content"
                         android:background="@drawable/acc_bg_btn"
                         android:text="Help"
-                        android:textSize="9dp"
+                        android:textSize="13sp"
                         android:layout_marginLeft="10dp"
                         android:textColor="@color/gray"
                         android:textAlignment="textStart"/>
@@ -186,7 +187,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
-                android:text="General" />
+                android:text="General"
+                android:textSize="15dp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -201,18 +203,18 @@
                     android:layout_marginTop="10dp">
 
                     <ImageView
-                        android:layout_width="22dp"
-                        android:layout_height="22dp"
+                        android:layout_width="26dp"
+                        android:layout_height="26dp"
                         android:layout_gravity="center"
                         android:layout_marginLeft="23dp"
                         android:background="@drawable/ic_chglng" />
 
                     <Button
-                        android:layout_width="335dp"
+                        android:layout_width="325dp"
                         android:layout_height="wrap_content"
                         android:background="@drawable/acc_bg_btn"
                         android:text="Change Language"
-                        android:textSize="9dp"
+                        android:textSize="13sp"
                         android:layout_marginLeft="10dp"
                         android:textColor="@color/gray"
                         android:textAlignment="textStart"/>
@@ -225,18 +227,18 @@
                     android:layout_marginTop="5dp">
 
                     <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
+                        android:layout_width="26dp"
+                        android:layout_height="26dp"
                         android:layout_gravity="center"
                         android:layout_marginLeft="23dp"
                         android:background="@drawable/ic_nghtmd" />
 
                     <Button
-                        android:layout_width="335dp"
+                        android:layout_width="325dp"
                         android:layout_height="wrap_content"
                         android:background="@drawable/acc_bg_btn"
                         android:text="Night Mode"
-                        android:textSize="9dp"
+                        android:textSize="13sp"
                         android:layout_marginLeft="10dp"
                         android:textColor="@color/gray"
                         android:textAlignment="textStart"/>
@@ -249,19 +251,19 @@
                     android:layout_marginTop="10dp">
 
                     <ImageView
-                        android:layout_width="17dp"
-                        android:layout_height="20dp"
+                        android:layout_width="23dp"
+                        android:layout_height="26dp"
                         android:layout_gravity="center"
                         android:layout_marginLeft="23dp"
                         android:layout_marginRight="3dp"
                         android:background="@drawable/ic_trmsrv" />
 
                     <Button
-                        android:layout_width="335dp"
+                        android:layout_width="325dp"
                         android:layout_height="wrap_content"
                         android:background="@drawable/acc_bg_btn"
                         android:text="Terms of Service"
-                        android:textSize="9dp"
+                        android:textSize="13dp"
                         android:layout_marginLeft="10dp"
                         android:textColor="@color/gray"
                         android:textAlignment="textStart"/>
@@ -274,19 +276,19 @@
                     android:layout_marginTop="10dp">
 
                     <ImageView
-                        android:layout_width="17dp"
-                        android:layout_height="20dp"
+                        android:layout_width="23dp"
+                        android:layout_height="26dp"
                         android:layout_gravity="center"
                         android:layout_marginLeft="23dp"
                         android:layout_marginRight="3dp"
                         android:background="@drawable/ic_prvcy" />
 
                     <Button
-                        android:layout_width="335dp"
+                        android:layout_width="325dp"
                         android:layout_height="wrap_content"
                         android:background="@drawable/acc_bg_btn"
                         android:text="Privacy policy "
-                        android:textSize="9dp"
+                        android:textSize="13dp"
                         android:layout_marginLeft="10dp"
                         android:textColor="@color/gray"
                         android:textAlignment="textStart"/>
@@ -301,18 +303,18 @@
                     android:layout_marginTop="5dp">
 
                     <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
+                        android:layout_width="26dp"
+                        android:layout_height="26dp"
                         android:layout_gravity="center"
                         android:layout_marginLeft="23dp"
                         android:background="@drawable/ic_rate" />
 
                     <Button
-                        android:layout_width="335dp"
+                        android:layout_width="325dp"
                         android:layout_height="wrap_content"
                         android:background="@drawable/acc_bg_btn"
                         android:text="Rate Aturinaja"
-                        android:textSize="9dp"
+                        android:textSize="13dp"
                         android:layout_marginLeft="10dp"
                         android:textColor="@color/gray"
                         android:textAlignment="textStart"/>
@@ -327,7 +329,7 @@
                 android:layout_height="wrap_content"
                 android:text="Version 1.1.0"
                 android:layout_marginLeft="10dp"
-                android:textSize="12dp"/>
+                android:textSize="14dp"/>
 
             <Button
                 android:id="@+id/id_fragment_setting_btn_logout"
@@ -335,15 +337,11 @@
                 android:layout_height="60dp"
                 android:text="Logout"
                 android:textColor="@color/white"
-                android:background="@drawable/logoutbtn" />
+                android:background="@drawable/logoutbtn"
+                android:layout_marginBottom="35dp"/>
 
         </LinearLayout>
 
     </ScrollView>
-
-
-
-
-
 
 </LinearLayout>

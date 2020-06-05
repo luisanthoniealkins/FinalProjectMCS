@@ -62,7 +62,7 @@ public class RegisterActivity extends AppCompatActivity implements VolleyHandle.
         mLAYUsername = findViewById(R.id.id_activity_register_iptlayout_username);
         mLAYPassword = findViewById(R.id.id_activity_register_iptlayout_password);
         mLAYConfirmPassword = findViewById(R.id.id_activity_register_iptlayout_confirm_password);
-        mLAYDof = findViewById(R.id.id_activity_register_iptlayout_dof);
+//        mLAYDof = findViewById(R.id.id_activity_register_iptlayout_dof);
         mLAYPhone = findViewById(R.id.id_activity_register_iptlayout_phone);
 
 
@@ -70,8 +70,8 @@ public class RegisterActivity extends AppCompatActivity implements VolleyHandle.
         mEDTPassword = findViewById(R.id.id_activity_register_edt_password);
         mEDTConfirmPassword = findViewById(R.id.id_activity_register_edt_confirmation_password);
         mEDTPhone = findViewById(R.id.id_activity_register_edt_phone);
-        mEDTDof = findViewById(R.id.id_activity_register_edt_birthDate);
-        mTXTBack = findViewById(R.id.id_activity_register_btn_back);
+//        mEDTDof = findViewById(R.id.id_activity_register_edt_birthDate);
+//        mTXTBack = findViewById(R.id.id_activity_register_btn_back);
         mBTNRegister = findViewById(R.id.id_activity_register_btn_register);
         mRGGroup = findViewById(R.id.id_activity_register_rd_rdGroup);
         mCBCheckBox = findViewById(R.id.id_activity_register_cb_cbox);

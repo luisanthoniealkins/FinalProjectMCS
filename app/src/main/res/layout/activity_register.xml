@@ -11,6 +11,14 @@
     android:paddingRight="50dp"
     android:background="@drawable/regist_screen_bg">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Registration"
+        android:textColor="@color/white"
+        android:textSize="30dp"
+        android:layout_marginTop="35dp"
+        android:textStyle="bold"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/id_activity_register_iptlayout_username"
