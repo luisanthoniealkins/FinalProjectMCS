@@ -42,10 +42,38 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:gravity="center_horizontal">
 
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="25dp"
+                android:text="Planning"
+                android:padding="8dp"
+                android:textStyle="bold"/>
+
+            <ImageButton
+                android:id="@+id/id_activity_plan_ibtn_share"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/ic_share_black_24dp"
+                android:padding="8dp"
+                android:onClick="clickShareMasterPlan"
+                android:tint="@color/colorPrimaryDark"
+                android:backgroundTint="#e3f2fd"/>
+
+            <ImageButton
+                android:id="@+id/id_activity_plan_ibtn_delete"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/ic_delete_black_24dp"
+                android:padding="8dp"
+                android:onClick="clickDeleteMasterPlan"
+                android:tint="@color/colorPrimaryDark"
+                android:backgroundTint="#e3f2fd"/>
 
 
             <androidx.cardview.widget.CardView

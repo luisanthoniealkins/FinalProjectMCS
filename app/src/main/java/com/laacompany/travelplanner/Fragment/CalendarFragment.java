@@ -1,6 +1,7 @@
 package com.laacompany.travelplanner.Fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -82,6 +83,8 @@ public class CalendarFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+
+        Log.d("12345", "size : "  + Handle.sPlanMasters.size());
 
         List<EventDay> events = new ArrayList<>();
         for(PlanMaster planMaster : Handle.sPlanMasters) {

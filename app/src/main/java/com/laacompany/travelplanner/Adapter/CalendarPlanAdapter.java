@@ -75,7 +75,7 @@ public class CalendarPlanAdapter extends RecyclerView.Adapter<CalendarPlanAdapte
 
         @Override
         public void onClick(View v) {
-            mContext.startActivity(PlanActivity.newIntentView(mContext, mPlanMaster.getMasterPlanId()));
+            mContext.startActivity(PlanActivity.newIntentView(mContext, mPlanMaster.getPlanMasterId()));
         }
     }
 

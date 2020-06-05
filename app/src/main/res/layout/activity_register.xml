@@ -11,20 +11,6 @@
     android:paddingRight="50dp"
     android:background="@drawable/regist_screen_bg">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_marginTop="40dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Registration"
-            android:textSize="30dp"
-            android:textColor="@color/white" />
-
-    </LinearLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/id_activity_register_iptlayout_username"
@@ -169,5 +155,13 @@
             android:textSize="17dp"/>
 
     </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/id_activity_register_pb_loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone" />
 
 </LinearLayout>
