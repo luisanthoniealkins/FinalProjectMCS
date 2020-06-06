@@ -12,6 +12,8 @@
         android:id="@+id/id_fragment_explore_rv_destination_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="40dp"/>
+        android:layout_marginBottom="40dp"
+        tools:listitem="@layout/item_explore"/>
+
 
 </LinearLayout>
