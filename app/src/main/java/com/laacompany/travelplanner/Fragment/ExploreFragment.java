@@ -1,6 +1,7 @@
 package com.laacompany.travelplanner.Fragment;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -13,7 +14,9 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -31,15 +34,19 @@ public class ExploreFragment extends Fragment {
     private RecyclerView mRecyclerView;
     Context mContext;
     ExploreAdapter exploreAdapter;
+    Toolbar toolbar;
 
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
+   //     ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
     }
 
     private void initView(View v){
         mRecyclerView = v.findViewById(R.id.id_fragment_explore_rv_destination_list);
+      //  toolbar = v.findViewById(R.id.toolbar);
     }
 
 
@@ -66,10 +73,14 @@ public class ExploreFragment extends Fragment {
         menu.clear();
         inflater.inflate(R.menu.menu_search, menu);
         MenuItem searchItem = menu.findItem(R.id.action_search);
-        searchItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW | MenuItem.SHOW_AS_ACTION_IF_ROOM);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            searchItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW | MenuItem.SHOW_AS_ACTION_IF_ROOM);
+        }
 
         SearchView searchView = new SearchView(getActivity());
-        searchItem.setActionView(searchView);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            searchItem.setActionView(searchView);
+        }
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
