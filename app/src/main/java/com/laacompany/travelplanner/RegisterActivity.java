@@ -2,11 +2,17 @@ package com.laacompany.travelplanner;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.telephony.SmsManager;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.util.Log;
@@ -40,6 +46,8 @@ import java.util.Objects;
 
 public class RegisterActivity extends AppCompatActivity implements VolleyHandle.VolleyResponseListener {
 
+    private static final int REQ_SEND_SMS =0 ;
+
     public TextInputEditText mEDTUsername, mEDTPassword, mEDTConfirmPassword, mEDTPhone, mEDTDof;
     public TextInputLayout mLAYUsername, mLAYPassword, mLAYConfirmPassword, mLAYPhone, mLAYDof;
     public TextView mTXTBack;
@@ -50,6 +58,8 @@ public class RegisterActivity extends AppCompatActivity implements VolleyHandle.
     public DatePickerDialog dpdialog;
     public SimpleDateFormat dateFormatter;
     private ProgressBar mPBLoading;
+
+    public String phone;
 
     public Date pickedDate = new Date();
     private boolean hasShown;
@@ -128,7 +138,7 @@ public class RegisterActivity extends AppCompatActivity implements VolleyHandle.
         String email = mEDTUsername.getText().toString();
         final String password = mEDTPassword.getText().toString();
         String gender = "Male";
-        String phone = mEDTPhone.getText().toString();
+        phone = mEDTPhone.getText().toString();
 //        String dob = mEDTDof.getText().toString();
 
         int getRadioValue = mRGGroup.getCheckedRadioButtonId();
@@ -240,10 +250,38 @@ public class RegisterActivity extends AppCompatActivity implements VolleyHandle.
     public void onResponse(String functionResp) {
         Log.d("12345","woii" + functionResp);
         if (functionResp.equals("addNewUser")){
+            sendSMS();
             Toast.makeText(this, "User Register Success", Toast.LENGTH_SHORT).show();
             finish();
 
         }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == REQ_SEND_SMS) {
+            if (grantResults.length > 0
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                message();
+            } else {
+                Toast.makeText(getApplicationContext(),
+                        "SMS failed, please try again.", Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
+    private void sendSMS() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED) {
+            message();
+        } else {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.SEND_SMS},REQ_SEND_SMS);
+        }
+    }
+
+    private void message() {
+        SmsManager smsManager = SmsManager.getDefault();
+        smsManager.sendTextMessage(phone,null,"You are registered to AturinAja",null,null);
+        Toast.makeText(this, "SMS sent. Register Successful", Toast.LENGTH_SHORT).show();
     }
 
     @Override

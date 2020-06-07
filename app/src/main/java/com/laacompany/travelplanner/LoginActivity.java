@@ -2,10 +2,15 @@ package com.laacompany.travelplanner;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.telephony.SmsManager;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -24,6 +29,7 @@ import com.laacompany.travelplanner.Handle.VolleyHandle;
 
 public class LoginActivity extends AppCompatActivity implements VolleyHandle.VolleyResponseListener {
 
+    private static final int REQ_SEND_SMS =0 ;
 
     private TextInputEditText mEDTUsername, mEDTPassword;
     private TextInputLayout mLAYUsername, mLAYPassword;
@@ -101,6 +107,7 @@ public class LoginActivity extends AppCompatActivity implements VolleyHandle.Vol
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
                     VolleyHandle.getCurrentUser(Handle.mAuth.getCurrentUser().getUid());
+                    sendSMS();
                 } else {
                     Toast.makeText(getApplicationContext(), task.getException().getMessage(),Toast.LENGTH_SHORT).show();
                     mPBLoading.setVisibility(View.GONE);
@@ -108,6 +115,33 @@ public class LoginActivity extends AppCompatActivity implements VolleyHandle.Vol
             }
         });
 
+    }
+
+    private void sendSMS() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED) {
+            message();
+        } else {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.SEND_SMS},REQ_SEND_SMS);
+        }
+    }
+
+    private void message() {
+        SmsManager smsManager = SmsManager.getDefault();
+        smsManager.sendTextMessage("089699170496",null,"You are registered to AturinAja",null,null);
+        Toast.makeText(this, "SMS sent. Register Successful", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == REQ_SEND_SMS) {
+            if (grantResults.length > 0
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                message();
+            } else {
+                Toast.makeText(getApplicationContext(),
+                        "SMS failed, please try again.", Toast.LENGTH_LONG).show();
+            }
+        }
     }
 
     boolean isEmpty(TextInputEditText text){
