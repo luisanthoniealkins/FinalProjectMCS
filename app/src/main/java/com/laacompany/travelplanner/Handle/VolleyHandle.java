@@ -21,6 +21,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import timber.log.Timber;
+
 public class VolleyHandle {
 
     public static RequestQueue mRequestQueue;
@@ -69,11 +71,10 @@ public class VolleyHandle {
         mRequestQueue.add(jsonObjectRequest);
     }
 
-    public static void getCurrentUser(String user_id){
-        Log.d("12345", user_id);
+    public static void getCurrentUser(String user_id, boolean withPlan){
+//        Log.d("12345", user_id);
         String url="https://us-central1-fir-crud-restapi-a8904.cloudfunctions.net/app/api/read/user/" + user_id;
-
-        getAllPlanMasters(user_id);
+        if (withPlan) getAllPlanMasters(user_id);
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
@@ -161,7 +162,7 @@ public class VolleyHandle {
     }
 
     public static void getAllPlanMasters(String user_id){
-        Log.d("12345", "plan masters" + user_id);
+//        Log.d("12345", "plan masters" + user_id);
         String url = "https://us-central1-fir-crud-restapi-a8904.cloudfunctions.net/app/api/read/planmasters/" + user_id;
         Handle.sPlanMasters.clear();
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
@@ -176,10 +177,13 @@ public class VolleyHandle {
                         String event_title = obj.getString("event_title");
                         long event_date = obj.getLong("event_date");
                         int time_start = obj.getInt("time_start");
-                        double latitude = obj.getDouble("latitude");
-                        double longitude = obj.getDouble("longitude");
+                        String origin_id = obj.getString("origin_id");
+                        String origin_name = obj.getString("origin_name");
+                        String origin_address = obj.getString("origin_address");
+                        String origin_preview_url = obj.getString("origin_preview_url");
+                        Plan origin = new Plan(origin_id, origin_name, origin_address, origin_preview_url,0,0);
 
-                        PlanMaster planMaster = new PlanMaster(id,event_title,Handle.convLongToDate(event_date),time_start,latitude,longitude);
+                        PlanMaster planMaster = new PlanMaster(id,event_title,Handle.convLongToDate(event_date),time_start,origin);
 
                         JSONArray jsonArray = obj.getJSONArray("plans");
                         for(int j = 0; j < jsonArray.length(); j++){
@@ -227,10 +231,13 @@ public class VolleyHandle {
                     String event_title = obj.getString("event_title");
                     long event_date = obj.getLong("event_date");
                     int time_start = obj.getInt("time_start");
-                    double latitude = obj.getDouble("latitude");
-                    double longitude = obj.getDouble("longitude");
+                    String origin_id = obj.getString("origin_id");
+                    String origin_name = obj.getString("origin_name");
+                    String origin_address = obj.getString("origin_address");
+                    String origin_preview_url = obj.getString("origin_preview_url");
+                    Plan origin = new Plan(origin_id, origin_name, origin_address, origin_preview_url,0,0);
 
-                    PlanMaster planMaster = new PlanMaster(id,event_title,Handle.convLongToDate(event_date),time_start,latitude,longitude);
+                    PlanMaster planMaster = new PlanMaster(id,event_title,Handle.convLongToDate(event_date),time_start,origin);
 
                     JSONArray jsonArray = obj.getJSONArray("plans");
                     for(int i = 0; i < jsonArray.length(); i++){
@@ -332,8 +339,14 @@ public class VolleyHandle {
             obj.put("event_title", Handle.sPlanMasters.get(index).getEventTitle());
             obj.put("event_date", Handle.convDateToLong(Handle.sPlanMasters.get(index).getEventDate()));
             obj.put("time_start", Handle.sPlanMasters.get(index).getTimeStart());
-            obj.put("latitude", Handle.sPlanMasters.get(index).getLatitude());
-            obj.put("longitude", Handle.sPlanMasters.get(index).getLongitude());
+//            obj.put("latitude", Handle.sPlanMasters.get(index).getLatitude());
+//            obj.put("longitude", Handle.sPlanMasters.get(index).getLongitude());
+            Plan origin = Handle.sPlanMasters.get(index).getOrigin();
+            obj.put("origin_id", origin.getDestinationId());
+            obj.put("origin_name", origin.getName());
+            obj.put("origin_address", origin.getAddress());
+            obj.put("origin_preview_url", origin.getPreviewUrl());
+
             JSONArray jsonArray = new JSONArray();
             for(Plan plan : Handle.sPlanMasters.get(index).getPlans()){
                 JSONObject objplan = new JSONObject();
@@ -383,9 +396,13 @@ public class VolleyHandle {
             obj.put("event_title", Handle.sPlanMasters.get(index).getEventTitle());
             obj.put("event_date", Handle.convDateToLong(Handle.sPlanMasters.get(index).getEventDate()));
             obj.put("time_start", Handle.sPlanMasters.get(index).getTimeStart());
-            obj.put("latitude", Handle.sPlanMasters.get(index).getLatitude());
-            obj.put("longitude", Handle.sPlanMasters.get(index).getLongitude());
-            obj.put("plans", Handle.sPlanMasters.get(index).getPlans());
+
+            Plan origin = Handle.sPlanMasters.get(index).getOrigin();
+            obj.put("origin_id", origin.getDestinationId());
+            obj.put("origin_name", origin.getName());
+            obj.put("origin_address", origin.getAddress());
+            obj.put("origin_preview_url", origin.getPreviewUrl());
+
             JSONArray jsonArray = new JSONArray();
             for(Plan plan : Handle.sPlanMasters.get(index).getPlans()){
                 JSONObject objplan = new JSONObject();
@@ -405,13 +422,13 @@ public class VolleyHandle {
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, url, obj, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                Log.d("12345", "updatePlanMaster success");
+                Timber.tag("12345").d("updatePlanMaster success");
                 if (listener!=null) listener.onResponse("updatePlanMaster");
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.d("12345", "updatePlanMaster " +error.toString());
+                Timber.tag("12345").d("updatePlanMaster %s", error.toString());
                 if (listener!=null) listener.onError("updatePlanMaster");
             }
         });

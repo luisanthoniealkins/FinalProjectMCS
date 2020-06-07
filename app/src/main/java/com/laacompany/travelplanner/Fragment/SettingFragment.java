@@ -1,5 +1,7 @@
 package com.laacompany.travelplanner.Fragment;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,8 +53,24 @@ public class SettingFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onClick(View v) {
         if(v.getId() == R.id.id_fragment_setting_btn_logout){
-            Handle.mAuth.signOut();
-            startActivity(LoginActivity.newIntent(getActivity()));
+            AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
+            alertDialog.setTitle("Sign Out");
+            alertDialog.setMessage("Are you sure you want to sign out?");
+            alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Sign Out",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            Handle.mAuth.signOut();
+                            startActivity(LoginActivity.newIntent(getActivity()));
+                        }
+                    });
+            alertDialog.show();
+
         }
     }
 }
