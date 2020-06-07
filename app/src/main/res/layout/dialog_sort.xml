@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@color/colorAccent"
+            android:padding="16dp">
+
+                <Spinner
+                    android:id="@+id/id_dialog_sort_spinner_category"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Sort By"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:textSize="25sp"/>
+
+                <ToggleButton
+                    android:id="@+id/id_dialog_sort_toggle_sort"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:textOn="Descending"
+                    android:textOff="Ascending"
+                    android:textColor="@color/colorAccent"
+                    android:background="@drawable/selector"/>
+        </LinearLayout>
+
+</RelativeLayout>

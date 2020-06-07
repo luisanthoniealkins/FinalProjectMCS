@@ -2,27 +2,39 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.laacompany.travelplanner">
 
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_CALENDAR" />
+    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_logo"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".SharingActivity">
-            <intent-filter android:label="@string/app_name" android:autoVerify="true">
+        android:theme="@style/AppThemeWithActionBar">
+        <activity android:name=".ExploreActivity"
+            android:theme="@style/AppThemeWithActionBar"></activity>
+        <activity android:name=".SharingActivity"
+            android:theme="@style/AppTheme">
+            <intent-filter
+                android:autoVerify="true"
+                android:label="@string/app_name">
                 <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data
-                    android:scheme="https"
                     android:host="www.aturinaja.com"
-                    android:pathPrefix="/addplan"/>
+                    android:pathPrefix="/addplan"
+                    android:scheme="https" />
             </intent-filter>
         </activity>
-        <activity android:name=".SplashActivity">
+        <activity android:name=".SplashActivity"
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -30,22 +42,18 @@
             </intent-filter>
         </activity>
         <activity android:name=".SearchActivity" />
-        <activity android:name=".DestinationDetailActivity" />
-        <activity android:name=".PlanActivity" />
-        <activity android:name=".RegisterActivity" >
-
-        </activity>
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".MapsActivity" />
-        <activity android:name=".MainActivity"
-            android:theme="@style/AppThemeWithActionBar"/>
+        <activity android:name=".DestinationDetailActivity"
+            android:theme="@style/AppTheme"/>
+        <activity android:name=".PlanActivity"
+            android:theme="@style/AppTheme"/>
+        <activity android:name=".RegisterActivity"
+            android:theme="@style/AppTheme"></activity>
+        <activity android:name=".LoginActivity"
+            android:theme="@style/AppTheme"/>
+        <activity android:name=".MapsActivity" android:theme="@style/AppTheme" />
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/AppThemeWithActionBar" />
     </application>
-
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_CALENDAR" />
-
-    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
 
 </manifest>
