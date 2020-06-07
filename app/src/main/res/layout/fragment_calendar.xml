@@ -13,19 +13,20 @@
         android:layout_marginBottom="80dp"
         android:gravity="end">
 
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="25dp"
             android:text="Calendar"
-            android:padding="8dp"/>
+            android:padding="8dp" />
 
         <com.applandeo.materialcalendarview.CalendarView
             android:id="@+id/calendarView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:outlineAmbientShadowColor="#e53935"
-            app:headerColor="@color/colorPrimary"/>
+            app:headerColor="@color/colorPrimary" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/id_fragment_calendar_rv_plan_list"

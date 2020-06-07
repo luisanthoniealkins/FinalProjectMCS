@@ -1,7 +1,9 @@
 package com.laacompany.travelplanner.Adapter;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -43,17 +45,14 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
     private final OnStartDragListener mDragStartListener;
     private Button mBTNStartTime;
     private TextView mTVEndTime;
-    private double startLatitude, startLongitude;
 
 
-    public PlanAdapter(Context context, ArrayList<Plan> plans, OnStartDragListener dragStartListener, Button startTime, TextView endTime, double startLatitude, double startLongitude){
+    public PlanAdapter(Context context, ArrayList<Plan> plans, OnStartDragListener dragStartListener, Button startTime, TextView endTime){
         mContext = context;
         mPlans = plans;
         mDragStartListener = dragStartListener;
         mBTNStartTime = startTime;
         mTVEndTime = endTime;
-        this.startLatitude = startLatitude;
-        this.startLongitude = startLongitude;
     }
 
     @NonNull
@@ -167,9 +166,16 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
             String duration = plan.getDuration()+" minutes";
             String summary = Handle.getHourFormat(plan.getArrivedTime()) + " - " + Handle.getHourFormat(plan.getArrivedTime()+plan.getDuration());
 
-            Glide.with(mContext)
-                    .load(plan.getPreviewUrl())
-                    .into(mIVPreview);
+            if (plan.getPreviewUrl() != null){
+                Glide.with(mContext)
+                        .load(plan.getPreviewUrl())
+                        .into(mIVPreview);
+            } else {
+                Glide.with(mContext)
+                        .load(R.drawable.no_image)
+                        .into(mIVPreview);
+            }
+
 
             mTVTitle.setText(title);
             mTVName.setText(plan.getName());
@@ -192,8 +198,23 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
             mIBTNDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    PlanAdapter.mPlans.remove(getAdapterPosition());
-                    refreshData();
+                    AlertDialog alertDialog = new AlertDialog.Builder(mContext).create();
+                    alertDialog.setTitle("Exit Application");
+                    alertDialog.setMessage("Are you sure you want to delete this destination?");
+                    alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            });
+                    alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Proceed",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    PlanAdapter.mPlans.remove(getAdapterPosition());
+                                    refreshData();
+                                }
+                            });
+                    alertDialog.show();
                 }
             });
 
@@ -210,7 +231,7 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
             mIBTNSearch.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ((PlanActivity)mContext).startActivityForResult(SearchActivity.newIntent(mContext, startLatitude, startLongitude), PlanActivity.REQUEST_CODE_SEARCH);
+                    ((PlanActivity)mContext).startActivityForResult(SearchActivity.newIntent(mContext, PlanActivity.originLatitude, PlanActivity.originLongitude), PlanActivity.REQUEST_CODE_SEARCH);
                     selectedPos = getAdapterPosition();
                 }
             });

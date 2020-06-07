@@ -24,10 +24,14 @@
                 android:id="@+id/id_item_plan_iv_preview"
                 android:layout_width="match_parent"
                 android:layout_height="180dp"
-                android:scaleType="fitXY"
+                android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
-                android:layout_alignParentStart="true" />
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="-4dp"
+                android:layout_marginEnd="0dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/no_image"/>
 
             <ImageView
                 android:id="@+id/id_item_plan_iv_handle"

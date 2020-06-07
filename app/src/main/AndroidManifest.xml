@@ -32,7 +32,9 @@
         <activity android:name=".SearchActivity" />
         <activity android:name=".DestinationDetailActivity" />
         <activity android:name=".PlanActivity" />
-        <activity android:name=".RegisterActivity" />
+        <activity android:name=".RegisterActivity" >
+
+        </activity>
         <activity android:name=".LoginActivity" />
         <activity android:name=".MapsActivity" />
         <activity android:name=".MainActivity" />

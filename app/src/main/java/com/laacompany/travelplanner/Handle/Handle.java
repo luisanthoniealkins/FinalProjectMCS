@@ -77,10 +77,6 @@ public class Handle {
     }
 
 
-    public static String generatePlanID(){
-        return "PID_" + (++count);
-    }
-
     public static Destination getDestination(String destinationID){
         int index = Collections.binarySearch(sDestinations, new Destination(destinationID), sDestinationComparator);
         return sDestinations.get(index);

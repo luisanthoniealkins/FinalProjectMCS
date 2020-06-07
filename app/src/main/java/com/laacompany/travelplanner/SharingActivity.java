@@ -49,7 +49,7 @@ public class SharingActivity extends AppCompatActivity implements VolleyHandle.V
         List<String> params = uri.getPathSegments();
         id = params.get(params.size()-1);
 
-        VolleyHandle.getCurrentUser(Handle.mAuth.getCurrentUser().getUid());
+        VolleyHandle.getCurrentUser(Handle.mAuth.getCurrentUser().getUid(), true);
 
         mBTNLaunch.setEnabled(false);
     }

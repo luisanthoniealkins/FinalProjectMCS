@@ -8,21 +8,16 @@ public class PlanMaster {
     private String planMasterId,eventTitle;
     private Date eventDate;
     private int timeStart;
-    private double latitude, longitude;
+    private Plan origin;
     private ArrayList<Plan> plans;
 
-    public PlanMaster(String planMasterId){
-        this.planMasterId = planMasterId;
-    }
 
-    public PlanMaster(String planMasterId, String eventTitle, Date eventDate, int timeStart, double latitude, double longitude) {
+    public PlanMaster(String planMasterId, String eventTitle, Date eventDate, int timeStart, Plan origin) {
         this.planMasterId = planMasterId;
         this.eventTitle = eventTitle;
         this.eventDate = eventDate;
         this.timeStart = timeStart;
-        this.latitude = latitude;
-        this.longitude = longitude;
-        plans = new ArrayList<>();
+        this.origin = origin;
     }
 
     public PlanMaster(){
@@ -34,8 +29,7 @@ public class PlanMaster {
         this.eventTitle = planMaster.getEventTitle();
         this.eventDate = planMaster.getEventDate();
         this.timeStart = planMaster.getTimeStart();
-        this.latitude = planMaster.getLatitude();
-        this.longitude = planMaster.getLongitude();
+        this.origin = origin;
         this.plans = planMaster.getPlans();
     }
 
@@ -71,20 +65,12 @@ public class PlanMaster {
         this.timeStart = timeStart;
     }
 
-    public double getLatitude() {
-        return latitude;
+    public Plan getOrigin() {
+        return origin;
     }
 
-    public void setLatitude(double latitude) {
-        this.latitude = latitude;
-    }
-
-    public double getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(double longitude) {
-        this.longitude = longitude;
+    public void setOrigin(Plan origin) {
+        this.origin = origin;
     }
 
     public ArrayList<Plan> getPlans() {
