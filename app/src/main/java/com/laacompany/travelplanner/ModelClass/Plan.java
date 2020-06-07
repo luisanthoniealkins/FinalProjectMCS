@@ -14,6 +14,15 @@ public class Plan {
         this.duration = duration;
     }
 
+    public Plan(Plan plan){
+        this.destinationId = plan.getDestinationId();
+        this.name = plan.getName();
+        this.address = plan.getAddress();
+        this.previewUrl = plan.getPreviewUrl();
+        this.arrivedTime = plan.getArrivedTime();
+        this.duration = plan.getDuration();
+    }
+
     public String getName() {
         return name;
     }

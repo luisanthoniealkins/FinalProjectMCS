@@ -28,6 +28,7 @@ public class VolleyHandle {
     public static RequestQueue mRequestQueue;
     public static ArrayList<String> sPlanMasterIds;
     public static VolleyResponseListener listener;
+    public static PlanMaster curQueryPlanMaster;
 
     public static void init(Context context){
         mRequestQueue = Volley.newRequestQueue(context);
@@ -183,6 +184,8 @@ public class VolleyHandle {
                         String origin_preview_url = obj.getString("origin_preview_url");
                         Plan origin = new Plan(origin_id, origin_name, origin_address, origin_preview_url,0,0);
 
+                        Log.d("12345", origin_id + " " + origin_name + " " + origin_address + " " + origin_preview_url);
+
                         PlanMaster planMaster = new PlanMaster(id,event_title,Handle.convLongToDate(event_date),time_start,origin);
 
                         JSONArray jsonArray = obj.getJSONArray("plans");
@@ -220,6 +223,7 @@ public class VolleyHandle {
     }
 
     public static void getPlanMaster(String id){
+        Log.d("12345", "planmaster " + id);
         String url = "https://us-central1-fir-crud-restapi-a8904.cloudfunctions.net/app/api/read/planmaster/" + id;
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
@@ -237,7 +241,7 @@ public class VolleyHandle {
                     String origin_preview_url = obj.getString("origin_preview_url");
                     Plan origin = new Plan(origin_id, origin_name, origin_address, origin_preview_url,0,0);
 
-                    PlanMaster planMaster = new PlanMaster(id,event_title,Handle.convLongToDate(event_date),time_start,origin);
+                    curQueryPlanMaster = new PlanMaster(id,event_title,Handle.convLongToDate(event_date),time_start,origin);
 
                     JSONArray jsonArray = obj.getJSONArray("plans");
                     for(int i = 0; i < jsonArray.length(); i++){
@@ -248,10 +252,9 @@ public class VolleyHandle {
                         String preview_url = objplan.getString("preview_url");
                         int duration = objplan.getInt("duration");
                         int arrived_time = objplan.getInt("arrived_time");
-                        planMaster.getPlans().add(new Plan(destination_id,name,address,preview_url,arrived_time,duration));
+                        curQueryPlanMaster.getPlans().add(new Plan(destination_id,name,address,preview_url,arrived_time,duration));
                     }
 
-                    Handle.sPlanMasters.add(planMaster);
                     if (listener != null) listener.onResponse("getPlanMaster");
                 } catch (JSONException e) {
                     Log.d("12345", "getPlanMaster " + e.getMessage());

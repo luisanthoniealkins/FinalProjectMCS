@@ -18,6 +18,7 @@ public class PlanMaster {
         this.eventDate = eventDate;
         this.timeStart = timeStart;
         this.origin = origin;
+        this.plans = new ArrayList<>();
     }
 
     public PlanMaster(){

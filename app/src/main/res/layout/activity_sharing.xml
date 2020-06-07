@@ -19,105 +19,233 @@
             android:layout_height="wrap_content"
             android:text="Sharing"
             android:textColor="@color/white"
+            android:textStyle="bold"
             android:textSize="25sp"/>
 
     </LinearLayout>
 
-    <ScrollView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
-        <LinearLayout
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true">
 
             <LinearLayout
+                android:id="@+id/id_activity_sharing_layout_main"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="7.5dp"
+                        android:padding="5dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="5dp"
+                            android:gravity="center_horizontal">
+
+                            <TextView
+                                android:id="@+id/id_activiy_sharing_tv_title"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="25sp"
+                                android:text="Title"
+                                android:textColor="@color/eletricBlue"
+                                android:textStyle="bold"/>
+
+                            <TextView
+                                android:id="@+id/id_activiy_sharing_tv_date"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="18sp"
+                                android:text="Date"
+                                android:layout_marginTop="5dp"
+                                android:textColor="@color/LightDark"/>
+
+                            <TextView
+                                android:id="@+id/id_activiy_sharing_tv_start_time"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="18sp"
+                                android:text="Start Time"
+                                android:layout_marginTop="5dp"
+                                android:textColor="@color/LightDark"/>
+
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                </LinearLayout>
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="7.5dp"
-                    android:padding="5dp">
+                    app:cardCornerRadius="4dp"
+                    android:elevation="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginTop="4dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:padding="5dp">
+                        android:background="@color/colorDefault">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="20sp"
-                            android:text="Title"
-                            android:textColor="@color/eletricBlue"
-                            android:textStyle="bold"/>
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="20sp"
-                            android:text="Date"
-                            android:layout_marginTop="5dp"
-                            android:textColor="@color/LightDark"/>
+                            <ImageView
+                                android:id="@+id/id_activity_sharing_iv_origin_preview"
+                                android:layout_width="match_parent"
+                                android:layout_height="180dp"
+                                android:layout_alignParentStart="true"
+                                android:layout_alignParentTop="true"
+                                android:layout_alignParentEnd="true"
+                                android:layout_marginStart="0dp"
+                                android:layout_marginTop="-8dp"
+                                android:layout_marginEnd="0dp"
+                                android:scaleType="fitXY"
+                                android:src="@drawable/no_image" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Start"
+                                android:textColor="@color/white"
+                                android:background="@color/eletricBlue"
+                                android:padding="8dp"
+                                android:textStyle="bold"
+                                android:textSize="15sp"
+                                android:layout_alignParentTop="true"
+                                android:layout_alignParentStart="true"/>
+
+                        </RelativeLayout>
+
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textSize="20sp"
-                            android:text="Start Time"
-                            android:layout_marginTop="5dp"
-                            android:textColor="@color/LightDark"/>
+                            android:orientation="horizontal"
+                            android:gravity="top">
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical"
+                                android:paddingStart="4dp"
+                                android:paddingEnd="4dp">
+
+                                <TextView
+                                    android:id="@+id/id_activity_sharing_tv_origin_name"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="New Origin"
+                                    android:textSize="22sp"
+                                    android:textColor="@color/black"/>
+
+                                <TextView
+                                    android:id="@+id/id_activity_sharing_tv_origin_address"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content" />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
 
                     </LinearLayout>
 
                 </androidx.cardview.widget.CardView>
 
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/id_activity_sharing_rv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp">
+
+                    <Button
+                        android:id="@+id/id_activity_sharing_btn_cancel"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:text="Cancel"
+                        android:onClick="clickCancel"
+                        android:background="@drawable/btn"
+                        android:textColor="@color/white"
+                        android:layout_marginRight="35dp"/>
+
+                    <Button
+                        android:id="@+id/id_activity_sharing_btn_add"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:text="Add"
+                        android:onClick="clickAdd"
+                        android:background="@drawable/btn"
+                        android:textColor="@color/white"/>
+
+                </LinearLayout>
+
             </LinearLayout>
 
+        </androidx.core.widget.NestedScrollView>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/id_activity_sharing_rv"
-                android:layout_width="match_parent"
+        <ProgressBar
+            android:id="@+id/id_activity_sharing_pb_loading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"/>
+
+        <LinearLayout
+            android:id="@+id/id_activity_sharing_ll_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_centerInParent="true">
+
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                />
+                android:text="User Not Login"
+                android:textSize="20sp" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <Button
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp">
-
-                <Button
-                    android:id="@+id/id_activity_sharing_btn_add"
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:text="Cancel"
-                    android:onClick="clickLaunch"
-                    android:background="@drawable/btn"
-                    android:textColor="@color/white"
-                    android:layout_marginRight="35dp"/>
-
-                <Button
-                    android:id="@+id/id_activity_sharing_btn_cancel"
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:text="Add"
-                    android:onClick="clickLaunch"
-                    android:background="@drawable/btn"
-                    android:textColor="@color/white"/>
-
-            </LinearLayout>
+                android:text="Login"
+                android:background="@drawable/btn"
+                android:layout_marginTop="20dp"
+                android:textColor="@color/white"
+                android:onClick="clickLaunch"/>
 
         </LinearLayout>
 
-    </ScrollView>
 
 
+    </RelativeLayout>
 
 
 

@@ -21,7 +21,7 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:id="@+id/id_item_plan_iv_preview"
+                android:id="@+id/id_item_sharing_iv_preview"
                 android:layout_width="match_parent"
                 android:layout_height="180dp"
                 android:scaleType="fitXY"
@@ -48,7 +48,7 @@
                 android:paddingEnd="4dp">
 
                 <TextView
-                    android:id="@+id/id_item_plan_tv_name"
+                    android:id="@+id/id_item_sharing_tv_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Majapahit"
@@ -56,10 +56,10 @@
                     android:textColor="@color/black"/>
 
                 <TextView
-                    android:id="@+id/id_item_plan_tv_address"
+                    android:id="@+id/id_item_sharing_tv_address"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="kasfsfdsfoskfoasodfooasdfojosdoofodsjfosaofosofksdofsovskdo"/>
+                    android:text="Jalan Majapahit"/>
 
             </LinearLayout>
 
@@ -116,7 +116,7 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/id_item_plan_tv_travel_time"
+                        android:id="@+id/id_item_sharing_tv_travel_time"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -124,7 +124,7 @@
                         android:textAlignment="center"/>
 
                     <TextView
-                        android:id="@+id/id_item_plan_tv_arrived_time"
+                        android:id="@+id/id_item_sharing_tv_arrived_time"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -132,13 +132,12 @@
                         android:textAlignment="center"/>
 
                     <TextView
-                        android:id="@+id/id_item_plan_tv_duration"
+                        android:id="@+id/id_item_sharing_tv_duration"
                         android:layout_width="0dp"
-                        android:layout_height="40dp"
+                        android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:textSize="13sp"
-                        android:textColor="@color/eletricBlue"
-                        android:backgroundTint="@color/white" />
+                        android:textSize="11sp"
+                        android:textColor="@color/white" />
 
                 </LinearLayout>
 
@@ -153,7 +152,7 @@
             android:padding="8dp">
 
             <TextView
-                android:id="@+id/id_item_plan_tv_title"
+                android:id="@+id/id_item_sharing_tv_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -164,7 +163,7 @@
                 android:textColor="@color/LightDark"/>
 
             <TextView
-                android:id="@+id/id_item_plan_tv_summary"
+                android:id="@+id/id_item_sharing_tv_summary"
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:textSize="16sp"

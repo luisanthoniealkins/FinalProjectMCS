@@ -162,12 +162,13 @@ public class LoginActivity extends AppCompatActivity implements VolleyHandle.Vol
                     Handle.mAuth.getCurrentUser().delete();
                 }
                 Toast.makeText(this, "User not found, Please register", Toast.LENGTH_SHORT).show();
-                mPBLoading.setVisibility(View.GONE);
-                mBTNLogin.setEnabled(true);
-                mBTNRegister.setEnabled(true);
+
             } else {
                 Toast.makeText(this, R.string.internet_error, Toast.LENGTH_SHORT).show();
             }
+            mPBLoading.setVisibility(View.GONE);
+            mBTNLogin.setEnabled(true);
+            mBTNRegister.setEnabled(true);
             hasShown = true;
         }
 

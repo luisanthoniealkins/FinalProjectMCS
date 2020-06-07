@@ -95,7 +95,7 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.Destinat
 
     public class DestinationViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-        private TextView mTVName, mTVAddress, mTVCountry, mTVRating, mTVVisitor, mTVBestTime, mTVOpenTime;
+        private TextView mTVName, mTVAddress, mTVCountry, mTVRating, mTVVisitor, mTVOpenTime;
         private ImageView mIVPreview, mIVFlag;
         private String mDestinationID;
 
@@ -108,7 +108,6 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.Destinat
             mTVRating = itemView.findViewById(R.id.id_item_explore_tv_rating);
             mTVVisitor = itemView.findViewById(R.id.id_item_explore_tv_visitor);
             mTVOpenTime = itemView.findViewById(R.id.id_item_explore_tv_open_time);
-            mTVBestTime = itemView.findViewById(R.id.id_item_explore_tv_best_time);
             mIVPreview = itemView.findViewById(R.id.id_item_explore_iv_preview);
             mIVFlag = itemView.findViewById(R.id.id_item_explore_iv_flag);
 
@@ -120,6 +119,7 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.Destinat
             String rating = destination.getRating()+" / 10";
             String openTime = Handle.getHourFormat(destination.getOpenTime()) + " - " + Handle.getHourFormat(destination.getCloseTime());
             String bestTime = Handle.getHourFormat(destination.getBestTimeStart()) + " - " + Handle.getHourFormat(destination.getBestTimeEnd());
+            String time = openTime + " , " + bestTime;
 
             mTVName.setText(destination.getName());
             mTVAddress.setText(destination.getAddress());
@@ -127,7 +127,6 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.Destinat
             mTVRating.setText(rating);
             mTVVisitor.setText(String.valueOf(destination.getTotalVisitor()));
             mTVOpenTime.setText(openTime);
-            mTVBestTime.setText(bestTime);
 
             Glide.with(mContext)
                     .load(destination.getPreviewUrl())

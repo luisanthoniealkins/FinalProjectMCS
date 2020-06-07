@@ -14,6 +14,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Pair;
 import android.view.View;
 import android.widget.Button;
@@ -155,10 +156,14 @@ public class PlanActivity extends AppCompatActivity  implements OnStartDragListe
             String plan_id = getIntent().getStringExtra(EXTRA_PLAN_ID);
             for(PlanMaster planMaster : Handle.sPlanMasters){
                 if(planMaster.getPlanMasterId().equals(plan_id)){
+                    Log.d("12345", planMaster.getOrigin().getDestinationId() + " " + planMaster.getOrigin().getName());
+
+                    Plan origin = new Plan(planMaster.getOrigin());
                     mPlanMaster = new PlanMaster();
                     mPlanMaster.setPlanMaster(planMaster);
                     ArrayList<Plan> plans = new ArrayList<>(mPlanMaster.getPlans());
                     mPlanMaster.setPlans(plans);
+                    mPlanMaster.setOrigin(origin);
                     break;
                 }
             }
@@ -169,14 +174,17 @@ public class PlanActivity extends AppCompatActivity  implements OnStartDragListe
             mEDTTitle.setText(mPlanMaster.getEventTitle());
             mBTNDate.setText(date);
             mBTNStartTime.setText(startTime);
-            Glide.with(this)
-                    .load(mPlanMaster.getOrigin().getName())
-                    .into(mIVOriginPreview);
-            mTVOriginName.setText(mPlanMaster.getOrigin().getName());
-            mTVOriginAddress.setText(mPlanMaster.getOrigin().getAddress());
-            Destination origin = Handle.getDestination(mPlanMaster.getOrigin().getDestinationId());
-            originLatitude = origin.getLatitude();
-            originLongitude = origin.getLongitude();
+            if (mPlanMaster.getOrigin() != null){
+                Glide.with(this)
+                        .load(mPlanMaster.getOrigin().getPreviewUrl())
+                        .into(mIVOriginPreview);
+                mTVOriginName.setText(mPlanMaster.getOrigin().getName());
+                mTVOriginAddress.setText(mPlanMaster.getOrigin().getAddress());
+                Destination origin = Handle.getDestination(mPlanMaster.getOrigin().getDestinationId());
+                originLatitude = origin.getLatitude();
+                originLongitude = origin.getLongitude();
+            }
+
         }
 
         mRecyclerView.setNestedScrollingEnabled(false);
@@ -266,6 +274,8 @@ public class PlanActivity extends AppCompatActivity  implements OnStartDragListe
                 for(int i = 0; i < Handle.sPlanMasters.size(); i++){
                     if(Handle.sPlanMasters.get(i).getPlanMasterId().equals(mPlanMaster.getPlanMasterId())){
                         Handle.sPlanMasters.get(i).setPlanMaster(mPlanMaster);
+                        Plan origin = mPlanMaster.getOrigin();
+                        Handle.sPlanMasters.get(i).setOrigin(origin);
                         VolleyHandle.updatePlanMaster(i);
                         break;
                     }
@@ -285,13 +295,11 @@ public class PlanActivity extends AppCompatActivity  implements OnStartDragListe
 
         if(mPlanMaster.getPlans().size() > 1){
             Handle.sCurrentRoutes.clear();
+            Destination destination = Handle.getDestination(mPlanMaster.getOrigin().getDestinationId());
+            Handle.sCurrentRoutes.add(Pair.create(destination.getLongitude(),destination.getLatitude()));
             for(Plan plan : mPlanMaster.getPlans()){
-                for(Destination destination : Handle.sDestinations){
-                    if(plan.getDestinationId().equals(destination.getDestinationId())){
-                        Handle.sCurrentRoutes.add(Pair.create(destination.getLongitude(),destination.getLatitude()));
-                        break;
-                    }
-                }
+                destination = Handle.getDestination(plan.getDestinationId());
+                Handle.sCurrentRoutes.add(Pair.create(destination.getLongitude(),destination.getLatitude()));
             }
             startActivity(MapsActivity.newIntent(this));
         } else {
@@ -476,6 +484,8 @@ public class PlanActivity extends AppCompatActivity  implements OnStartDragListe
         }
         return true;
     }
+
+
 
 
 }

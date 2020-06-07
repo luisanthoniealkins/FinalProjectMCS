@@ -91,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onItemClick(int itemIndex, String itemName) {
+                getSupportActionBar().hide();
                 switch (itemIndex){
                     case 0:
                         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new HomeFragment()).commit();

@@ -297,8 +297,7 @@ public class MapsActivity extends AppCompatActivity implements PermissionsListen
 
     private Animator createLatLngAnimator(Point currentPosition, Point targetPosition) {
         ValueAnimator latLngAnimator = ValueAnimator.ofObject(new PointEvaluator(), currentPosition, targetPosition);
-//        latLngAnimator.setDuration((long) TurfMeasurement.distance(currentPosition, targetPosition, "meters"));
-        latLngAnimator.setDuration(1);
+        latLngAnimator.setDuration((long) TurfMeasurement.distance(currentPosition, targetPosition, "meters"));
         latLngAnimator.setInterpolator(new LinearInterpolator());
         latLngAnimator.addListener(new AnimatorListenerAdapter() {
             @Override

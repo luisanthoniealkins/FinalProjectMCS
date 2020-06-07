@@ -224,6 +224,7 @@ public class RegisterActivity extends AppCompatActivity implements VolleyHandle.
         Log.d("12345","woii" + functionResp);
         if (functionResp.equals("addNewUser")){
             Toast.makeText(this, "User Register Success", Toast.LENGTH_SHORT).show();
+            Handle.sPlanMasters.clear();
             finish();
 
         }

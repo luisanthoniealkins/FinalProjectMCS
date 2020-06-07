@@ -33,9 +33,10 @@
             android:layout_height="wrap_content"
             android:elevation="8dp"
             app:cardCornerRadius="8dp"
-            android:layout_margin="5dp">
+            android:layout_margin="8dp">
 
             <LinearLayout
+                android:id="@+id/id_fragment_home_ll_agenda"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/cv_home"
@@ -51,6 +52,7 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/id_fragment_home_tv_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Trip to Singapore"
@@ -67,17 +69,41 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/ic_time_home"
-                        android:layout_marginLeft="290dp"/>
+                        android:background="@drawable/ic_time_home" />
 
                     <TextView
+                        android:id="@+id/id_fragment_home_tv_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Monday, 22 Jan 2020"
+
+                        android:textSize="18sp"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:layout_marginStart="5sp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/ic_time_home"
+                        />
+
+                    <TextView
+                        android:id="@+id/id_fragment_home_tv_time_start"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="09.00"
-                        android:layout_marginLeft="5dp"
-                        android:textSize="19sp"
+
+                        android:textSize="18sp"
                         android:textColor="@color/white"
-                        android:textStyle="bold"/>
+                        android:textStyle="bold"
+                        android:layout_marginStart="5sp"/>
 
 
                 </LinearLayout>
@@ -90,17 +116,17 @@
                     <ImageView
                         android:layout_width="25dp"
                         android:layout_height="match_parent"
-                        android:background="@drawable/ic_calender_mark"
-                        android:layout_marginLeft="290dp"/>
+                        android:background="@drawable/ic_calender_mark" />
 
                     <TextView
+                        android:id="@+id/id_fragment_home_tv_total_destinations"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="5"
                         android:textColor="@color/white"
-                        android:textSize="19sp"
+                        android:textSize="18sp"
                         android:textStyle="bold"
-                        android:layout_marginLeft="5sp"/>
+                        android:layout_marginStart="5sp"/>
 
                 </LinearLayout>
 
@@ -124,6 +150,7 @@
                 android:layout_marginLeft="10dp"/>
 
             <TextView
+                android:id="@+id/id_fragment_home_tv_future_plans"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="5"
@@ -149,6 +176,7 @@
                 android:layout_marginLeft="10dp"/>
 
             <TextView
+                android:id="@+id/id_fragment_home_tv_total_plans"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="10"

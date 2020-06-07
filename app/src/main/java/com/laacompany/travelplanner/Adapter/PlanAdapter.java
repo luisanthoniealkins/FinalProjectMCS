@@ -251,7 +251,8 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
 
         @Override
         public void onClick(View v) {
-            mContext.startActivity(DestinationDetailActivity.newIntent(mContext, destinationId));
+            if (destinationId.equals("NEW")) return;
+            mContext.startActivity(DestinationDetailActivity.newIntentView(mContext, destinationId));
         }
     }
 }

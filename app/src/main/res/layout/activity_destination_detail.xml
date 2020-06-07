@@ -30,6 +30,7 @@
         android:text="5.5/10"/>
 
     <Button
+        android:id="@+id/id_activity_detaildes_btn_start_plan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Start Plan"
