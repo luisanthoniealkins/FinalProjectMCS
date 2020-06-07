@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="8dp"
-        android:background="@color/lightBlue">
+        android:background="@color/eletricBlue">
 
         <TextView
             android:id="@+id/id_item_calendar_plan_master_tv_title"
@@ -19,7 +19,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textSize="18sp"
-            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textColor="@color/white"
             android:layout_gravity="center_vertical"/>
 
         <LinearLayout
@@ -36,11 +37,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Start at : "
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
                     android:layout_marginEnd="10dp"/>
 
                 <TextView
                     android:id="@+id/id_item_calendar_plan_master_tv_start_time"
                     android:layout_width="wrap_content"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
                     android:layout_height="wrap_content"/>
 
             </LinearLayout>
@@ -54,12 +59,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Destinations : "
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
                     android:layout_marginEnd="10dp"/>
 
                 <TextView
                     android:id="@+id/id_item_calendar_plan_master_tv_total_destination"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"/>
 
             </LinearLayout>
 

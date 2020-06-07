@@ -16,4 +16,7 @@
     <color name="eletricBlue">#51BFFF</color>
     <color name="lightBlue">#94D8FF</color>
     <color name="red">#FF3C00</color>
+    <color name="DarkBlue">#003A5B</color>
+    <color name="LightDark"> #4D4D4D</color>
+
 </resources>
