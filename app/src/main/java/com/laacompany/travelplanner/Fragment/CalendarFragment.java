@@ -90,7 +90,7 @@ public class CalendarFragment extends Fragment {
         for(PlanMaster planMaster : Handle.sPlanMasters) {
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(planMaster.getEventDate());
-            events.add(new EventDay(calendar, R.drawable.ic_add_black_24dp));
+            events.add(new EventDay(calendar, R.drawable.ic_calender_mark));
         }
         mCalendarView.setEvents(events);
 
