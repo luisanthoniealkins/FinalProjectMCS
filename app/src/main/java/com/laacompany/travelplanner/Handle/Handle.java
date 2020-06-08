@@ -26,7 +26,6 @@ public class Handle {
     public static ArrayList<Destination> sDestinations;
     public static ArrayList<Pair<Double,Double>> sCurrentRoutes;
     public static FirebaseAuth mAuth;
-    private static int count = 0;
     private static Comparator<Destination> sDestinationComparator = (o1, o2) -> o1.getDestinationId().compareTo(o2.getDestinationId());
 
     public static void init(Context context){
@@ -86,5 +85,10 @@ public class Handle {
         return sDestinations.get(index);
     }
 
+    public static double range(Pair<Double,Double> latLng1, Pair<Double,Double> latLng2){
+        double x = latLng1.first - latLng2.first;
+        double y = latLng1.second - latLng2.second;
+        return Math.sqrt(x*x + y*y);
+    }
 
 }

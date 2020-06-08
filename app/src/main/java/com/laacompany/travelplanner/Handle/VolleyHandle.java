@@ -73,7 +73,6 @@ public class VolleyHandle {
     }
 
     public static void getCurrentUser(String user_id, boolean withPlan){
-//        Log.d("12345", user_id);
         String url="https://us-central1-fir-crud-restapi-a8904.cloudfunctions.net/app/api/read/user/" + user_id;
         if (withPlan) getAllPlanMasters(user_id);
 
@@ -163,7 +162,6 @@ public class VolleyHandle {
     }
 
     public static void getAllPlanMasters(String user_id){
-//        Log.d("12345", "plan masters" + user_id);
         String url = "https://us-central1-fir-crud-restapi-a8904.cloudfunctions.net/app/api/read/planmasters/" + user_id;
         Handle.sPlanMasters.clear();
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {

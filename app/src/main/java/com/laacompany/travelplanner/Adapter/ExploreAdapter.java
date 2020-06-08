@@ -116,7 +116,7 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.Destinat
 
         public void bind(Destination destination, int position){
             mDestinationID = destination.getDestinationId();
-            String rating = destination.getRating()+" / 10";
+            String rating = destination.getRating()+" / 5";
             String openTime = Handle.getHourFormat(destination.getOpenTime()) + " - " + Handle.getHourFormat(destination.getCloseTime());
             String bestTime = Handle.getHourFormat(destination.getBestTimeStart()) + " - " + Handle.getHourFormat(destination.getBestTimeEnd());
             String time = openTime + " , " + bestTime;
@@ -126,7 +126,7 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.Destinat
             mTVCountry.setText(destination.getCountry());
             mTVRating.setText(rating);
             mTVVisitor.setText(String.valueOf(destination.getTotalVisitor()));
-            mTVOpenTime.setText(openTime);
+            mTVOpenTime.setText(time);
 
             Glide.with(mContext)
                     .load(destination.getPreviewUrl())

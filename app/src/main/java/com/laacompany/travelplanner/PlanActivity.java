@@ -54,6 +54,7 @@ public class PlanActivity extends AppCompatActivity  implements OnStartDragListe
     public static final int REQUEST_CODE_SEARCH_ORIGIN = 2;
     public static final String EXTRA_RESULT_DESTINATION_ID = "result_destination_id_extra";
 
+    private View mRootView;
     private EditText mEDTTitle;
     private Button mBTNDate, mBTNStartTime;
     private TextView mTVEndTime, mTVOriginName, mTVOriginAddress;
@@ -99,6 +100,7 @@ public class PlanActivity extends AppCompatActivity  implements OnStartDragListe
     }
 
     private void initView(){
+        mRootView = findViewById(R.id.id_activity_plan_rl_root);
         mEDTTitle = findViewById(R.id.id_activity_plan_edt_title);
         mBTNDate = findViewById(R.id.id_activity_plan_btn_date);
         mBTNStartTime = findViewById(R.id.id_activity_plan_btn_start_time);
@@ -197,6 +199,8 @@ public class PlanActivity extends AppCompatActivity  implements OnStartDragListe
         mItemTouchHelper.attachToRecyclerView(mRecyclerView);
 
         planAdapter.refreshData();
+        disableClicks();
+        enableClicks();
     }
 
 
@@ -268,7 +272,7 @@ public class PlanActivity extends AppCompatActivity  implements OnStartDragListe
         hasShown = false;
         if(valid) {
             if (mode == 0){
-                Handle.sPlanMasters.add(mPlanMaster);
+
                 VolleyHandle.addPlanMaster(Handle.sPlanMasters.size()-1);
             } else {
                 for(int i = 0; i < Handle.sPlanMasters.size(); i++){
@@ -293,7 +297,7 @@ public class PlanActivity extends AppCompatActivity  implements OnStartDragListe
             return;
         }
 
-        if(mPlanMaster.getPlans().size() > 1){
+        if(mPlanMaster.getPlans().size() > 0){
             Handle.sCurrentRoutes.clear();
             Destination destination = Handle.getDestination(mPlanMaster.getOrigin().getDestinationId());
             Handle.sCurrentRoutes.add(Pair.create(destination.getLongitude(),destination.getLatitude()));
@@ -303,7 +307,7 @@ public class PlanActivity extends AppCompatActivity  implements OnStartDragListe
             }
             startActivity(MapsActivity.newIntent(this));
         } else {
-            Toast.makeText(this, "Require at least two destinations", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Require at least one destination", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -316,16 +320,33 @@ public class PlanActivity extends AppCompatActivity  implements OnStartDragListe
             return;
         }
 
-        if(mPlanMaster.getPlans().size() > 1){
-            ArrayList<Integer> indexes = TSP.simulate(new int[5][5], 5);
+        if(mPlanMaster.getPlans().size() > 0){
+            ArrayList<Pair<Double,Double>> latLng = new ArrayList<>();
+            Destination destination = Handle.getDestination(mPlanMaster.getOrigin().getDestinationId());
+            latLng.add(new Pair<>(destination.getLatitude(),destination.getLongitude()));
+            for(Plan plan : mPlanMaster.getPlans()){
+                destination = Handle.getDestination(plan.getDestinationId());
+                latLng.add(new Pair<>(destination.getLatitude(),destination.getLongitude()));
+            }
+
+            double[][] dist = new double[latLng.size()][latLng.size()];
+            for(int i = 0; i < latLng.size(); i++){
+                for(int j = 0; j < latLng.size(); j++){
+                    dist[i][j] = Handle.range(latLng.get(i),latLng.get(j));
+                }
+            }
+
+            ArrayList<Integer> indexes = TSP.simulate(dist, latLng.size());
             ArrayList<Plan> plans = new ArrayList<>();
-            for(int index : indexes){
-                plans.add(mPlanMaster.getPlans().get(index));
+            for(int i = 1; i < indexes.size(); i++){
+                int index = indexes.get(i);
+                plans.add(mPlanMaster.getPlans().get(index-1));
             }
             mPlanMaster.setPlans(plans);
+            planAdapter.setPlans(plans);
             planAdapter.refreshData();
         } else {
-            Toast.makeText(this, "Require at least two destinations", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Require at least one destination", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -419,6 +440,7 @@ public class PlanActivity extends AppCompatActivity  implements OnStartDragListe
     public void onResponse(String functionResp) {
         if (mode == 0){
             if (functionResp.equals("updateUser")){
+                Handle.sPlanMasters.add(mPlanMaster);
                 finish();
             }
         } else {
@@ -485,7 +507,21 @@ public class PlanActivity extends AppCompatActivity  implements OnStartDragListe
         return true;
     }
 
+    public void disableClicks() {
+        // Get all touchable views
+        ArrayList<View> layoutButtons = mRootView.getTouchables();
+        for(View v : layoutButtons){
+            v.setVisibility(View.GONE);
+        }
+    }
 
+    public void enableClicks() {
+        // Get all touchable views
+        ArrayList<View> layoutButtons = mRootView.getTouchables();
+        for(View v : layoutButtons){
+            v.setVisibility(View.VISIBLE);
+        }
+    }
 
 
 }

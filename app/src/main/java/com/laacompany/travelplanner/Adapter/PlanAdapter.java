@@ -199,7 +199,7 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
                 @Override
                 public void onClick(View v) {
                     AlertDialog alertDialog = new AlertDialog.Builder(mContext).create();
-                    alertDialog.setTitle("Exit Application");
+                    alertDialog.setTitle("Delete Destination");
                     alertDialog.setMessage("Are you sure you want to delete this destination?");
                     alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel",
                             new DialogInterface.OnClickListener() {
@@ -207,7 +207,7 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
                                     dialog.dismiss();
                                 }
                             });
-                    alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Proceed",
+                    alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Yes",
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
                                     PlanAdapter.mPlans.remove(getAdapterPosition());

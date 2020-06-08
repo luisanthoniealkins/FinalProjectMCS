@@ -221,12 +221,10 @@ public class RegisterActivity extends AppCompatActivity implements VolleyHandle.
 
     @Override
     public void onResponse(String functionResp) {
-        Log.d("12345","woii" + functionResp);
         if (functionResp.equals("addNewUser")){
             Toast.makeText(this, "User Register Success", Toast.LENGTH_SHORT).show();
             Handle.sPlanMasters.clear();
             finish();
-
         }
     }
 

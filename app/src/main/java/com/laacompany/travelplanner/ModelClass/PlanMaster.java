@@ -30,7 +30,7 @@ public class PlanMaster {
         this.eventTitle = planMaster.getEventTitle();
         this.eventDate = planMaster.getEventDate();
         this.timeStart = planMaster.getTimeStart();
-        this.origin = origin;
+        this.origin = planMaster.getOrigin();
         this.plans = planMaster.getPlans();
     }
 

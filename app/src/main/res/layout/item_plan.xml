@@ -65,7 +65,7 @@
                     android:id="@+id/id_item_plan_tv_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Majapahit"
+                    android:text="New Destination"
                     android:textSize="22sp"
                     android:textColor="@color/black"/>
 
@@ -73,7 +73,7 @@
                     android:id="@+id/id_item_plan_tv_address"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="kasfsfdsfoskfoasodfooasdfojosdoofodsjfosaofosofksdofsovskdo"/>
+                    />
 
             </LinearLayout>
             

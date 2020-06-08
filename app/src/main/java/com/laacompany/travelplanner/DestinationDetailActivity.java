@@ -66,7 +66,7 @@ public class DestinationDetailActivity extends AppCompatActivity implements Dial
         int mode = getIntent().getIntExtra(EXTRA_MODE,-1);
         mDestination = Handle.getDestination(destId);
 
-        String rating = String.format("%.1f / 10.0 ", mDestination.getRating());
+        String rating = String.format("%.1f / 5.0 ", mDestination.getRating());
         String openTime = Handle.getHourFormat(mDestination.getOpenTime()) + " - " + Handle.getHourFormat(mDestination.getCloseTime());
         String bestTime = Handle.getHourFormat(mDestination.getBestTimeStart()) + " - " + Handle.getHourFormat(mDestination.getBestTimeEnd());
 
