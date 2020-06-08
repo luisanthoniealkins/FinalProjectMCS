@@ -56,8 +56,19 @@ public class FilterDialog extends AppCompatDialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         String country = (String) mSpinnerCountry.getSelectedItem();
-                        double rating  = Double.parseDouble(mEDTRating.getText().toString());
-                        int visitor  = Integer.parseInt(mEDTVisitor.getText().toString());
+                        double rating;
+                        int visitor;
+                        if ( mEDTRating.getText().toString().isEmpty()) {
+                            rating = 0;
+                        } else {
+                            rating  = Double.parseDouble(mEDTRating.getText().toString());
+                        }
+
+                        if ( mEDTVisitor.getText().toString().isEmpty()) {
+                            visitor = 0;
+                        } else {
+                            visitor  = Integer.parseInt(mEDTVisitor.getText().toString());
+                        }
                          listener.applyFilter(country,rating,visitor);
                     }
                 });
@@ -66,7 +77,7 @@ public class FilterDialog extends AppCompatDialogFragment {
       mEDTVisitor = view.findViewById(R.id.id_dialog_filter_edt_visitor);
       mSpinnerCountry = view.findViewById(R.id.id_dialog_filter_spinner_country);
       String[] arrayOfCountrySpinner = new String[] {
-                "Indonesia", "Malaysia", "Singapore", "Australia", "Brunei", "Thailand", "Laos"
+                "None","Indonesia", "Malaysia", "Singapore", "Australia", "Brunei", "Thailand", "Laos"
         };
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
                 android.R.layout.simple_spinner_item, arrayOfCountrySpinner);

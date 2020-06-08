@@ -69,12 +69,11 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.Destinat
         mDestinationsFull = destinations;
     }
 
-
+    private Comparator<Destination> comparator;
     public void getCustomSort(String category, String sortBy) {
         this.categorySort = category;
         this.sortBy = sortBy;
-
-        Collections.sort(mDestinations, new Comparator<Destination>() {
+        comparator = new Comparator<Destination>() {
             @Override
             public int compare(Destination o1, Destination o2) {
                 switch (categorySort) {
@@ -116,7 +115,9 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.Destinat
                 }
                 return 0;
             }
-        });
+        };
+        Collections.sort(mDestinations, comparator );
+        Collections.sort(mDestinationsFull, comparator );
 
          notifyDataSetChanged();
     }
@@ -127,18 +128,24 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.Destinat
     }
 
     public void getCustomFilter(String country, double rating, int visitor){
-        this.countryFilter = country;
+
+        if(country.equals("None")){
+            this.countryFilter = null;
+        } else {
+            this.countryFilter = country;
+        }
         this.ratingFilter = rating;
         this.visitorFilter = visitor;
 
         ArrayList<Destination> filteredList = new ArrayList<>();
 
         for (Destination destination : mDestinationsFull) {
-            Log.d("12345", "Negara : " + destination.getCountry().toLowerCase() + " " + countryFilter.toLowerCase());
-            Log.d("12345", "Rating : " + destination.getRating() + " " + ratingFilter);
-            Log.d("12345", "Visitor : " + destination.getTotalVisitor() + " " + visitorFilter);
-            if (destination.getName().toLowerCase().contains(textFilter) && destination.getCountry().toLowerCase().equals(countryFilter.toLowerCase())
-                    && destination.getRating() >= ratingFilter && destination.getTotalVisitor() >= visitorFilter) {
+//            Log.d("12345", "Negara : " + destination.getCountry().toLowerCase() + " " + countryFilter.toLowerCase());
+//            Log.d("12345", "Rating : " + destination.getRating() + " " + ratingFilter);
+//            Log.d("12345", "Visitor : " + destination.getTotalVisitor() + " " + visitorFilter);
+            if (destination.getName().toLowerCase().contains(textFilter) &&
+                    ((countryFilter == null) || destination.getCountry().toLowerCase().equals(countryFilter.toLowerCase())) &&
+                    destination.getRating() >= ratingFilter && destination.getTotalVisitor() >= visitorFilter) {
                 filteredList.add(destination);
             }
 
@@ -161,22 +168,27 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.Destinat
             if (constraint == null || constraint.length() == 0) {
                 Log.d("12345", "MDestination " + mDestinationsFull.size());
                 for (Destination destination : mDestinationsFull) {
-                    if (destination.getCountry().toLowerCase().equals(countryFilter.toLowerCase())
-                            && destination.getRating() >= ratingFilter && destination.getTotalVisitor() >= visitorFilter) {
+                    Log.d("12345", "Masuk ga nih?!");
+                    if (((countryFilter == null) || destination.getCountry().toLowerCase().equals(countryFilter.toLowerCase())) &&
+                            destination.getRating() >= ratingFilter && destination.getTotalVisitor() >= visitorFilter){
+                        Log.d("12345", "tes1");
                         filteredList.add(destination);
+                        Log.d("12345", "tes2");
                     }
-
+                    Log.d("12345", "Masuk ga nih 2?!");
                 }
             } else {
                 String filterPattern = constraint.toString().toLowerCase().trim();
                 textFilter = filterPattern;
                 for (Destination destination : mDestinationsFull) {
-                    if (destination.getName().toLowerCase().contains(filterPattern) && destination.getCountry().toLowerCase().equals(countryFilter.toLowerCase())
-                            && destination.getRating() >= ratingFilter && destination.getTotalVisitor() >= visitorFilter) {
+                    if (destination.getName().toLowerCase().contains(filterPattern) &&
+                            ((countryFilter == null) || destination.getCountry().toLowerCase().equals(countryFilter.toLowerCase())) &&
+                            destination.getRating() >= ratingFilter && destination.getTotalVisitor() >= visitorFilter) {
                         filteredList.add(destination);
                     }
                 }
             }
+            Log.d("12345", "halo");
             FilterResults results = new FilterResults();
             results.values = filteredList;
             return results;
@@ -184,10 +196,11 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.Destinat
 
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
-            Log.d("12345", mDestinations.size() + "!" + mDestinationsFull.size() + "!"  + ((List) results.values).size());
+//            Log.d("12345", mDestinations.size() + "!" + mDestinationsFull.size() + "!"  + ((List) results.values).size());
+            Log.d("12345", "tes");
             mDestinations.clear();
             mDestinations.addAll((List) results.values );
-            Log.d("12345", mDestinations.size() + " " + mDestinationsFull.size() + " "  + ((List) results.values).size());
+//            Log.d("12345", mDestinations.size() + " " + mDestinationsFull.size() + " "  + ((List) results.values).size());
             notifyDataSetChanged();
         }
     };
