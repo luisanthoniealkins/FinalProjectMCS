@@ -3,6 +3,7 @@ package com.laacompany.travelplanner.Adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,8 @@ import com.laacompany.travelplanner.R;
 import com.laacompany.travelplanner.SearchActivity;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.DestinationViewHolder> implements Filterable {
@@ -30,12 +33,25 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.Destinat
     private Context mContext;
     private ArrayList<Destination> mDestinations, mDestinationsFull;
     private boolean searching;
+    private String countryFilter;
+    private double ratingFilter;
+    private int visitorFilter;
+    private String textFilter = "";
+
+    //Sort
+    private String categorySort;
+    private String sortBy;
 
     public ExploreAdapter(Context context, ArrayList<Destination> destinations, boolean searching){
         mContext = context;
-        mDestinations = mDestinationsFull = destinations;
+        mDestinations  = destinations;
+        mDestinationsFull = new ArrayList<>();
+        mDestinationsFull.addAll(destinations);
+//        mDestinationsFull = destinations;
         this.searching = searching;
-
+        countryFilter = null;
+        ratingFilter = 0;
+        visitorFilter = 0;
     }
 
     @NonNull
@@ -50,14 +66,93 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.Destinat
     }
 
     public void setDestinations(ArrayList<Destination> destinations){
-        mDestinations = destinations;
+        mDestinationsFull = destinations;
     }
 
+    private Comparator<Destination> comparator;
+    public void getCustomSort(String category, String sortBy) {
+        this.categorySort = category;
+        this.sortBy = sortBy;
+        comparator = new Comparator<Destination>() {
+            @Override
+            public int compare(Destination o1, Destination o2) {
+                switch (categorySort) {
+                    case "ByName" : {
+                        return(sortBy.equals("Ascending"))?o1.getName().compareTo(o2.getName()):o2.getName().compareTo(o1.getName());
+                    }
 
+                    case "ByRating" : {
+                        if ( sortBy.equals("Ascending")) {
+                            if ( o1.getRating() > o2.getRating()) {
+                                return 1;
+                            } else {
+                                return -1;
+                            }
+                        } else {
+                            if ( o1.getRating() > o2.getRating()) {
+                                return -1;
+                            } else {
+                                return 1;
+                            }
+                        }
+                    }
+
+                    case "ByVisitor" : {
+                        if ( sortBy.equals("Ascending")) {
+                            if ( o1.getTotalVisitor() > o2.getTotalVisitor()) {
+                                return 1;
+                            } else {
+                                return -1;
+                            }
+                        } else {
+                            if ( o1.getRating() > o2.getRating()) {
+                                return -1;
+                            } else {
+                                return 1;
+                            }
+                        }
+                    }
+                }
+                return 0;
+            }
+        };
+        Collections.sort(mDestinations, comparator );
+        Collections.sort(mDestinationsFull, comparator );
+
+         notifyDataSetChanged();
+    }
 
     @Override
     public int getItemCount() {
         return mDestinations.size();
+    }
+
+    public void getCustomFilter(String country, double rating, int visitor){
+
+        if(country.equals("None")){
+            this.countryFilter = null;
+        } else {
+            this.countryFilter = country;
+        }
+        this.ratingFilter = rating;
+        this.visitorFilter = visitor;
+
+        ArrayList<Destination> filteredList = new ArrayList<>();
+
+        for (Destination destination : mDestinationsFull) {
+//            Log.d("12345", "Negara : " + destination.getCountry().toLowerCase() + " " + countryFilter.toLowerCase());
+//            Log.d("12345", "Rating : " + destination.getRating() + " " + ratingFilter);
+//            Log.d("12345", "Visitor : " + destination.getTotalVisitor() + " " + visitorFilter);
+            if (destination.getName().toLowerCase().contains(textFilter) &&
+                    ((countryFilter == null) || destination.getCountry().toLowerCase().equals(countryFilter.toLowerCase())) &&
+                    destination.getRating() >= ratingFilter && destination.getTotalVisitor() >= visitorFilter) {
+                filteredList.add(destination);
+            }
+
+        }
+        mDestinations.clear();
+        mDestinations.addAll(filteredList);
+        notifyDataSetChanged();
     }
 
     @Override
@@ -71,15 +166,29 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.Destinat
             List<Destination> filteredList = new ArrayList<>();
 
             if (constraint == null || constraint.length() == 0) {
-                filteredList.addAll(mDestinationsFull);
+                Log.d("12345", "MDestination " + mDestinationsFull.size());
+                for (Destination destination : mDestinationsFull) {
+                    Log.d("12345", "Masuk ga nih?!");
+                    if (((countryFilter == null) || destination.getCountry().toLowerCase().equals(countryFilter.toLowerCase())) &&
+                            destination.getRating() >= ratingFilter && destination.getTotalVisitor() >= visitorFilter){
+                        Log.d("12345", "tes1");
+                        filteredList.add(destination);
+                        Log.d("12345", "tes2");
+                    }
+                    Log.d("12345", "Masuk ga nih 2?!");
+                }
             } else {
                 String filterPattern = constraint.toString().toLowerCase().trim();
-                for (Destination destination : mDestinations) {
-                    if (destination.getName().toLowerCase().contains(filterPattern)) {
+                textFilter = filterPattern;
+                for (Destination destination : mDestinationsFull) {
+                    if (destination.getName().toLowerCase().contains(filterPattern) &&
+                            ((countryFilter == null) || destination.getCountry().toLowerCase().equals(countryFilter.toLowerCase())) &&
+                            destination.getRating() >= ratingFilter && destination.getTotalVisitor() >= visitorFilter) {
                         filteredList.add(destination);
                     }
                 }
             }
+            Log.d("12345", "halo");
             FilterResults results = new FilterResults();
             results.values = filteredList;
             return results;
@@ -87,11 +196,15 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.Destinat
 
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
+//            Log.d("12345", mDestinations.size() + "!" + mDestinationsFull.size() + "!"  + ((List) results.values).size());
+            Log.d("12345", "tes");
             mDestinations.clear();
             mDestinations.addAll((List) results.values );
+//            Log.d("12345", mDestinations.size() + " " + mDestinationsFull.size() + " "  + ((List) results.values).size());
             notifyDataSetChanged();
         }
     };
+
 
     public class DestinationViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 

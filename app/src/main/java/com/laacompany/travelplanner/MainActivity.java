@@ -72,6 +72,10 @@ public class MainActivity extends AppCompatActivity {
 
         initView();
 
+
+
+
+
         //NAVIGATION BAR
         mSpaceNavigationView.initWithSaveInstanceState(savedInstanceState);
         mSpaceNavigationView.addSpaceItem(new SpaceItem("", R.drawable.ic_home_black_24dp));
@@ -97,7 +101,8 @@ public class MainActivity extends AppCompatActivity {
                         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new HomeFragment()).commit();
                         break;
                     case 1:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new ExploreFragment()).commit();
+//                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new ExploreFragment()).commit();
+                        startActivity(ExploreActivity.newIntent(MainActivity.this));
                         break;
                     case 2:
                         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new CalendarFragment()).commit();
@@ -110,7 +115,21 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onItemReselected(int itemIndex, String itemName) {
-
+                switch (itemIndex){
+                    case 0:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new HomeFragment()).commit();
+                        break;
+                    case 1:
+//                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new ExploreFragment()).commit();
+                        startActivity(ExploreActivity.newIntent(MainActivity.this));
+                        break;
+                    case 2:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new CalendarFragment()).commit();
+                        break;
+                    case 3:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new SettingFragment()).commit();
+                        break;
+                }
             }
         });
 
@@ -120,6 +139,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        mSpaceNavigationView.changeCurrentItem(0);
         mayClick=true;
     }
 
