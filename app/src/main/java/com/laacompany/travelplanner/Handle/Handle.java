@@ -27,6 +27,7 @@ public class Handle {
     public static ArrayList<PlanMaster> sPlanMasters;
     public static ArrayList<Destination> sDestinations;
     public static ArrayList<Pair<Double,Double>> sCurrentRoutes;
+    public static ArrayList<String> sCurrrenRouteDestinations;
     public static FirebaseAuth mAuth;
     private static Comparator<Destination> sDestinationComparator = (o1, o2) -> o1.getDestinationId().compareTo(o2.getDestinationId());
 
@@ -36,6 +37,7 @@ public class Handle {
         sPlanMasters = new ArrayList<>();
         sDestinations = new ArrayList<>();
         sCurrentRoutes = new ArrayList<>();
+        sCurrrenRouteDestinations = new ArrayList<>();
         mAuth = FirebaseAuth.getInstance();
         VolleyHandle.init(context);
     }

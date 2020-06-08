@@ -182,8 +182,6 @@ public class VolleyHandle {
                         String origin_preview_url = obj.getString("origin_preview_url");
                         Plan origin = new Plan(origin_id, origin_name, origin_address, origin_preview_url,0,0);
 
-                        Log.d("12345", origin_id + " " + origin_name + " " + origin_address + " " + origin_preview_url);
-
                         PlanMaster planMaster = new PlanMaster(id,event_title,Handle.convLongToDate(event_date),time_start,origin);
 
                         JSONArray jsonArray = obj.getJSONArray("plans");

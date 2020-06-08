@@ -304,10 +304,13 @@ public class PlanActivity extends AppCompatActivity  implements OnStartDragListe
 
         if(mPlanMaster.getPlans().size() > 0){
             Handle.sCurrentRoutes.clear();
+            Handle.sCurrrenRouteDestinations.clear();
             Destination destination = Handle.getDestination(mPlanMaster.getOrigin().getDestinationId());
+            Handle.sCurrrenRouteDestinations.add(mPlanMaster.getOrigin().getName());
             Handle.sCurrentRoutes.add(Pair.create(destination.getLongitude(),destination.getLatitude()));
             for(Plan plan : mPlanMaster.getPlans()){
                 destination = Handle.getDestination(plan.getDestinationId());
+                Handle.sCurrrenRouteDestinations.add(destination.getName());
                 Handle.sCurrentRoutes.add(Pair.create(destination.getLongitude(),destination.getLatitude()));
             }
             startActivity(MapsActivity.newIntent(this));

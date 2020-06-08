@@ -16,6 +16,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -89,7 +90,7 @@ public class ExploreActivity extends AppCompatActivity implements FilterDialog.F
         exploreAdapter = new ExploreAdapter(this, candidateDest, mode > 0);
         mRecyclerView.setAdapter(exploreAdapter);
 
-        FloatingActionButton fabSort = findViewById(R.id.id_activity_explore_fbtn_sort);
+        Button fabSort = findViewById(R.id.id_activity_explore_fbtn_sort);
         fabSort.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -99,7 +100,7 @@ public class ExploreActivity extends AppCompatActivity implements FilterDialog.F
         });
 
 
-        FloatingActionButton fabFilter = findViewById(R.id.id_activity_explore_fbtn_filter);
+        Button fabFilter = findViewById(R.id.id_activity_explore_fbtn_filter);
         fabFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -169,18 +169,19 @@ public class MapsActivity extends AppCompatActivity implements PermissionsListen
             currentAnimator = createLatLngAnimator(indexPoint, newPoint);
             currentAnimator.start();
             routeIndex++;
-
         } else {
 
             currentIndex++;
+            int idx = currentIndex %  Handle.sCurrrenRouteDestinations.size();
             if (currentIndex == destinationPoints.size()){
                 mMapboxMap.getStyle().removeLayer("symbol-layer-id");
                 mBTNSimulate.setEnabled(true);
                 mBTNNavigation.setEnabled(true);
+                Toast.makeText(this, "Arrived at : " + Handle.sCurrrenRouteDestinations.get(idx) + "\nSimulation Complete", Toast.LENGTH_SHORT).show();
             } else {
+                Toast.makeText(this, "Arrived at : " + Handle.sCurrrenRouteDestinations.get(idx), Toast.LENGTH_SHORT).show();
                 addDestinationIconLayoutStart(mMapboxMap.getStyle(), currentIndex);
                 int nextCurrentIndex = (currentIndex+1) % destinationPoints.size();
-                Log.d("123", currentIndex + " " + nextCurrentIndex + " " + destinationPoints.size());
                 getRoute(destinationPoints.get(currentIndex),destinationPoints.get(nextCurrentIndex));
                 routeIndex = 0;
             }
