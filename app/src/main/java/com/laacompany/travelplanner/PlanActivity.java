@@ -199,8 +199,6 @@ public class PlanActivity extends AppCompatActivity  implements OnStartDragListe
         mItemTouchHelper.attachToRecyclerView(mRecyclerView);
 
         planAdapter.refreshData();
-        disableClicks();
-        enableClicks();
     }
 
 
