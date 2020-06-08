@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -21,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.laacompany.travelplanner.DestinationDetailActivity;
+import com.laacompany.travelplanner.ExploreActivity;
 import com.laacompany.travelplanner.Handle.Handle;
 import com.laacompany.travelplanner.InterfaceAndCallback.ItemTouchHelperAdapter;
 import com.laacompany.travelplanner.InterfaceAndCallback.ItemTouchHelperViewHolder;
@@ -29,7 +29,6 @@ import com.laacompany.travelplanner.ModelClass.Plan;
 import com.laacompany.travelplanner.PickerDialog.DialogDuration;
 import com.laacompany.travelplanner.PlanActivity;
 import com.laacompany.travelplanner.R;
-import com.laacompany.travelplanner.SearchActivity;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -231,7 +230,7 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
             mIBTNSearch.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ((PlanActivity)mContext).startActivityForResult(SearchActivity.newIntent(mContext, PlanActivity.originLatitude, PlanActivity.originLongitude), PlanActivity.REQUEST_CODE_SEARCH);
+                    ((PlanActivity)mContext).startActivityForResult(ExploreActivity.newIntentSelect(mContext, PlanActivity.originLatitude, PlanActivity.originLongitude), PlanActivity.REQUEST_CODE_SEARCH);
                     selectedPos = getAdapterPosition();
                 }
             });

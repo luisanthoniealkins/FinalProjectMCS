@@ -12,6 +12,16 @@
         android:background="@color/colorAccent"
         android:padding="16dp">
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Country"
+            android:textColor="@color/white"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:textColorHint="@color/eletricBlue"/>
+
         <Spinner
             android:id="@+id/id_dialog_filter_spinner_country"
             android:layout_width="match_parent"
@@ -31,7 +41,8 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:textColor="@color/colorAccent"
-            android:background="@drawable/selector"/>
+            android:background="@drawable/selector"
+            android:inputType="number"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -45,7 +56,8 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:background="@drawable/selector"
-            android:textColor="@color/colorAccent"/>
+            android:textColor="@color/colorAccent"
+            android:inputType="numberDecimal"/>
     </LinearLayout>
 
 

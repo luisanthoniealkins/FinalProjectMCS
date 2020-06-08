@@ -1,8 +1,10 @@
 package com.laacompany.travelplanner.Handle;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.util.Pair;
+import android.view.View;
 
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
@@ -90,5 +92,7 @@ public class Handle {
         double y = latLng1.second - latLng2.second;
         return Math.sqrt(x*x + y*y);
     }
+
+
 
 }

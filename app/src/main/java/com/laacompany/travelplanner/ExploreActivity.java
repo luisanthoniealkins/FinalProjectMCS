@@ -9,6 +9,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
+import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -20,17 +22,40 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.laacompany.travelplanner.Adapter.ExploreAdapter;
 import com.laacompany.travelplanner.Handle.Handle;
+import com.laacompany.travelplanner.ModelClass.Destination;
 import com.laacompany.travelplanner.PickerDialog.DialogDuration;
 import com.laacompany.travelplanner.PickerDialog.FilterDialog;
 import com.laacompany.travelplanner.PickerDialog.SortDialog;
 
+import java.util.ArrayList;
+
 public class ExploreActivity extends AppCompatActivity implements FilterDialog.FilterDialogListener, SortDialog.SortDialogListener {
 
+    private static final String EXTRA_MODE = "mode_extra";
+    private static final String EXTRA_LATITUDE = "mode_latitude";
+    private static final String EXTRA_LONGITUDE = "mode_longitude";
     private RecyclerView mRecyclerView;
     ExploreAdapter exploreAdapter;
+    ArrayList<Destination> candidateDest = new ArrayList<>();
+    // MODE 0 View, 1 Select
+
     public static Intent newIntent(Context packageContext){
         Intent intent = new Intent(packageContext, ExploreActivity.class);
+        intent.putExtra(EXTRA_MODE, 0);
+        return intent;
+    }
 
+    public static Intent newIntentSelect(Context packageContext, double latitude, double longitude){
+        Intent intent = new Intent(packageContext, ExploreActivity.class);
+        intent.putExtra(EXTRA_MODE, 1);
+        intent.putExtra(EXTRA_LATITUDE, latitude);
+        intent.putExtra(EXTRA_LONGITUDE, longitude);
+        return intent;
+    }
+
+    public static Intent newIntentSelectOrigin(Context packageContext){
+        Intent intent = new Intent(packageContext, ExploreActivity.class);
+        intent.putExtra(EXTRA_MODE, 2);
         return intent;
     }
 
@@ -44,18 +69,32 @@ public class ExploreActivity extends AppCompatActivity implements FilterDialog.F
         getSupportActionBar().show();
         initView();
 
+        int mode = getIntent().getIntExtra(EXTRA_MODE,-1);
+        if (mode == 1){
+            double originLatitude, originLongitude;
+            originLatitude = getIntent().getDoubleExtra(EXTRA_LATITUDE,0);
+            originLongitude = getIntent().getDoubleExtra(EXTRA_LONGITUDE,0);
+
+            for(Destination dest : Handle.sDestinations){
+                if (Handle.range(new Pair<>(dest.getLatitude(), dest.getLongitude()), new Pair<>(originLatitude,originLongitude)) < 0.2){
+                    candidateDest.add(dest);
+                }
+            }
+        } else {
+            candidateDest.addAll(Handle.sDestinations);
+        }
+
         mRecyclerView.setNestedScrollingEnabled(false);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        exploreAdapter = new ExploreAdapter(this, Handle.sDestinations, false);
+        exploreAdapter = new ExploreAdapter(this, candidateDest, mode > 0);
         mRecyclerView.setAdapter(exploreAdapter);
 
-        FloatingActionButton fabSort   = findViewById(R.id.id_activity_explore_fbtn_sort);
+        FloatingActionButton fabSort = findViewById(R.id.id_activity_explore_fbtn_sort);
         fabSort.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 SortDialog dialogSort = new SortDialog();
                 dialogSort.show(getSupportFragmentManager(),"sort");
-
             }
         });
 

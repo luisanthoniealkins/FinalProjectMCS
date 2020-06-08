@@ -31,7 +31,7 @@ public class SharingActivity extends AppCompatActivity implements VolleyHandle.V
     private TextView mTVOriginName, mTVOriginAddress, mTVTitle, mTVDate, mTVStartTime;
     private Button mBTNAdd, mBTNCancel;
     private RecyclerView mRecyclerView;
-    private String id;
+    private String id="";
     private int failedAttempts = 0;
 
 
@@ -73,7 +73,10 @@ public class SharingActivity extends AppCompatActivity implements VolleyHandle.V
         VolleyHandle.listener = this;
 
         List<String> params = uri.getPathSegments();
-        id = params.get(params.size()-1);
+        char[] tempid = params.get(params.size()-1).toCharArray();
+        for(int i = 0; i < tempid.length/2; i++){
+            id+=tempid[i*2];
+        }
         VolleyHandle.getCurrentUser(Handle.mAuth.getCurrentUser().getUid(), true);
         failedAttempts = 0;
     }

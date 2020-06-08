@@ -22,6 +22,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -60,6 +61,7 @@ public class PlanActivity extends AppCompatActivity  implements OnStartDragListe
     private TextView mTVEndTime, mTVOriginName, mTVOriginAddress;
     private ImageButton mIBTNDelete, mIBTNShare;
     private ImageView mIVOriginPreview;
+    private ProgressBar mPBLoading;
 
     private RecyclerView mRecyclerView;
     private PlanAdapter planAdapter;
@@ -111,6 +113,7 @@ public class PlanActivity extends AppCompatActivity  implements OnStartDragListe
         mIVOriginPreview = findViewById(R.id.id_activity_plan_iv_origin_preview);
         mTVOriginName = findViewById(R.id.id_activity_plan_tv_origin_name);
         mTVOriginAddress = findViewById(R.id.id_activity_plan_tv_origin_address);
+        mPBLoading = findViewById(R.id.id_activity_plan_pb_loading);
     }
 
 
@@ -158,8 +161,6 @@ public class PlanActivity extends AppCompatActivity  implements OnStartDragListe
             String plan_id = getIntent().getStringExtra(EXTRA_PLAN_ID);
             for(PlanMaster planMaster : Handle.sPlanMasters){
                 if(planMaster.getPlanMasterId().equals(plan_id)){
-                    Log.d("12345", planMaster.getOrigin().getDestinationId() + " " + planMaster.getOrigin().getName());
-
                     Plan origin = new Plan(planMaster.getOrigin());
                     mPlanMaster = new PlanMaster();
                     mPlanMaster.setPlanMaster(planMaster);
@@ -203,7 +204,10 @@ public class PlanActivity extends AppCompatActivity  implements OnStartDragListe
 
 
     public void clickAdd(View view) {
-        if (mPlanMaster.getPlans().size() >= 15) {
+        if (mPlanMaster.getOrigin() == null){
+            Toast.makeText(this, "Start must be selected", Toast.LENGTH_SHORT).show();
+            return;
+        } else if (mPlanMaster.getPlans().size() >= 15) {
             Toast.makeText(this,"Each Plan can only hold 15 destinations", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -259,7 +263,7 @@ public class PlanActivity extends AppCompatActivity  implements OnStartDragListe
 
     public void clickSave(View view) {
         if (mPlanMaster.getOrigin() == null){
-            Toast.makeText(this, "Origin must be selected", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Start must be selected", Toast.LENGTH_SHORT).show();
             return;
         } else if (!isAllDestinationSelected()) {
             Toast.makeText(this, "All destinations must be selected", Toast.LENGTH_SHORT).show();
@@ -269,10 +273,13 @@ public class PlanActivity extends AppCompatActivity  implements OnStartDragListe
         boolean valid = validation();
         hasShown = false;
         if(valid) {
+            mPBLoading.setVisibility(View.VISIBLE);
             if (mode == 0){
-
+                Toast.makeText(PlanActivity.this, "Adding Plan, please wait...", Toast.LENGTH_SHORT).show();
+                Handle.sPlanMasters.add(mPlanMaster);
                 VolleyHandle.addPlanMaster(Handle.sPlanMasters.size()-1);
             } else {
+                Toast.makeText(PlanActivity.this, "Saving plan, please wait...", Toast.LENGTH_SHORT).show();
                 for(int i = 0; i < Handle.sPlanMasters.size(); i++){
                     if(Handle.sPlanMasters.get(i).getPlanMasterId().equals(mPlanMaster.getPlanMasterId())){
                         Handle.sPlanMasters.get(i).setPlanMaster(mPlanMaster);
@@ -288,7 +295,7 @@ public class PlanActivity extends AppCompatActivity  implements OnStartDragListe
 
     public void clickSimulate(View view) {
         if (mPlanMaster.getOrigin() == null){
-            Toast.makeText(this, "Origin must be selected", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Start must be selected", Toast.LENGTH_SHORT).show();
             return;
         } else if (!isAllDestinationSelected()) {
             Toast.makeText(this, "All destinations must be selected", Toast.LENGTH_SHORT).show();
@@ -311,7 +318,7 @@ public class PlanActivity extends AppCompatActivity  implements OnStartDragListe
 
     public void clickOptimize(View view) {
         if (mPlanMaster.getOrigin() == null){
-            Toast.makeText(this, "Origin must be selected", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Start must be selected", Toast.LENGTH_SHORT).show();
             return;
         }else if (!isAllDestinationSelected()) {
             Toast.makeText(this, "All destinations must be selected", Toast.LENGTH_SHORT).show();
@@ -343,6 +350,7 @@ public class PlanActivity extends AppCompatActivity  implements OnStartDragListe
             mPlanMaster.setPlans(plans);
             planAdapter.setPlans(plans);
             planAdapter.refreshData();
+            Toast.makeText(this, "Optimize Plan Complete", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, "Require at least one destination", Toast.LENGTH_SHORT).show();
         }
@@ -367,6 +375,8 @@ public class PlanActivity extends AppCompatActivity  implements OnStartDragListe
                                 break;
                             }
                         }
+                        Toast.makeText(PlanActivity.this, "Deleting plan, please wait...", Toast.LENGTH_SHORT).show();
+                        mPBLoading.setVisibility(View.VISIBLE);
                         VolleyHandle.updateUser();
                     }
                 });
@@ -378,7 +388,13 @@ public class PlanActivity extends AppCompatActivity  implements OnStartDragListe
         /*Create an ACTION_SEND Intent*/
         Intent intent = new Intent(android.content.Intent.ACTION_SEND);
         /*This will be the actual content you wish you share.*/
-        String shareBody = "https://www.aturinaja.com/addplan/"+mPlanMaster.getPlanMasterId();
+        StringBuilder hash_code = new StringBuilder();
+        for(char c : mPlanMaster.getPlanMasterId().toCharArray()){
+            hash_code.append(c);
+            hash_code.append((char)(Math.random() * 26 + 'A'));
+        }
+//        Log.d("12345", hash_code.toString());
+        String shareBody = "https://www.aturinaja.com/addplan/"+hash_code.toString();
         /*The type of the content is text, obviously.*/
         intent.setType("text/plain");
         /*Applying information Subject and Body.*/
@@ -389,7 +405,7 @@ public class PlanActivity extends AppCompatActivity  implements OnStartDragListe
     }
 
     public void clickSearchOrigin(View view) {
-        startActivityForResult(SearchActivity.newIntent(this, 0, 0), PlanActivity.REQUEST_CODE_SEARCH_ORIGIN);
+        startActivityForResult(ExploreActivity.newIntentSelectOrigin(this), PlanActivity.REQUEST_CODE_SEARCH_ORIGIN);
     }
 
     @Override
@@ -436,9 +452,9 @@ public class PlanActivity extends AppCompatActivity  implements OnStartDragListe
 
     @Override
     public void onResponse(String functionResp) {
+        mPBLoading.setVisibility(View.GONE);
         if (mode == 0){
             if (functionResp.equals("updateUser")){
-                Handle.sPlanMasters.add(mPlanMaster);
                 finish();
             }
         } else {

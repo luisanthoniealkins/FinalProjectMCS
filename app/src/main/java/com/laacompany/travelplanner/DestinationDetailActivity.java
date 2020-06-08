@@ -101,4 +101,8 @@ public class DestinationDetailActivity extends AppCompatActivity implements Dial
     public void applyTime(int minutes) {
         Toast.makeText(this,minutes+"",Toast.LENGTH_SHORT).show();
     }
+
+    public void clickClose(View view) {
+        finish();
+    }
 }

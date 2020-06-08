@@ -201,10 +201,10 @@ public class VolleyHandle {
                         Handle.sPlanMasters.add(planMaster);
                     }
 
-                    Log.d("12345", "getPlanMasters Success " + Handle.sPlanMasters.size());
+                    Timber.tag("12345").d("getPlanMasters Success %s", Handle.sPlanMasters.size());
                     if (listener != null) listener.onResponse("getAllPlanMasters");
                 } catch (JSONException e) {
-                    Log.d("12345", "getPlanMasters " + e.getMessage());
+                    Timber.tag("12345").d("getPlanMasters %s", e.getMessage());
                     e.printStackTrace();
                 }
 

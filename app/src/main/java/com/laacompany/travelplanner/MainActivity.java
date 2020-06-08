@@ -7,35 +7,15 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
-import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.laacompany.travelplanner.Fragment.CalendarFragment;
-import com.laacompany.travelplanner.Fragment.ExploreFragment;
 import com.laacompany.travelplanner.Fragment.HomeFragment;
 import com.laacompany.travelplanner.Fragment.SettingFragment;
 import com.laacompany.travelplanner.Handle.Handle;
-import com.laacompany.travelplanner.Handle.VolleyHandle;
-import com.laacompany.travelplanner.ModelClass.Destination;
-import com.laacompany.travelplanner.ModelClass.Plan;
-import com.laacompany.travelplanner.ModelClass.PlanMaster;
 import com.luseen.spacenavigation.SpaceItem;
 import com.luseen.spacenavigation.SpaceNavigationView;
 import com.luseen.spacenavigation.SpaceOnClickListener;
-
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -71,10 +51,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         initView();
-
-
-
-
 
         //NAVIGATION BAR
         mSpaceNavigationView.initWithSaveInstanceState(savedInstanceState);

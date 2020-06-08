@@ -12,6 +12,15 @@
             android:background="@color/colorAccent"
             android:padding="16dp">
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Category"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:textSize="25sp"/>
+
                 <Spinner
                     android:id="@+id/id_dialog_sort_spinner_category"
                     android:layout_width="match_parent"

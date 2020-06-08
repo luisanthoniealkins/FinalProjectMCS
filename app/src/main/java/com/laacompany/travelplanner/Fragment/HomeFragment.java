@@ -1,13 +1,22 @@
 package com.laacompany.travelplanner.Fragment;
 
+import android.app.AlarmManager;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,13 +24,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.laacompany.travelplanner.Handle.Handle;
-import com.laacompany.travelplanner.LoginActivity;
+import com.laacompany.travelplanner.MainActivity;
 import com.laacompany.travelplanner.ModelClass.PlanMaster;
 import com.laacompany.travelplanner.PlanActivity;
 import com.laacompany.travelplanner.R;
 
 import java.util.Calendar;
-import java.util.Date;
 
 public class HomeFragment extends Fragment {
 
@@ -50,6 +58,7 @@ public class HomeFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_home, container,false);
 
         initView(v);
+
         return v;
     }
 
@@ -93,4 +102,6 @@ public class HomeFragment extends Fragment {
         });
 
     }
+
+
 }
