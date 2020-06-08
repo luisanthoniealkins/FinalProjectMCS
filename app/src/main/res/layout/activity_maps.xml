@@ -7,6 +7,14 @@
     android:orientation="vertical"
     tools:context=".MapsActivity">
 
+    <com.mapbox.mapboxsdk.maps.MapView
+        android:id="@+id/id_activity_maps_map_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        mapbox:mapbox_cameraTargetLat="3.572893744308871"
+        mapbox:mapbox_cameraTargetLng="98.66784175669636"
+        mapbox:mapbox_cameraZoom="12.580466" />
+
     <LinearLayout
         android:id="@+id/id_activity_maps_ll_controller"
         android:layout_width="match_parent"
@@ -40,13 +48,6 @@
 
     </LinearLayout>
 
-    <com.mapbox.mapboxsdk.maps.MapView
-        android:id="@+id/id_activity_maps_map_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        mapbox:mapbox_cameraTargetLat="3.572893744308871"
-        mapbox:mapbox_cameraTargetLng="98.66784175669636"
-        mapbox:mapbox_cameraZoom="12.580466"
-        android:layout_above="@id/id_activity_maps_ll_controller"/>
+
 
 </RelativeLayout>

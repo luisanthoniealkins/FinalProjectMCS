@@ -51,19 +51,13 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Admin"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginLeft="10dp"
-                        android:textSize="18sp"/>
-                    <TextView
                         android:id="@+id/id_fragment_setting_tv_email"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="admin.aturinaja@example.com"
                         android:layout_marginLeft="10dp"
-                        android:textSize="15sp"/>
+                        android:textSize="15sp"
+                        android:layout_marginTop="30dp"/>
                     <TextView
                         android:id="@+id/id_fragment_setting_tv_phone"
                         android:layout_width="wrap_content"
@@ -81,12 +75,6 @@
                         android:textStyle="italic"/>
 
                 </LinearLayout>
-
-                <Button
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:background="@drawable/editbtn"
-                    android:layout_marginTop="18dp" />
 
 
             </LinearLayout>
@@ -119,14 +107,15 @@
                         android:background="@drawable/ic_history" />
 
                     <Button
-                        android:layout_width="325dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/acc_bg_btn"
                         android:text="Travel History"
                         android:textSize="13sp"
-                        android:layout_marginLeft="10dp"
                         android:textColor="@color/gray"
-                        android:textAlignment="textStart"/>
+                        android:textAlignment="textStart"
+                        android:layout_marginEnd="23dp"
+                        android:layout_marginStart="10dp"/>
 
                 </LinearLayout>
 
@@ -145,14 +134,15 @@
                         android:background="@drawable/ic_frnds" />
 
                     <Button
-                        android:layout_width="325dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/acc_bg_btn"
                         android:text="Invite Friends"
                         android:textSize="13sp"
-                        android:layout_marginLeft="10dp"
                         android:textColor="@color/gray"
-                        android:textAlignment="textStart"/>
+                        android:textAlignment="textStart"
+                        android:layout_marginEnd="23dp"
+                        android:layout_marginStart="10dp"/>
 
                 </LinearLayout>
 
@@ -169,14 +159,15 @@
                         android:background="@drawable/ic_help" />
 
                     <Button
-                        android:layout_width="325dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/acc_bg_btn"
                         android:text="Help"
                         android:textSize="13sp"
-                        android:layout_marginLeft="10dp"
                         android:textColor="@color/gray"
-                        android:textAlignment="textStart"/>
+                        android:textAlignment="textStart"
+                        android:layout_marginEnd="23dp"
+                        android:layout_marginStart="10dp"/>
 
                 </LinearLayout>
 
@@ -210,14 +201,15 @@
                         android:background="@drawable/ic_chglng" />
 
                     <Button
-                        android:layout_width="325dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/acc_bg_btn"
                         android:text="Change Language"
                         android:textSize="13sp"
-                        android:layout_marginLeft="10dp"
                         android:textColor="@color/gray"
-                        android:textAlignment="textStart"/>
+                        android:textAlignment="textStart"
+                        android:layout_marginEnd="23dp"
+                        android:layout_marginStart="10dp"/>
 
                 </LinearLayout>
 
@@ -234,14 +226,15 @@
                         android:background="@drawable/ic_nghtmd" />
 
                     <Button
-                        android:layout_width="325dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/acc_bg_btn"
                         android:text="Night Mode"
                         android:textSize="13sp"
-                        android:layout_marginLeft="10dp"
                         android:textColor="@color/gray"
-                        android:textAlignment="textStart"/>
+                        android:textAlignment="textStart"
+                        android:layout_marginEnd="23dp"
+                        android:layout_marginStart="10dp"/>
 
                 </LinearLayout>
 
@@ -259,14 +252,15 @@
                         android:background="@drawable/ic_trmsrv" />
 
                     <Button
-                        android:layout_width="325dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/acc_bg_btn"
                         android:text="Terms of Service"
                         android:textSize="13dp"
-                        android:layout_marginLeft="10dp"
                         android:textColor="@color/gray"
-                        android:textAlignment="textStart"/>
+                        android:textAlignment="textStart"
+                        android:layout_marginEnd="23dp"
+                        android:layout_marginStart="10dp"/>
 
                 </LinearLayout>
 
@@ -284,14 +278,15 @@
                         android:background="@drawable/ic_prvcy" />
 
                     <Button
-                        android:layout_width="325dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/acc_bg_btn"
                         android:text="Privacy policy "
                         android:textSize="13dp"
-                        android:layout_marginLeft="10dp"
                         android:textColor="@color/gray"
-                        android:textAlignment="textStart"/>
+                        android:textAlignment="textStart"
+                        android:layout_marginEnd="23dp"
+                        android:layout_marginStart="10dp"/>
 
                 </LinearLayout>
 
@@ -308,14 +303,15 @@
                         android:background="@drawable/ic_rate" />
 
                     <Button
-                        android:layout_width="325dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/acc_bg_btn"
                         android:text="Rate Aturinaja"
                         android:textSize="13dp"
-                        android:layout_marginLeft="10dp"
                         android:textColor="@color/gray"
-                        android:textAlignment="textStart"/>
+                        android:textAlignment="textStart"
+                        android:layout_marginEnd="23dp"
+                        android:layout_marginStart="10dp"/>
 
                 </LinearLayout>
 

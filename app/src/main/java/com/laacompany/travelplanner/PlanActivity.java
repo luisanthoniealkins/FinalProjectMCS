@@ -361,15 +361,15 @@ public class PlanActivity extends AppCompatActivity  implements OnStartDragListe
 
     public void clickDeleteMasterPlan(View view) {
         AlertDialog alertDialog = new AlertDialog.Builder(this).create();
-        alertDialog.setTitle("Exit Application");
-        alertDialog.setMessage("Are you sure you want to quit?");
+        alertDialog.setTitle("Delete Plan");
+        alertDialog.setMessage("Are you sure you want to delete this plan?");
         alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                     }
                 });
-        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Quit",
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Yes",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         for(int i = 0; i < Handle.sPlanMasters.size(); i++){

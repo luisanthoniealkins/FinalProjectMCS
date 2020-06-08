@@ -24,7 +24,7 @@
         app:centre_button_color="@color/white"
         app:inactive_item_color="@color/DarkBlue"
         app:space_background_color="@color/eletricBlue"
-        app:centre_button_icon="@drawable/ic_add_black_24dp"
+        app:centre_button_icon="@drawable/ic_logo"
         app:space_item_icon_size="25dp"
         app:space_item_icon_only_size="@dimen/space_item_icon_only_size"
         app:space_item_text_size="@dimen/space_item_text_default_size"
