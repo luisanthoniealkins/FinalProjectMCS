@@ -42,7 +42,9 @@
             android:layout_height="wrap_content"
             android:textColor="@color/colorAccent"
             android:background="@drawable/selector"
-            android:inputType="number"/>
+            android:inputType="number"
+            android:maxLength="8"/>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -57,7 +59,8 @@
             android:layout_height="wrap_content"
             android:background="@drawable/selector"
             android:textColor="@color/colorAccent"
-            android:inputType="numberDecimal"/>
+            android:inputType="numberDecimal"
+            android:maxLength="8"/>
     </LinearLayout>
 
 

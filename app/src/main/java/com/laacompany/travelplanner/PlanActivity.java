@@ -396,7 +396,6 @@ public class PlanActivity extends AppCompatActivity  implements OnStartDragListe
             hash_code.append(c);
             hash_code.append((char)(Math.random() * 26 + 'A'));
         }
-//        Log.d("12345", hash_code.toString());
         String shareBody = "https://www.aturinaja.com/addplan/"+hash_code.toString();
         /*The type of the content is text, obviously.*/
         intent.setType("text/plain");
